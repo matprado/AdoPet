@@ -1,4 +1,4 @@
-package bd;
+
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
@@ -7,15 +7,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import backend.Usuario;
+import backend.Pet;
 
-
-
-class BDconexao{
+class BDConexao{
     
     
     DriverManager driver;
     
-    public static Connection BDconexao() throws SQLException{
+    public static Connection BDConexao() throws SQLException{
         
        String con="jdbc:mysql://localhost:3306/poo_db";
        String server_user = "root";
@@ -28,22 +27,26 @@ class BDconexao{
         
     }
     
-    public void cadastroPet(int id,String nome, String tipo) throws SQLException{
+    public void cadastroPet(Pet p) throws SQLException{
         
-        Connection con = BDconexao();
-        String insert = "INSERT INTO pets values(?,?,?)";
+        Connection con = BDConexao();
+        String insert = "INSERT INTO pets values(?,?,?,?,?,?)";
         PreparedStatement ps = con.prepareStatement(insert);
-        ps.setInt(1, id);
-        ps.setString(2, nome);
-        ps.setString(3, tipo);
+        ps.setLong(1, p.getPetID());
+        ps.setString(2, p.getEspecie());
+        ps.setString(3, p.getNome());
+        ps.setString(4, p.getSexo());
+        ps.setString(5, p.getDetalhes());
+        ps.setString(6, p.getAnunciantes().getNome());
+        
         
         ResultSet rs = ps.executeQuery();
         
     }
-    // Funï¿½ï¿½o que cadastra o usuï¿½rio no Banco de Dados
+    // Função que cadastra o usuário no Banco de Dados
     public void cadastroUser(Usuario user) throws SQLException{
         
-        Connection con = BDconexao();
+        Connection con = BDConexao();
         String insert = "INSERT INTO clientes values(?,?,?,?,?,?,?,?,?)";
         PreparedStatement ps = con.prepareStatement(insert);
         ps.setLong(1, user.getId());
@@ -61,7 +64,7 @@ class BDconexao{
     
     public void loginUser(Usuario user) throws SQLException{
         
-        Connection con = BDconexao();
+        Connection con = BDConexao();
         String select = "SELECT * FROM clientes where nomelogin=?";
         PreparedStatement ps = con.prepareStatement(select);
         ps.setString(1, user.getUserName());
@@ -69,19 +72,19 @@ class BDconexao{
         ResultSet rs = ps.executeQuery();
         
         if(rs.wasNull()){
-            //Mensagem de erro, pois nï¿½o existe ninguï¿½m com o nome colocado no campo
+            //Mensagem de erro, pois não existe ninguém com o nome colocado no campo
             return;
         }
         
         while(rs.next()){
             String  getpass = rs.getString(3);
             if(!user.getSenha().equals(getpass)){
-                //Mensagem de erro, pois as  senhas sï¿½o diferentes
+                //Mensagem de erro, pois as  senhas são diferentes
                 return;
             }
             
             else{
-                //Abre a JFrame com as informaï¿½ï¿½es do usuario
+                //Abre a JFrame com as informações do usuario
             }
             
         }
