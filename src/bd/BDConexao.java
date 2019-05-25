@@ -44,7 +44,7 @@ class BDconexao{
         Connection con = BDconexao();
         String insert = "INSERT INTO clientes values(?,?,?,?,?,?,?,?,?)";
         PreparedStatement ps = con.prepareStatement(insert);
-        ps.setInt(1, user.getId());
+        ps.setLong(1, user.getId());
         ps.setString(2, user.getUserName());
         ps.setString(3, user.getSenha());
         ps.setString(4, user.getNome());
