@@ -6,7 +6,7 @@ package backend;
 public class Usuario {
 	
 	private long id;
-	private String nomeLogin;
+	private String userName;
 	private String senha;
 	private String nome;
 	private int idade;
@@ -18,7 +18,7 @@ public class Usuario {
 	/**
 	 * Construtor da classe
 	 * @param id - long que representa o id único do usuário;
-	 * @param nomeLogin - String que representa o nome de login do usuário;
+	 * @param userName - String que representa o nome de login do usuário;
 	 * @param senha - String que representa a senha do usuário;
 	 * @param nome - String que representa o nome do usuário;
 	 * @param idade - int que representa a idade do usuário;
@@ -27,9 +27,9 @@ public class Usuario {
 	 * @param endereco - String que representa o endereço do usuário;
 	 * @param cep - String que representa o CEP do usuário;
 	 */
-	public Usuario(long id, String nomeLogin, String senha, String nome, int idade, String cpf, String cidade, String endereco, String cep) {
+	public Usuario(long id, String userName, String senha, String nome, int idade, String cpf, String cidade, String endereco, String cep) {
 		this.id = id;
-		this.nomeLogin = nomeLogin;
+		this.userName= userName;
 		this.senha = senha;
 		this.nome = nome;
 		this.idade = idade;
