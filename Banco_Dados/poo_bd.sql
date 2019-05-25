@@ -4,14 +4,17 @@ USE project
 
 CREATE TABLE if not exists pets(
 	
-    pet_id INT NOT NULL,
-	species varchar(20) NOT NULL
-	
+    pet_id LONG NOT NULL,
+	species varchar(20) NOT NULL,
+    nome varchar(50) NOT NULL,
+    sexo VARCHAR(20) NOT NULL,
+    detalhes VARCHAR(100) not null,
+	nome_doador VARCHAR(50) not null
 )
 
 CREATE TABLE if not exists clientes(
 	
-    cliente_id INT NOT NULL,
+    cliente_id LONG NOT NULL,
     username VARCHAR(50) NOT NULL,
     senha VARCHAR(75) NOT NULL,
 	nome VARCHAR(50) NOT NULL,
