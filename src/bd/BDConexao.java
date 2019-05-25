@@ -1,10 +1,12 @@
-
+package bd;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import backend.Usuario;
 
 
 
@@ -38,13 +40,13 @@ class BDconexao{
         ResultSet rs = ps.executeQuery();
         
     }
-    // Função que cadastra o usuário no Banco de Dados
+    // Funï¿½ï¿½o que cadastra o usuï¿½rio no Banco de Dados
     public void cadastroUser(Usuario user) throws SQLException{
         
         Connection con = BDconexao();
         String insert = "INSERT INTO clientes values(?,?,?,?,?,?,?,?,?)";
         PreparedStatement ps = con.prepareStatement(insert);
-        ps.setInt(1, user.getId());
+        ps.setLong(1, user.getId());
         ps.setString(2, user.getUserName());
         ps.setString(3, user.getSenha());
         ps.setString(4, user.getNome());
@@ -67,19 +69,19 @@ class BDconexao{
         ResultSet rs = ps.executeQuery();
         
         if(rs.wasNull()){
-            //Mensagem de erro, pois não existe ninguém com o nome colocado no campo
+            //Mensagem de erro, pois nï¿½o existe ninguï¿½m com o nome colocado no campo
             return;
         }
         
         while(rs.next()){
             String  getpass = rs.getString(3);
             if(!user.getSenha().equals(getpass)){
-                //Mensagem de erro, pois as  senhas são diferentes
+                //Mensagem de erro, pois as  senhas sï¿½o diferentes
                 return;
             }
             
             else{
-                //Abre a JFrame com as informações do usuario
+                //Abre a JFrame com as informaï¿½ï¿½es do usuario
             }
             
         }
