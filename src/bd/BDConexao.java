@@ -1,4 +1,3 @@
-package bd;
 
 import java.sql.Connection;
 import java.sql.Driver;
@@ -7,8 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import backend.Usuario;
-
 
 
 class BDconexao{
@@ -16,7 +13,7 @@ class BDconexao{
     
     DriverManager driver;
     
-    public static Connection Bd_conexao() throws SQLException{
+    public static Connection BDconexao() throws SQLException{
         
        String con="jdbc:mysql://localhost:3306/poo_db";
        String server_user = "root";
@@ -41,19 +38,21 @@ class BDconexao{
         ResultSet rs = ps.executeQuery();
         
     }
-    
+    // Função que cadastra o usuário no Banco de Dados
     public void cadastroUser(Usuario user) throws SQLException{
         
         Connection con = BDconexao();
-        String insert = "INSERT INTO clientes values(?,?,?)";
+        String insert = "INSERT INTO clientes values(?,?,?,?,?,?,?,?,?)";
         PreparedStatement ps = con.prepareStatement(insert);
-        ps.setInt(1, user.id);
-        ps.setString(2, user.nome);
-        ps.setString(3, user.pass);
-        ps.setString(4, user.cpf);
-        ps.setString(5, user.cidade);
-        ps.setString(6, user.endereco);
-        ps.setString(7, user.cep);
+        ps.setInt(1, user.getId());
+        ps.setString(2, user.getUserName());
+        ps.setString(3, user.getSenha());
+        ps.setString(4, user.getNome());
+        ps.setInt(5, user.getIdade());
+        ps.setString(6, user.getCpf());
+        ps.setString(7, user.getCidade());
+        ps.setString(8, user.getEndereco());
+        ps.setString(9, user.getCep());
         
         ResultSet rs = ps.executeQuery();
     }
@@ -61,26 +60,26 @@ class BDconexao{
     public void loginUser(Usuario user) throws SQLException{
         
         Connection con = BDconexao();
-        String select = "SELECT * FROM clientes where nome=?";
-        PreparedStatement ps = con.prepareCall(select);
-        ps.setString(1, user.nome);
+        String select = "SELECT * FROM clientes where nomelogin=?";
+        PreparedStatement ps = con.prepareStatement(select);
+        ps.setString(1, user.getUserName());
         
         ResultSet rs = ps.executeQuery();
         
         if(rs.wasNull()){
-            //Mensagem de erro, pois nao existe ninguem com o nome colocado no campo
+            //Mensagem de erro, pois não existe ninguém com o nome colocado no campo
             return;
         }
         
         while(rs.next()){
             String  getpass = rs.getString(3);
-            if(!user.pass.equals(getpass)){
-                //Mensagem de erro, pois as  senhas sao diferentes
+            if(!user.getSenha().equals(getpass)){
+                //Mensagem de erro, pois as  senhas são diferentes
                 return;
             }
             
             else{
-                //Abre a JFrame com as informacoes do usuario
+                //Abre a JFrame com as informações do usuario
             }
             
         }
