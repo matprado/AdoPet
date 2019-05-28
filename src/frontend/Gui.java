@@ -1,18 +1,24 @@
 package frontend;
+ 
+import java.io.IOException;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-public class Gui extends Application {  
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		primaryStage.setTitle("My First JavaFX App");
-	    primaryStage.show();
-	}
-	        
-	
-	
+ 
+public class Gui extends Application {
+    
+    @Override
+    public void start(Stage stage) throws Exception {
+        FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/fxml/inicial.fxml"));
+        Parent root = loader.load();
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+    
     public static void main(String[] args) {
-	 	Application.launch(args);
+    	launch(args);
     }
 }
