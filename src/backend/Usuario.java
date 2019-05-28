@@ -185,19 +185,23 @@ public class Usuario {
 	
 	/**
 	 * Método para registrar um usuário chamando um método abstrato da classe do banco de dados;
+	 * @param u - objeto do usuário que será registrado
 	 */
-	public void registrarUsuario() {
+	public void registrarUsuario(Usuario u) {
 		//chama o método do banco de dados para registrar e passa o usuário(this) como parâmetro
 	}
 	
 	/**
 	 * Método de login de um usuário com nome e senha;
-	 * @param userName
-	 * @param senha
+	 * @param userName - nome de login do usuário;
+	 * @param senha - senha do usuário;
+	 * @return - O objeto correspondente ao usuário;
 	 */
 	public Usuario loginUsuario(String userName, String senha) {
 		//procurar no bd e recuperar o usuário, retornando o mesmo;
 		return null;
 	}
+	
+	
 	
 }
