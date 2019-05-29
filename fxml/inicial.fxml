@@ -1,18 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:id="fundo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Pane layoutX="-51.0" layoutY="-100.0" prefHeight="200.0" prefWidth="200.0" />
-      <Button layoutX="218.0" layoutY="173.0" mnemonicParsing="false" text="CLIQUE!">
+      <TextField fx:id="user" layoutX="214.0" layoutY="188.0" />
+      <Button fx:id="login" layoutX="326.0" layoutY="256.0" mnemonicParsing="false" text="Login">
          <font>
-            <Font size="30.0" />
+            <Font name="KacstArt" size="14.0" />
          </font>
       </Button>
+      <Button fx:id="cadastro" layoutX="215.0" layoutY="256.0" mnemonicParsing="false" text="Cadastrar" textAlignment="CENTER">
+         <font>
+            <Font name="KacstArt" size="14.0" />
+         </font>
+      </Button>
+      <Ellipse fill="DODGERBLUE" layoutX="300.0" layoutY="89.0" radiusX="100.0" radiusY="75.0" stroke="BLACK" strokeType="INSIDE" />
+      <Text layoutX="220.0" layoutY="98.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ADOPET">
+         <font>
+            <Font name="KacstArt" size="39.0" />
+         </font>
+      </Text>
+      <PasswordField fx:id="password" layoutX="214.0" layoutY="221.0" />
    </children>
 </Pane>
