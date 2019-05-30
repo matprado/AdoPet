@@ -3,5 +3,6 @@ module adoPet {
 	requires javafx.graphics;
 	requires javafx.controls;
 	requires javafx.fxml;
+	opens frontend;
 	exports frontend;
 }
