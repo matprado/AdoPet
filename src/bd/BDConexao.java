@@ -93,5 +93,21 @@ class BDConexao{
         
     }
     
+
+    public void adotarPet(Pet p){
+
+        Connection con = BDConexao();
+        String del = "Delete FROM pets WHERE nome = ?";
+        PreparedStatement ps = con.prepareStatement(del);
+        ps.setString(1,p.getNome());
+
+
+        ResultSet rs = ps.executeQuery();
+
+
+
+    }
+
+
     
 }
