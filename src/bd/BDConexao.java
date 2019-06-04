@@ -109,7 +109,7 @@ class BDConexao{
     }
 
 
-    public void chatBegin(Usuario user1, Usuario user2){
+    public void comecarChat(Usuario user1, Usuario user2){
 
         Connection con = BDConexao();
         String select = "SELECT * FROM chat where user1_id=? AND user2_id=?";
