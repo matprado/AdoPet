@@ -32,5 +32,12 @@ CREATE TABLE IF NOT EXISTS adocao(
 
 )
 
+CREATE TABLE IF NOT EXISTS chat(
 
+    user1_id LONG NOT NULL,
+    user2_id LONG NOT NULL,
+    user1_messages LONGTEXT NOT NULL,
+    user2_messages LONGTEXT NOT NULL
+    
+)
 
