@@ -34,9 +34,9 @@ CREATE TABLE IF NOT EXISTS adocao(
 
 CREATE TABLE IF NOT EXISTS chat(
 
-    
+    chat_id LONG  NOT NULL AUTO_INCREMENT,
     user1_id LONG NOT NULL,
-    user2_id LONG NOT NULL,
+    user2_id LONG NOT NULL
     
     
 )
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS MENSAGENS(
     id_mensagem LONG NOT NULL,
     id_chat LONG NOT NULL,
     id_remetente LONG NOT NULL,
-    mensagem LONGTEXT NOT NULL
+    mensagem TEXT NOT NULL
 
 )
 
