@@ -109,5 +109,34 @@ class BDConexao{
     }
 
 
+    public void chatBegin(Usuario user1, Usuario user2){
+
+        Connection con = BDConexao();
+        String select = "SELECT * FROM chat where user1_id=? AND user2_id=?";
+        PreparedStatement ps = con.prepareStatement(select);
+        ps.setLong(1, user1.getId());
+        ps.setLong(2, user2.getId());
+
+        ResultSet rs = ps.executeQuery();
+
+        if(rs.wasNull()){
+            
+            String insert = "INSERT INTO chat Values(?,?)";
+            PreparedStatement psi =  con.prepareStatement(insert);
+            psi.setLong(1, user1.getId());
+            psi.setLong(2, user2.getId());
+
+            ResultSet rsi = psi.executeQuery();
+            
+        }else{
+
+            //Vai puxar as mensagens aqui(preciso saber como funfa a GUI)
+
+        }
+
+    }
+
+
+
     
 }
