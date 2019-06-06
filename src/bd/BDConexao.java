@@ -43,7 +43,7 @@ class BDConexao{
         ResultSet rs = ps.executeQuery();
         
     }
-    // Funï¿½ï¿½o que cadastra o usuï¿½rio no Banco de Dados
+    // Função que cadastra o usuï¿½rio no Banco de Dados
     public void cadastroUser(Usuario user) throws SQLException{
         
         Connection con = BDConexao();
@@ -92,7 +92,7 @@ class BDConexao{
         
         
     }
-    
+
 
     public void adotarPet(Pet p){
 

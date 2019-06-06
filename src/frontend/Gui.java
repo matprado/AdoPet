@@ -52,7 +52,11 @@ public class Gui extends Application {
 	}
 	
 	public static void finalizaCadastro() {
-		if(((CheckBox)getComp("aceita")).isSelected() && ((TextField)getComp("user")).getLength()!=0){
+		boolean nomeValido = ((TextField) getComp("user")).getLength() != 0;
+		boolean senhaValida = ((TextField) getComp("senha")).getLength() != 0;
+		boolean cpfValido = validarCpf(((TextField)getComp("cpf")).getText());
+		// if(nomeValido && senhaValida && ...) ...
+		if(((CheckBox)getComp("aceita")).isSelected()){
 			/*COLOCA NO BD*/
 			Gui.telaDisponiveis();
 		}
