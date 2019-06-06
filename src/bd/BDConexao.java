@@ -123,18 +123,64 @@ class BDConexao{
             
             String insert = "INSERT INTO chat Values(?,?)";
             PreparedStatement psi =  con.prepareStatement(insert);
-            psi.setLong(1, user1.getId());
-            psi.setLong(2, user2.getId());
+            psi.setLong(2, user1.getId());
+            psi.setLong(3, user2.getId());
 
             ResultSet rsi = psi.executeQuery();
             
         }else{
 
-            //Vai puxar as mensagens aqui(preciso saber como funfa a GUI)
+            Long id = rs.getLong(1);
+            
+            String puxarMensagens = "Select mensagem,id_remetente FROM mensagens INNER JOIN chat ON chat.chat_id = mensagens.id_chat WHERE chat.chat_id = ?";
+            PreparedStatement psp = con.prepareStatement(puxarMensagens);
+            psp.setLong(1,id);
+
+            ResultSet rsp = psp.executeQuery();
+
+
+            while(rsp.next()){
+                String msg = rsp.getString(1);
+                Long sent = rsp.getLong(2);
+
+                //mensagem será setada no novo componente que vai ser criado na GUI
+                /*
+
+                if(sent.equals(user1.getId())) <- Coloca mensagem na direita (user1 = o cara logado nesta conta)
+
+                else   <- Coloca mensagem na esquerda (user2 = o cara que ele está conversando)
+
+                */
+            }
+
+           
 
         }
 
     }
+
+    public void criarMensagem(Usuario user1, Usuario user2){
+
+        String pegarID = "Select chat_id FROM chat WHERE user1_id = ? AND user2_id = ?";
+        PreparedStatement psc = con.prepareStatement(pegarID);
+        psc.setLong(2,user1.getId());
+        psc.setLong(3,user2.getId());
+
+        ResultSet rsc = psc.executeQuery();
+
+
+        Long chat = rsc.getLong(1);
+
+
+        String inserirMensagem = "Insert INTO mensagens VALUES(?) WHERE id_chat = ?";
+        PreparedStatement psi = con.prepareStatement(inserirMensagem);
+        //Pegar mensagem que foi escrita na GUI e colocar em psi.setString(4,);
+
+        ResultSet rsi = psi.executeQuery();
+        
+
+    }
+
 
 
 
