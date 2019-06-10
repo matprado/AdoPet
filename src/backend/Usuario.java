@@ -9,7 +9,6 @@ public class Usuario {
 	private String userName;
 	private String senha;
 	private String nome;
-	private int idade;
 	private String cpf;
 	private String cidade;
 	private String endereco;
@@ -32,13 +31,16 @@ public class Usuario {
 		this.userName= userName;
 		this.senha = senha;
 		this.nome = nome;
-		this.idade = idade;
 		this.cpf = cpf;
 		this.cidade = cidade;
 		this.endereco = endereco;
 		this.cep = cep;
 	}
 	
+	public Usuario() {
+		;
+	}
+
 	/**
 	 * Getter para o atributo de id;
 	 * @return - long com o id do usuário;
@@ -101,22 +103,6 @@ public class Usuario {
 	 */
 	public void setNome(String nome) {
 		this.nome = nome;
-	}
-
-	/**
-	 * Getter para o atributo de idade;
-	 * @return - int com a idade do usuário;
-	 */
-	public int getIdade() {
-		return idade;
-	}
-	
-	/**
-	 * Setter para o atributo de idade;
-	 * @param idade - int com a idade do usuário;
-	 */
-	public void setIdade(int idade) {
-		this.idade = idade;
 	}
 	
 	/**

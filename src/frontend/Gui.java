@@ -3,7 +3,10 @@ package frontend;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.sql.SQLException;
 
+import backend.Usuario;
+import bd.BDConexaoClass;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,15 +17,24 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class Gui extends Application {
-	
 	static Parent root;
 	static Stage Stg;
-	
-	static String user, password;
+	static Usuario User;
 	static boolean finalizaCadastro;
 	
 	public static Object getComp(String str) {
-		return (Object)root.lookup("#" + str);
+		return (Object)Gui.root.lookup("#" + str);
+	}
+	
+	public static Usuario setCadastroUser() {
+		Gui.User.setNome(((TextField)Gui.getComp("name")).getText());
+		Gui.User.setUserName(((TextField)Gui.getComp("user")).getText());
+		Gui.User.setSenha(((PasswordField)Gui.getComp("password")).getText());
+		Gui.User.setCpf(((TextField)Gui.getComp("cpf")).getText());
+		Gui.User.setCidade(((TextField)Gui.getComp("cidade")).getText());
+		Gui.User.setCep(((TextField)Gui.getComp("cep")).getText());
+		Gui.User.setEndereco(((TextField)Gui.getComp("endereco")).getText());
+		return User;
 	}
 	
 	public static void telaInicial() throws IOException {
@@ -35,10 +47,14 @@ public class Gui extends Application {
 	}
 	
 	public static void login() {
-		Gui.user = ((TextField)getComp("user")).getText();
-		Gui.password = ((PasswordField)getComp("password")).getText();
-		if(/*existeBD*/true){
-			Gui.telaDisponiveis();
+		Gui.User.setUserName(((TextField)getComp("user")).getText());
+		Gui.User.setSenha(((PasswordField)getComp("password")).getText());
+		try {
+			if(BDConexaoClass.loginUser(Gui.User)){
+				Gui.telaDisponiveis();
+			}
+		} catch (SQLException e) {
+			System.out.println("Erro na inicializacao do BD");
 		}
 	} 
 	
@@ -47,32 +63,41 @@ public class Gui extends Application {
 		Gui.root = loader.load();
 		Scene S = new Scene(root);
 		Gui.Stg.setScene(S);
-        Gui.Stg.setTitle("AdoPet");
+        Gui.Stg.setTitle("AdoPet - Cadastro");
         Gui.Stg.show();
+	}
+	
+	private static boolean validarCpf(String CPF) {
+		return true;
 	}
 	
 	public static void finalizaCadastro() {
 		boolean nomeValido = ((TextField) getComp("user")).getLength() != 0;
-		boolean senhaValida = ((TextField) getComp("senha")).getLength() != 0;
+		boolean senhaValida = ((TextField) getComp("password")).getLength() != 0;
 		boolean cpfValido = validarCpf(((TextField)getComp("cpf")).getText());
-		// if(nomeValido && senhaValida && ...) ...
-		if(((CheckBox)getComp("aceita")).isSelected()){
-			/*COLOCA NO BD*/
+		boolean validaTermos = ((CheckBox)getComp("aceita")).isSelected();
+		// if(nomeValido && senhaValida && ...)
+		if( nomeValido && cpfValido && senhaValida && validaTermos){
+			try {
+				BDConexaoClass.cadastroUser(setCadastroUser());
+			} catch (SQLException e) {
+				System.out.println("Erro na inicializacao BD!");
+			}
 			Gui.telaDisponiveis();
 		}
 	}
-	
+
 	public static void telaDisponiveis(){
 		FXMLLoader loader = null;
 		try {
 			loader = new FXMLLoader(new File("src/frontend/disponiveis.fxml").toURI().toURL());
 		} catch (MalformedURLException e) {
-			e.printStackTrace();
+			System.out.println("Erro no carregamento do FXML");
 		}
 		try {
 			Gui.root = loader.load();
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("Erro no carregamento do FXML");
 		}
 		Scene S = new Scene(root);
 		Gui.Stg.setScene(S);
@@ -86,11 +111,12 @@ public class Gui extends Application {
         try {
 			Gui.telaInicial();
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.out.println("Erro no carregamento do FXML");
 		}
     }
     
     public static void main(String[] args) {
+    	Gui.User = new Usuario();
     	Gui.launch(args); //Requisitando inicializacao da Gui
     }
     
