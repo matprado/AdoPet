@@ -22,4 +22,6 @@ public class ChatManager {
 		Gui.iniciarChat(Gui.contatos[id]);
     }
 	
+	
+	
 }

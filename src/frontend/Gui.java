@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -150,7 +151,25 @@ public class Gui extends Application {
 	}
 	
 	public static void iniciarChat(Usuario contato) {
+		FXMLLoader loader = null;
+		try {
+			loader = new FXMLLoader(new File("src/frontend/conversa.fxml").toURI().toURL());
+		} catch (MalformedURLException e) {
+			System.out.println("Erro no carregamento do FXML");
+		}
+		try {
+			Gui.root = loader.load();
+		} catch (IOException e) {
+			System.out.println("Erro no carregamento do FXML");
+		}
 		
+		((Label)getComp("textoInicial")).setText(((Label)getComp("textoInicial")).getText() + contato.getNome());
+		((Label)getComp("texto")).setText(((Label)getComp("texto")).getText() + contato.getNome());
+		
+		Scene S = new Scene(root);
+		Gui.Stg.setScene(S);
+        Gui.Stg.setTitle("AdoPet");
+        Gui.Stg.show();
 	}
 	
 	public static void telaPorqueAdotar() {
