@@ -9,7 +9,8 @@ CREATE TABLE if not exists pets(
     nome varchar(50) NOT NULL,
     sexo VARCHAR(20) NOT NULL,
     detalhes VARCHAR(100) not null,
-	nome_doador VARCHAR(50) not null
+	nome_doador VARCHAR(50) not null,
+    caminho_imagem_pet blob
 )
 
 ALTER TABLE pets ADD UNIQUE(pet_id);
