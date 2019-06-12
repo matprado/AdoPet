@@ -174,7 +174,6 @@ public class Gui extends Application {
 		
 		((Label)getComp("textoInicial")).setText(((Label)getComp("textoInicial")).getText() + contato.getNome());
 		((Label)getComp("texto")).setText(((Label)getComp("texto")).getText() + contato.getNome());
-		
 		Scene S = new Scene(root);
 		Gui.Stg.setScene(S);
         Gui.Stg.setTitle("AdoPet");
