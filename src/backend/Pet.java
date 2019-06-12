@@ -47,6 +47,11 @@ public class Pet {
 	}
 	
 	
+	public Pet() {
+		;
+	}
+
+
 	public Image getIcone() {
 		return this.icone;
 	}

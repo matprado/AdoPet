@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 import backend.Usuario;
 import backend.Pet;
@@ -163,7 +164,7 @@ public class BDConexaoClass{
                 String msg = rsp.getString(1);
                 Long sent = rsp.getLong(2);
 
-                CharMap<Long,String> messages = new CharMap<Long,String>();
+                HashMap<Long,String> messages = new HashMap<Long,String>();
 
             }
 
@@ -291,28 +292,26 @@ public class BDConexaoClass{
     }
 
 
-    public static Pet retornaPet(int index){
+    public static Pet retornaPet(int index) throws NumberFormatException, SQLException{
 
         int indextotal = getSizePets();
-        int index = indextotal - index;
+        int aux = indextotal - index;
 
         Connection con = BDConexao();
         String select = "SELECT * FROM pets WHERE pet_id= ?";
         PreparedStatement ps = con.prepareStatement(select);
-        ps.setLong((Long)index);
+        ps.setLong(1,Long.parseLong("" + aux));
 
         ResultSet rs = ps.executeQuery();
 
-        Pet p = New Pet();
+        Pet p = new Pet();
 
         while(rs.next()){
-            
             p.setPetID(rs.getLong(1));
             p.setEspecie(rs.getString(2));
             p.setNome(rs.getString(3));
             p.setSexo(rs.getString(4));
             p.setDetalhes(rs.getString(5));
-            p.setAnun
 
         }
 
