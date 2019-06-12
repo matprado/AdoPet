@@ -47,7 +47,8 @@ public class BDConexaoClass{
         ps.setString(3, p.getNome());
         ps.setString(4, p.getSexo());
         ps.setString(5, p.getDetalhes());
-        ps.setString(6, p.getAnunciante().getNome());
+        ps.setString(7, p.getAnunciante().getNome());
+        ps.setLong(6,p.getAnuncianteID());
         ResultSet rs = ps.executeQuery();
         
     }
@@ -312,7 +313,8 @@ public class BDConexaoClass{
             p.setNome(rs.getString(3));
             p.setSexo(rs.getString(4));
             p.setDetalhes(rs.getString(5));
-
+            p.setAnuncianteID(rs.getLong(6));
+            P.setAnunciante().setNome(rs.getString(7));
         }
 
         return p;
