@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.sql.SQLException;
 
+import backend.Pet;
 import backend.Usuario;
 import bd.BDConexaoClass;
 import javafx.application.Application;
@@ -15,7 +16,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -36,6 +36,10 @@ public class Gui extends Application {
 	static boolean finalizaCadastro;
 	static Usuario contatos[];
 	static Button botaoContato[];
+	
+	//Uso na DisponiveisManager
+	static Pet pet[];
+	static int index;
 	
 	
 	public static Object getComp(String str) {
@@ -119,6 +123,44 @@ public class Gui extends Application {
         Gui.Stg.setTitle("AdoPet");
         Gui.Stg.show();
 	}
+	
+	
+	public static void telaInfoPet() {
+		FXMLLoader loader = null;
+		try {
+			loader = new FXMLLoader(new File("src/frontend/infopet.fxml").toURI().toURL());
+		} catch (MalformedURLException e) {
+			System.out.println("Erro no carregamento do FXML");
+		}
+		try {
+			Gui.root = loader.load();
+		} catch (IOException e) {
+			System.out.println("Erro no carregamento do FXML");
+		}
+		Scene S = new Scene(root);
+		Gui.Stg.setScene(S);
+        Gui.Stg.setTitle("AdoPet - Info");
+        Gui.Stg.show();
+	}
+	
+	public static void telaAnunciar() {
+		FXMLLoader loader = null;
+		try {
+			loader = new FXMLLoader(new File("src/frontend/anunciar.fxml").toURI().toURL());
+		} catch (MalformedURLException e) {
+			System.out.println("Erro no carregamento do FXML");
+		}
+		try {
+			Gui.root = loader.load();
+		} catch (IOException e) {
+			System.out.println("Erro no carregamento do FXML");
+		}
+		Scene S = new Scene(root);
+		Gui.Stg.setScene(S);
+        Gui.Stg.setTitle("AdoPet - Info");
+        Gui.Stg.show();
+	}
+	
 	
 	public static void telaChat() {
 		FXMLLoader loader = null;
@@ -208,6 +250,8 @@ public class Gui extends Application {
     
     public static void main(String[] args) {
     	Gui.User = new Usuario();
+    	Gui.pet = new Pet[9];
+    	Gui.index = 0;
     	Gui.launch(args); //Requisitando inicializacao da Gui
     }
     

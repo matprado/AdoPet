@@ -7,7 +7,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
-import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,6 +14,10 @@ import java.sql.SQLException;
 
 import backend.Usuario;
 import backend.Pet;
+
+/*TODO ANGRA, ao inves de salvar a imagem do pet lá... Pega na funcao que retorna
+ *		o pet, e instacia uma Image retornando ela la...
+ */
 
 public class BDConexaoClass{
     
@@ -35,7 +38,6 @@ public class BDConexaoClass{
     }
     
     public void cadastroPet(Pet p) throws SQLException{
-        
         Connection con = BDConexao();
         String insert = "INSERT INTO pets values(?,?,?,?,?,?)";
         PreparedStatement ps = con.prepareStatement(insert);
@@ -45,8 +47,6 @@ public class BDConexaoClass{
         ps.setString(4, p.getSexo());
         ps.setString(5, p.getDetalhes());
         ps.setString(6, p.getAnunciante().getNome());
-        
-        
         ResultSet rs = ps.executeQuery();
         
     }
