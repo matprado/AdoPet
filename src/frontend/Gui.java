@@ -139,14 +139,19 @@ public class Gui extends Application {
 			temContato = false;
 			System.out.println("Erro na inicializacao BD!");
 		}
+		
 		if(temContato) {
 			botaoContato = new Button[contatos.length];
 			AnchorPane painel = (AnchorPane)getComp("pane");
+			painel.setVisible(true);
+			((Label)getComp("texto1")).setVisible(true);
 			for(int i=0; i<contatos.length; i++) {
 				Gui.botaoContato[i].setId(i + "");
 				Gui.botaoContato[i].setText(Gui.contatos[i].getNome());
 				painel.getChildren().add(botaoContato[i]);
 			}
+		}else {
+			((Label)getComp("texto2")).setVisible(true);
 		}
 		Scene S = new Scene(root);
 		Gui.Stg.setScene(S);
