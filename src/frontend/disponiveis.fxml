@@ -1,13 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.canvas.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: SteelBlue;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.DisponiveisManager">
    <children>
-      <Circle fill="DODGERBLUE" layoutX="300.0" layoutY="200.0" radius="100.0" stroke="BLACK" strokeType="INSIDE" />
+      <RadioButton fx:id="aba_disponiveis" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" selected="true" text="Disponiveis" textFill="WHITE">
+         <font>
+            <Font name="Dyuthi" size="14.0" />
+         </font>
+      </RadioButton>
+      <RadioButton fx:id="aba_chat" layoutX="248.0" layoutY="14.0" mnemonicParsing="false" onAction="#abaChat" text="Chat" textFill="WHITE">
+         <font>
+            <Font name="Dyuthi" size="14.0" />
+         </font>
+      </RadioButton>
+      <RadioButton fx:id="porque_adotar" layoutX="458.0" layoutY="14.0" mnemonicParsing="false" onAction="#abaPorqueAdotar" text="Por que adotar?" textFill="WHITE">
+         <font>
+            <Font name="Dyuthi" size="14.0" />
+         </font>
+      </RadioButton>
    </children>
 </Pane>

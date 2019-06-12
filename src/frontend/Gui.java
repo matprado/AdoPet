@@ -116,6 +116,7 @@ public class Gui extends Application {
 	@Override
     public void start (@SuppressWarnings("exports") Stage stage){
         Gui.Stg = stage;
+        Gui.Stg.setResizable(false);
         try {
 			Gui.telaInicial();
 		} catch (IOException e) {

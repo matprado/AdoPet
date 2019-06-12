@@ -86,7 +86,7 @@ public class BDConexaoClass{
     }
 
 
-    public void adotarPet(Pet p) throws SQLException{
+    public static void adotarPet(Pet p) throws SQLException{
 
         Connection con = BDConexao();
         String del = "Delete FROM pets WHERE nome = ?";
@@ -94,12 +94,10 @@ public class BDConexaoClass{
         ps.setString(1,p.getNome());
         ResultSet rs = ps.executeQuery();
 
-
-
     }
 
 
-    public void comecarChat(Usuario user1, Usuario user2) throws SQLException{
+    public static void comecarChat(Usuario user1, Usuario user2) throws SQLException{
 
         Connection con = BDConexao();
         String select = "SELECT * FROM chat where user1_id=? AND user2_id=?";
@@ -149,7 +147,7 @@ public class BDConexaoClass{
 
     }
 
-    public void criarMensagem(Usuario user1, Usuario user2) throws SQLException{
+    public static void criarMensagem(Usuario user1, Usuario user2) throws SQLException{
     	Connection con = BDConexao();
         String pegarID = "Select chat_id FROM chat WHERE user1_id = ? AND user2_id = ?";
         PreparedStatement psc = con.prepareStatement(pegarID);
