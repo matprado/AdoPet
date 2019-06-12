@@ -131,7 +131,11 @@ public class Gui extends Application {
 		} catch (IOException e) {
 			System.out.println("Erro no carregamento do FXML");
 		}
-		contatos = BDConexaoClass.listaContatos(User);
+		try {
+			contatos = BDConexaoClass.listaContatos(User);
+		} catch (SQLException e) {
+			System.out.println("Erro na inicializacao BD!");
+		}
 		botaoContato = new Button[contatos.length];
 		AnchorPane painel = (AnchorPane)getComp("pane");
 		for(int i=0; i<contatos.length; i++) {
