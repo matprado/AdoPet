@@ -1,5 +1,6 @@
 package backend;
 
+import javafx.scene.image.Image;
 
 /*
  * Essa classe representa um pet em adoção;
@@ -11,6 +12,7 @@ public class Pet {
 	private String sexo;
 	private String detalhes;
 	private Usuario anunciante;
+	private Image icone;
 	
 	/**
 	 * Construtor da classe
@@ -21,16 +23,27 @@ public class Pet {
 	 * @param detalhes - String que contém detalhes adicionais do pet;
 	 * @param anunciante - Usuario 
 	 */
-	public Pet(long petID, String especie, String nome, String sexo, String detalhes, Usuario anunciante) {
+	public Pet(long petID, String especie, String nome, String sexo, String detalhes, Usuario anunciante, Image icone) {
 		this.petID = petID;
 		this.especie = especie;
 		this.nome = nome;
 		this.sexo = sexo;
 		this.detalhes = detalhes;
 		this.anunciante = anunciante;
+		this.icone = icone;
 	}
 	
 	
+	public Image getIcone() {
+		return this.icone;
+	}
+
+
+	public void setIcone(Image icone) {
+		this.icone = icone;
+	}
+
+
 	/**
 	 * Getter para o atributo de ID do pet;
 	 * @return - long com o petID;

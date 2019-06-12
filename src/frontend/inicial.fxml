@@ -26,7 +26,7 @@
             <Font name="Dyuthi" size="84.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="115.0" layoutY="206.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome">
+      <Text fill="WHITE" layoutX="115.0" layoutY="206.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login">
          <font>
             <Font name="Dyuthi" size="17.0" />
          </font>

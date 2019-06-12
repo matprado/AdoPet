@@ -61,6 +61,7 @@ public class BDConexaoClass{
     		bos = new ByteArrayOutputStream();
     		for(int len; (len = fis.read(buffer)) != -1; ){
     			bos.write(buffer,0,len);
+    			fis.close();
     		}
     		
     	}
@@ -69,7 +70,6 @@ public class BDConexaoClass{
     	}catch(IOException e2){
     		System.err.println(e2.getMessage());
     	}
-    	
     	return bos != null  ? bos.toByteArray() : null;
     	
     }
