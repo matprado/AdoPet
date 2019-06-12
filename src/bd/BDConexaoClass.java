@@ -201,7 +201,7 @@ public class BDConexaoClass{
 
     }
     
-    public static getSize(Usuario user1){
+    public static int getSize(Usuario user1) throws SQLException{
     	
     	Connection con = BDConexao();
     	String cont = "SELECT COUNT(chat_id) FROM chat user1_id = ?";

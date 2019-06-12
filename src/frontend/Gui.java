@@ -122,6 +122,7 @@ public class Gui extends Application {
 	
 	public static void telaChat() {
 		FXMLLoader loader = null;
+		boolean temContato = true;
 		try {
 			loader = new FXMLLoader(new File("src/frontend/chat.fxml").toURI().toURL());
 		} catch (MalformedURLException e) {
@@ -133,16 +134,19 @@ public class Gui extends Application {
 			System.out.println("Erro no carregamento do FXML");
 		}
 		try {
-			contatos = BDConexaoClass.listaContatos(User);
+			Gui.contatos = BDConexaoClass.listaContatos(Gui.User);
 		} catch (SQLException e) {
+			temContato = false;
 			System.out.println("Erro na inicializacao BD!");
 		}
-		botaoContato = new Button[contatos.length];
-		AnchorPane painel = (AnchorPane)getComp("pane");
-		for(int i=0; i<contatos.length; i++) {
-			botaoContato[i].setId(i + "");
-			botaoContato[i].setText(contatos[i].getNome());
-			painel.getChildren().add(botaoContato[i]);
+		if(temContato) {
+			botaoContato = new Button[contatos.length];
+			AnchorPane painel = (AnchorPane)getComp("pane");
+			for(int i=0; i<contatos.length; i++) {
+				Gui.botaoContato[i].setId(i + "");
+				Gui.botaoContato[i].setText(Gui.contatos[i].getNome());
+				painel.getChildren().add(botaoContato[i]);
+			}
 		}
 		Scene S = new Scene(root);
 		Gui.Stg.setScene(S);
