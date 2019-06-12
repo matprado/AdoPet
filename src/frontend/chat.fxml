@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.chart.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: SteelBlue;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.ChatManager">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: SteelBlue;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.ChatManager">
    <children>
       <RadioButton fx:id="aba_disponiveis" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#abaDisponiveis" text="Disponiveis" textFill="WHITE">
          <font>
@@ -23,5 +24,15 @@
             <Font name="Dyuthi" size="14.0" />
          </font>
       </RadioButton>
+      <Label layoutX="164.0" layoutY="79.0" prefHeight="72.0" prefWidth="259.0" text="  Escolha um de seus contatos:" textAlignment="CENTER" textFill="WHITE" textOverrun="CENTER_ELLIPSIS">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <ScrollPane hbarPolicy="NEVER" layoutX="164.0" layoutY="156.0" prefHeight="201.0" prefWidth="259.0">
+        <content>
+          <AnchorPane fx:id="pane" minHeight="0.0" minWidth="0.0" prefHeight="202.0" prefWidth="257.0" />
+        </content>
+      </ScrollPane>
    </children>
 </Pane>

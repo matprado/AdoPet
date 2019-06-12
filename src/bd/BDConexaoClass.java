@@ -200,6 +200,19 @@ public class BDConexaoClass{
         
 
     }
+    
+    public static int getSize(Usuario user1) throws SQLException{
+    	
+    	Connection con = BDConexao();
+    	String cont = "SELECT COUNT(chat_id) FROM chat user1_id = ?";
+    	PreparedStatement ps = con.prepareStatement(cont);
+    	ps.setLong(1,user1.getId());
+    	
+    	ResultSet rs = ps.executeQuery();
+    	
+    	return rs.getInt(1);
+    	
+    }
 
     public static Usuario[] listaContatos(Usuario user1) throws SQLException{
     	
@@ -210,7 +223,9 @@ public class BDConexaoClass{
 
     	ResultSet rs = ps.executeQuery();
     	
-    	Usuario[] pessoa = new Usuario[1000];
+    	int len = getSize(user1);
+    	
+    	Usuario[] pessoa = new Usuario[len];
     	int i = 0;
     	
     	while(rs.next()){

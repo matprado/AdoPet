@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -121,6 +122,7 @@ public class Gui extends Application {
 	
 	public static void telaChat() {
 		FXMLLoader loader = null;
+		boolean temContato = true;
 		try {
 			loader = new FXMLLoader(new File("src/frontend/chat.fxml").toURI().toURL());
 		} catch (MalformedURLException e) {
@@ -131,13 +133,20 @@ public class Gui extends Application {
 		} catch (IOException e) {
 			System.out.println("Erro no carregamento do FXML");
 		}
-		contatos = BDConexaoClass.getContatos(User);
-		botaoContato = new Button[contatos.size()];
-		AnchorPane painel = (AnchorPane)getComp("pane");
-		for(int i=0; i<contatos.size(); i++) {
-			botaoContato[i].setId(i + "");
-			botaoContato[i].setText(contatos[i].getNome());
-			painel.getChildren().add(botaoContato[i]);
+		try {
+			Gui.contatos = BDConexaoClass.listaContatos(Gui.User);
+		} catch (SQLException e) {
+			temContato = false;
+			System.out.println("Erro na inicializacao BD!");
+		}
+		if(temContato) {
+			botaoContato = new Button[contatos.length];
+			AnchorPane painel = (AnchorPane)getComp("pane");
+			for(int i=0; i<contatos.length; i++) {
+				Gui.botaoContato[i].setId(i + "");
+				Gui.botaoContato[i].setText(Gui.contatos[i].getNome());
+				painel.getChildren().add(botaoContato[i]);
+			}
 		}
 		Scene S = new Scene(root);
 		Gui.Stg.setScene(S);
@@ -145,8 +154,26 @@ public class Gui extends Application {
         Gui.Stg.show();
 	}
 	
-	public static void iniciarChat() {
+	public static void iniciarChat(Usuario contato) {
+		FXMLLoader loader = null;
+		try {
+			loader = new FXMLLoader(new File("src/frontend/conversa.fxml").toURI().toURL());
+		} catch (MalformedURLException e) {
+			System.out.println("Erro no carregamento do FXML");
+		}
+		try {
+			Gui.root = loader.load();
+		} catch (IOException e) {
+			System.out.println("Erro no carregamento do FXML");
+		}
 		
+		((Label)getComp("textoInicial")).setText(((Label)getComp("textoInicial")).getText() + contato.getNome());
+		((Label)getComp("texto")).setText(((Label)getComp("texto")).getText() + contato.getNome());
+		
+		Scene S = new Scene(root);
+		Gui.Stg.setScene(S);
+        Gui.Stg.setTitle("AdoPet");
+        Gui.Stg.show();
 	}
 	
 	public static void telaPorqueAdotar() {
