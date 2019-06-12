@@ -4,11 +4,12 @@ USE project
 
 CREATE TABLE if not exists pets(
 	
-    pet_id LONG NOT NULL,
+    pet_id LONG NOT NULL auto AUTO_INCREMENT,
 	species varchar(20) NOT NULL,
     nome varchar(50) NOT NULL,
     sexo VARCHAR(20) NOT NULL,
     detalhes VARCHAR(100) not null,
+    id_doador LONG NOT NULL,
 	nome_doador VARCHAR(50) not null,
     caminho_imagem_pet blob
 )
@@ -18,7 +19,7 @@ ALTER TABLE pets ADD PRIMARY KEY (pet_id)
 
 CREATE TABLE if not exists clientes(
 	
-    cliente_id LONG NOT NULL,
+    cliente_id LONG NOT NULL AUTO_INCREMENT,
     username VARCHAR(50) NOT NULL UNIQUE,
     senha VARCHAR(75) NOT NULL,
 	nome VARCHAR(50) NOT NULL,
