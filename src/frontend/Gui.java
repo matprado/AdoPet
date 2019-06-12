@@ -278,7 +278,7 @@ public class Gui extends Application {
     	Gui.User = new Usuario();
     	Gui.pet = new Pet[9];
     	Gui.index = 0;
-    	Gui.numeropaginas = BDConexaoClass.getSizePets() / 9;
+    	//Gui.numeropaginas = BDConexaoClass.getSizePets() / 9;
     	Gui.numeropaginas = 1;
     	Gui.launch(args); //Requisitando inicializacao da Gui
     }

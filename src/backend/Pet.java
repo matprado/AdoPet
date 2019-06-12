@@ -100,5 +100,31 @@ public class Pet {
 		return anunciante;
 	}
 
+
+	public void setPetID(long petID) {
+		this.petID = petID;
+	}
+
+
+	public void setEspecie(String especie) {
+		this.especie = especie;
+	}
+
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
+	}
+
+
+	public void setAnunciante(Usuario anunciante) {
+		this.anunciante = anunciante;
+	}
+
+	
 	
 }
