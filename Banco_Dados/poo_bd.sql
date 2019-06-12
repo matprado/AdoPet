@@ -19,7 +19,7 @@ ALTER TABLE pets ADD PRIMARY KEY (pet_id)
 CREATE TABLE if not exists clientes(
 	
     cliente_id LONG NOT NULL,
-    username VARCHAR(50) NOT NULL,
+    username VARCHAR(50) NOT NULL UNIQUE,
     senha VARCHAR(75) NOT NULL,
 	nome VARCHAR(50) NOT NULL,
     idade int NOT NULL,
