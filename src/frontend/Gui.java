@@ -20,7 +20,8 @@ import javafx.stage.Stage;
 /**
  * 
  * @author OS FODOES
- * TODO Tela_disponiveis, Tela_pet, Tela_pq_adotar, Tela_chat_pessoas, Tela_chat_conversa, Tela_final_adocao
+ * TODO Tela_disponiveis, Tela_pet, Tela_pq_adotar, 
+ * Tela_chat_pessoas, Tela_chat_conversa, Tela_final_adocao, Tela_anuncio
  */
 
 
@@ -113,8 +114,46 @@ public class Gui extends Application {
         Gui.Stg.show();
 	}
 	
+	public static void telaChat() {
+		FXMLLoader loader = null;
+		try {
+			loader = new FXMLLoader(new File("src/frontend/chat.fxml").toURI().toURL());
+		} catch (MalformedURLException e) {
+			System.out.println("Erro no carregamento do FXML");
+		}
+		try {
+			Gui.root = loader.load();
+		} catch (IOException e) {
+			System.out.println("Erro no carregamento do FXML");
+		}
+		Scene S = new Scene(root);
+		Gui.Stg.setScene(S);
+        Gui.Stg.setTitle("AdoPet");
+        Gui.Stg.show();
+	}
+	
+	
+	public static void telaPorqueAdotar() {
+		FXMLLoader loader = null;
+		try {
+			loader = new FXMLLoader(new File("src/frontend/porqueAdotar.fxml").toURI().toURL());
+		} catch (MalformedURLException e) {
+			System.out.println("Erro no carregamento do FXML");
+		}
+		try {
+			Gui.root = loader.load();
+		} catch (IOException e) {
+			System.out.println("Erro no carregamento do FXML");
+		}
+		Scene S = new Scene(root);
+		Gui.Stg.setScene(S);
+        Gui.Stg.setTitle("AdoPet");
+        Gui.Stg.show();
+	}
+	
+	
 	@Override
-    public void start (@SuppressWarnings("exports") Stage stage){
+    public void start (Stage stage){
         Gui.Stg = stage;
         Gui.Stg.setResizable(false);
         try {

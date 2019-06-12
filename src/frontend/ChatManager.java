@@ -9,6 +9,6 @@ public class ChatManager {
 	}
 	
 	@FXML protected void abaPorqueAdotar(ActionEvent event) {
-		//Gui.telaPorqueAdotar();
+		Gui.telaPorqueAdotar();
 	}
 }

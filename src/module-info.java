@@ -1,6 +1,6 @@
 module adoPet {
 	requires transitive java.sql;
-	requires javafx.graphics;
+	requires transitive javafx.graphics;
 	requires javafx.controls;
 	requires javafx.fxml;
 	opens frontend;

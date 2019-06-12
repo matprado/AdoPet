@@ -10,6 +10,6 @@ public class PorqueAdotarManager {
 	}
 	
 	@FXML protected void abaChat(ActionEvent event) {
-		//Gui.telaChat();
+		Gui.telaChat();
 	}
 }
