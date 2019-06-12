@@ -19,7 +19,7 @@ public class ChatManager {
 	
 	public void apertou(ActionEvent event) {
         int id = Integer.parseInt(((Control)event.getSource()).getId());
-		Gui.iniciarChat(Gui.User, Gui.contatos[id]);
+		Gui.iniciarChat(Gui.contatos[id]);
     }
 	
 }

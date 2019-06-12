@@ -131,10 +131,10 @@ public class Gui extends Application {
 		} catch (IOException e) {
 			System.out.println("Erro no carregamento do FXML");
 		}
-		contatos = BDConexaoClass.getContatos(User);
-		botaoContato = new Button[contatos.size()];
+		contatos = BDConexaoClass.listaContatos(User);
+		botaoContato = new Button[contatos.length];
 		AnchorPane painel = (AnchorPane)getComp("pane");
-		for(int i=0; i<contatos.size(); i++) {
+		for(int i=0; i<contatos.length; i++) {
 			botaoContato[i].setId(i + "");
 			botaoContato[i].setText(contatos[i].getNome());
 			painel.getChildren().add(botaoContato[i]);
@@ -145,7 +145,7 @@ public class Gui extends Application {
         Gui.Stg.show();
 	}
 	
-	public static void iniciarChat() {
+	public static void iniciarChat(Usuario contato) {
 		
 	}
 	
