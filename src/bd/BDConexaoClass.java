@@ -51,7 +51,7 @@ public class BDConexaoClass{
         
     }
     
-    private byte[] readFile(String file) throws IOException{
+    private static byte[] readFile(String file) throws IOException{
     	
     	ByteArrayOutputStream bos = null;
     	try{
@@ -201,7 +201,7 @@ public class BDConexaoClass{
 
     }
 
-    public static Usuario[] listaContatos(Usuario user1){
+    public static Usuario[] listaContatos(Usuario user1) throws SQLException{
     	
     	Connection con = BDConexao();
     	String select = "SELECT * FROM chat WHERE user1_id = ?";
@@ -231,7 +231,7 @@ public class BDConexaoClass{
 
     
     
-    public static void inserirImagem(String filename){
+    public static void inserirImagem(String filename) throws SQLException, IOException{
     	
     	String update= "UPDATE pets SET caminho_imagem_pet= ?";
     	
@@ -251,7 +251,7 @@ public class BDConexaoClass{
     	
     	ResultSet rs = ps.executeQuery();
     	
-    	File arq = new File(BDConexaoClass.class.getResource("../../resources").getPath());
+    	File arq = new File(BDConexaoClass.class.getResource("../../resources/iconepet.jpg").getPath());
     	FileOutputStream fos = new FileOutputStream(arq);
     	fos.close();
     	while(rs.next()){
