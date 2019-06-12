@@ -169,6 +169,40 @@ public class BDConexaoClass{
 
     }
 
+    
+    public static void inserirImagem(String filename){
+    	
+    	String update= "UPDATE pets SET caminho_imagem_pet= ?";
+    	
+    	Connection con = BDConexao();
+    	PreparedStatement ps = con.prepareStatement(update);
+    	ps.setBytes(1,readFile(filename));
+    	ps.executeUpdate();
+    	
+    }
+    
+    public static void selecionarImagem(Pet p){
+    	
+    	Connection con = BDConexao();
+    	String select = "SELECT caminho_imagem_pet FROM pets WHERE pet_id = ?";
+    	PreparedStatement ps = con.prepareStatement(select);
+    	ps.setLong(1,p.getPetID());
+    	
+    	ResultSet rs = ps.executeQuery();
+    	
+    	File arq = new File("\\resources\\petIcone.jpg");
+    	FileOutputStream fos = new FileOutputStream(arq);
+    	
+    	while(rs.next()){
+    		InputStream input = rs.getBinaryStream("caminho_imagem_pet");
+    		byte[] buffer = new byte[1024];
+    		while(input.read(buffer) > 0){
+    			fos.write(buffer);
+    		}
+    	}
+    			
+    	
+    }
 
 
 
