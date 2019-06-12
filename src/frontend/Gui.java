@@ -75,7 +75,7 @@ public class Gui extends Application {
 		Gui.User.setSenha(((PasswordField)getComp("password")).getText());
 		try {
 			if(BDConexaoClass.loginUser(Gui.User)){
-				Gui.telaDisponiveis();
+				Gui.telaDisponiveis(Gui.paginaatual);
 			}
 		} catch (SQLException e) {
 			System.out.println("Erro na inicializacao do BD");
@@ -106,11 +106,11 @@ public class Gui extends Application {
 			} catch (SQLException e) {
 				System.out.println("Erro na inicializacao BD!");
 			}
-			Gui.telaDisponiveis();
+			Gui.telaDisponiveis(Gui.paginaatual);
 		}
 	}
 
-	public static void telaDisponiveis(){
+	public static void telaDisponiveis(int pagina){
 		FXMLLoader loader = null;
 		try {
 			loader = new FXMLLoader(new File("src/frontend/disponiveis.fxml").toURI().toURL());
@@ -123,8 +123,14 @@ public class Gui extends Application {
 			System.out.println("Erro no carregamento do FXML");
 		}
 		
-		//TODO PEGAR OBJETO PET DO ANGRA E SETAR NO GUI.PET[].
-		
+		//PEGA OBJETO PET DO BD E SETAR NO GUI.PET[].
+		for(int i=0; i<9; i++) {
+			try {
+				Gui.pet[i] = BDConexaoClass.retornaPet(((Gui.paginaatual-1)*9)+(i+1));
+			} catch (NumberFormatException | SQLException e) {
+				System.out.println("Erro no retorno do Pet do BD");
+			}
+		}
 		
 		/**
 		 * TODO SETAR NOMES E IMAGENS DOS PETS AQUI USANDO O SET NO GETCOMP
@@ -154,11 +160,11 @@ public class Gui extends Application {
 		//Setando infos do pet
 		((ImageView)(Gui.getComp("icone"))).setImage(Gui.pet[Gui.index].getIcone());
 		((Text)(Gui.getComp("nome"))).setText((Gui.pet[Gui.index].getNome()));
-		((TextField)(Gui.getComp("especie"))).setText((Gui.pet[Gui.index].getNome()));
-		((TextField)(Gui.getComp("sexo"))).setText((Gui.pet[Gui.index].getNome()));
-		((TextField)(Gui.getComp("dono"))).setText((Gui.pet[Gui.index].getNome()));
-		((TextField)(Gui.getComp("descricao"))).setText((Gui.pet[Gui.index].getNome()));
-		
+		((TextField)(Gui.getComp("especie"))).setText((Gui.pet[Gui.index].getEspecie()));
+		((TextField)(Gui.getComp("sexo"))).setText((Gui.pet[Gui.index].getSexo()));
+		((TextField)(Gui.getComp("dono"))).setText((Gui.pet[Gui.index].getAnunciante().getNome()));
+		((TextField)(Gui.getComp("descricao"))).setText((Gui.pet[Gui.index].getDetalhes()));
+	
 		Scene S = new Scene(root);
 		Gui.Stg.setScene(S);
         Gui.Stg.setTitle("AdoPet - Info");
@@ -278,19 +284,23 @@ public class Gui extends Application {
     	Gui.User = new Usuario();
     	Gui.pet = new Pet[9];
     	Gui.index = 0;
-    	//Gui.numeropaginas = BDConexaoClass.getSizePets() / 9;
+    	try {
+			Gui.numeropaginas = BDConexaoClass.getSizePets() / 9;
+		} catch (SQLException e) {
+			System.out.println("Erro ao receber numero de pets do BD");
+		}
     	Gui.numeropaginas = 1;
     	Gui.launch(args); //Requisitando inicializacao da Gui
     }
 
 	public static void avancaPag() {
 		Gui.paginaatual++;
-		Gui.telaDisponiveis();
+		Gui.telaDisponiveis(Gui.paginaatual);
 	}
 
 	public static void voltaPag() {
 		Gui.paginaatual--;
-		Gui.telaDisponiveis();
+		Gui.telaDisponiveis(Gui.paginaatual);
 	}
     
 }

@@ -35,7 +35,7 @@ public class DisponiveisManager {
 	//Dentro da tela de informacoes do animal
 	
 	@FXML protected void voltarDisponiveis(ActionEvent event) {
-		Gui.telaDisponiveis();
+		Gui.telaDisponiveis(Gui.paginaatual);
 	}
 	
 	@FXML protected void mensagemDono(ActionEvent event) {
