@@ -17,7 +17,9 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 
@@ -40,6 +42,8 @@ public class Gui extends Application {
 	//Uso na DisponiveisManager
 	static Pet pet[];
 	static int index;
+	static int numeropaginas;
+	static int paginaatual;
 	
 	
 	public static Object getComp(String str) {
@@ -118,6 +122,15 @@ public class Gui extends Application {
 		} catch (IOException e) {
 			System.out.println("Erro no carregamento do FXML");
 		}
+		
+		//TODO PEGAR OBJETO PET DO ANGRA E SETAR NO GUI.PET[].
+		
+		
+		/**
+		 * TODO SETAR NOMES E IMAGENS DOS PETS AQUI USANDO O SET NO GETCOMP
+		 */
+		
+		
 		Scene S = new Scene(root);
 		Gui.Stg.setScene(S);
         Gui.Stg.setTitle("AdoPet");
@@ -137,6 +150,15 @@ public class Gui extends Application {
 		} catch (IOException e) {
 			System.out.println("Erro no carregamento do FXML");
 		}
+		
+		//Setando infos do pet
+		((ImageView)(Gui.getComp("icone"))).setImage(Gui.pet[Gui.index].getIcone());
+		((Text)(Gui.getComp("nome"))).setText((Gui.pet[Gui.index].getNome()));
+		((TextField)(Gui.getComp("especie"))).setText((Gui.pet[Gui.index].getNome()));
+		((TextField)(Gui.getComp("sexo"))).setText((Gui.pet[Gui.index].getNome()));
+		((TextField)(Gui.getComp("dono"))).setText((Gui.pet[Gui.index].getNome()));
+		((TextField)(Gui.getComp("descricao"))).setText((Gui.pet[Gui.index].getNome()));
+		
 		Scene S = new Scene(root);
 		Gui.Stg.setScene(S);
         Gui.Stg.setTitle("AdoPet - Info");
@@ -256,6 +278,8 @@ public class Gui extends Application {
     	Gui.User = new Usuario();
     	Gui.pet = new Pet[9];
     	Gui.index = 0;
+    	Gui.numeropaginas = BDConexaoClass.getSizePets() / 9;
+    	Gui.numeropaginas = 1;
     	Gui.launch(args); //Requisitando inicializacao da Gui
     }
     

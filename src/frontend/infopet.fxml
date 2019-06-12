@@ -6,7 +6,6 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: SteelBlue;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.DisponiveisManager">
    <children>
       <ImageView fx:id="icone" fitHeight="150.0" fitWidth="228.0" layoutX="14.0" layoutY="14.0" nodeOrientation="INHERIT" pickOnBounds="true">
@@ -19,30 +18,24 @@
             <Font name="Dyuthi" size="49.0" />
          </font>
       </Text>
-      <TextField fx:id="idade" editable="false" layoutX="69.0" layoutY="200.0" prefHeight="25.0" prefWidth="145.0" />
-      <Text layoutX="14.0" layoutY="217.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Idade">
+      <Text layoutX="14.0" layoutY="233.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Especie">
          <font>
             <Font name="Dyuthi" size="14.0" />
          </font>
       </Text>
-      <Text layoutX="14.0" layoutY="250.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Especie">
+      <TextField fx:id="especie" editable="false" layoutX="69.0" layoutY="216.0" prefHeight="25.0" prefWidth="145.0" />
+      <Text layoutX="14.0" layoutY="266.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sexo">
          <font>
             <Font name="Dyuthi" size="14.0" />
          </font>
       </Text>
-      <TextField fx:id="especie" editable="false" layoutX="69.0" layoutY="233.0" prefHeight="25.0" prefWidth="145.0" />
-      <Text layoutX="14.0" layoutY="283.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sexo">
+      <TextField fx:id="sexo" editable="false" layoutX="69.0" layoutY="249.0" prefHeight="25.0" prefWidth="145.0" />
+      <Text layoutX="14.0" layoutY="302.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dono">
          <font>
             <Font name="Dyuthi" size="14.0" />
          </font>
       </Text>
-      <TextField fx:id="sexo" editable="false" layoutX="69.0" layoutY="266.0" prefHeight="25.0" prefWidth="145.0" />
-      <Text layoutX="14.0" layoutY="319.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dono">
-         <font>
-            <Font name="Dyuthi" size="14.0" />
-         </font>
-      </Text>
-      <TextField editable="false" layoutX="69.0" layoutY="302.0" prefHeight="25.0" prefWidth="145.0" />
+      <TextField fx:id="dono" editable="false" layoutX="69.0" layoutY="285.0" prefHeight="25.0" prefWidth="145.0" />
       <Text layoutX="366.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descriçao">
          <font>
             <Font name="Dyuthi" size="18.0" />

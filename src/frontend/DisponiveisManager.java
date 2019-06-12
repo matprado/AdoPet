@@ -15,6 +15,14 @@ public class DisponiveisManager {
 		Gui.telaChat();
 	}
 	
+	@FXML protected void avancaPag(ActionEvent event) {
+		//Gui.telaDisponiveis(1);
+	}
+	
+	@FXML protected void voltaPag(ActionEvent event) {
+		//Gui.telaDisponiveis(2);
+	}
+	
 	@FXML protected void clicaPet(ActionEvent event) {
 		Gui.index = ((int)(((Control)event.getSource()).getId().charAt(3))) - 1;
 		Gui.telaInfoPet();
