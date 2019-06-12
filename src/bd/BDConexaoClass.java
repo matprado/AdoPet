@@ -48,6 +48,26 @@ public class BDConexaoClass{
         ResultSet rs = ps.executeQuery();
         
     }
+    
+    private byte[] readFile(String file){
+    	
+    	ByteArrayOutputStream bos = null;
+    	try{
+    		File f = new File(file);
+    		FileInputStream fis = new FileInputStream(f);
+    		byte[] buffer = new byte[1024];
+    		bos = new ByteArrayOutputStream();
+    		for(int len; (len = fis.read(buffer))){
+    			bos.write(buffer,0,len);
+    		}
+    		
+    	}
+    	catch(FileNotFoundException e){
+    		System.err.println(e.getMessage());
+    	}
+    }
+    
+    
     // Fun��o que cadastra o usu�rio no Banco de Dados
     public static void cadastroUser(Usuario user) throws SQLException{
         Connection con = BDConexao();
@@ -174,6 +194,35 @@ public class BDConexaoClass{
 
     }
 
+    public static Usuario[] listaContatos(Usuario user1){
+    	
+    	Connection con = BDConexao();
+    	String select = "SELECT * FROM chat WHERE user1_id = ?";
+    	PreparedStatement ps = con.prepareStatement(select);
+    	ps.setLong(1,user1.getId());
+
+    	ResultSet rs = ps.executeQuery();
+    	
+    	Usuario[] pessoa = new Usuario[1000];
+    	int i = 0;
+    	
+    	while(rs.next()){
+    		pessoa[i].setId(rs.getLong(1));
+    		pessoa[i].setUserName(rs.getString(2));
+    		pessoa[i].setSenha(rs.getString(3));
+    		pessoa[i].setNome(rs.getString(4));
+    		pessoa[i].setCpf(rs.getString(5));
+    		pessoa[i].setCidade(rs.getString(6));
+    		pessoa[i].setEndereco(rs.getString(7));
+    		pessoa[i].setCep(rs.getString(8));
+    		
+    		i++;
+    	}
+    	
+    	return pessoa;
+    }
+
+    
     
     public static void inserirImagem(String filename){
     	
