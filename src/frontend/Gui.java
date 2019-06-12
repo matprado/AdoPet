@@ -26,7 +26,7 @@ import javafx.stage.Stage;
  * TODO Tela_disponiveis, Tela_pet, Tela_pq_adotar, 
  * Tela_chat_pessoas, Tela_chat_conversa, Tela_final_adocao, Tela_anuncio
  */
-
+//PRado e ai
 
 public class Gui extends Application {
 	static Parent root;
