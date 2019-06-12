@@ -163,14 +163,8 @@ public class BDConexaoClass{
                 String msg = rsp.getString(1);
                 Long sent = rsp.getLong(2);
 
-                //mensagem será setada no novo componente que vai ser criado na GUI
-                /*
+                CharMap<Long,String> messages = new CharMap<Long,String>();
 
-                if(sent.equals(user1.getId())) <- Coloca mensagem na direita (user1 = o cara logado nesta conta)
-
-                else   <- Coloca mensagem na esquerda (user2 = o cara que ele está conversando)
-
-                */
             }
 
            
@@ -201,10 +195,10 @@ public class BDConexaoClass{
 
     }
     
-    public static int getSize(Usuario user1) throws SQLException{
+    public static int getSizeUser(Usuario user1) throws SQLException{
     	
     	Connection con = BDConexao();
-    	String cont = "SELECT COUNT(chat_id) FROM chat user1_id = ?";
+    	String cont = "SELECT COUNT(chat_id) FROM chat WHERE user1_id = ?";
     	PreparedStatement ps = con.prepareStatement(cont);
     	ps.setLong(1,user1.getId());
     	
@@ -213,6 +207,22 @@ public class BDConexaoClass{
     	return rs.getInt(1);
     	
     }
+
+
+       
+    public static int getSizePets() throws SQLException{
+    	
+    	Connection con = BDConexao();
+    	String cont = "SELECT COUNT(pet_id) FROM pets";
+    	PreparedStatement ps = con.prepareStatement(cont);
+    	
+    	ResultSet rs = ps.executeQuery();
+    	
+    	return rs.getInt(1);
+    	
+    }
+
+
 
     public static Usuario[] listaContatos(Usuario user1) throws SQLException{
     	
@@ -223,7 +233,7 @@ public class BDConexaoClass{
 
     	ResultSet rs = ps.executeQuery();
     	
-    	int len = getSize(user1);
+    	int len = getSizeUser(user1);
     	
     	Usuario[] pessoa = new Usuario[len];
     	int i = 0;
@@ -281,6 +291,33 @@ public class BDConexaoClass{
     }
 
 
+    public static Pet retornaPet(int index){
 
-    
+        int indextotal = getSizePets();
+        int index = indextotal - index;
+
+        Connection con = BDConexao();
+        String select = "SELECT * FROM pets WHERE pet_id= ?";
+        PreparedStatement ps = con.prepareStatement(select);
+        ps.setLong((Long)index);
+
+        ResultSet rs = ps.executeQuery();
+
+        Pet p = New Pet();
+
+        while(rs.next()){
+            
+            p.setPetID(rs.getLong(1));
+            p.setEspecie(rs.getString(2));
+            p.setNome(rs.getString(3));
+            p.setSexo(rs.getString(4));
+            p.setDetalhes(rs.getString(5));
+            p.setAnun
+
+        }
+
+        return p;
+
+    }
+
 }
