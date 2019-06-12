@@ -1,5 +1,7 @@
 package bd;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -49,7 +51,7 @@ public class BDConexaoClass{
         
     }
     
-    private byte[] readFile(String file){
+    private byte[] readFile(String file) throws IOException{
     	
     	ByteArrayOutputStream bos = null;
     	try{
@@ -57,7 +59,7 @@ public class BDConexaoClass{
     		FileInputStream fis = new FileInputStream(f);
     		byte[] buffer = new byte[1024];
     		bos = new ByteArrayOutputStream();
-    		for(int len; (len = fis.read(buffer))){
+    		for(int len = 0; (len == fis.read(buffer)); len++){
     			bos.write(buffer,0,len);
     		}
     		
