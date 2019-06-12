@@ -10,7 +10,6 @@ CREATE TABLE if not exists pets(
     sexo VARCHAR(20) NOT NULL,
     detalhes VARCHAR(100) not null,
     id_doador LONG NOT NULL,
-	nome_doador VARCHAR(50) not null,
     caminho_imagem_pet blob
 )
 

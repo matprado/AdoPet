@@ -47,7 +47,6 @@ public class BDConexaoClass{
         ps.setString(3, p.getNome());
         ps.setString(4, p.getSexo());
         ps.setString(5, p.getDetalhes());
-        ps.setString(7, p.getAnunciante().getNome());
         ps.setLong(6,p.getAnuncianteID());
         ResultSet rs = ps.executeQuery();
         
@@ -292,6 +291,14 @@ public class BDConexaoClass{
     	
     }
 
+    
+    private static Usuario preencheAnunciante(long anuncianteID) {
+    	Usuario user = new Usuario();
+    	
+    	return user;
+    }
+    
+    
 
     public static Pet retornaPet(int index) throws NumberFormatException, SQLException{
 
@@ -314,7 +321,9 @@ public class BDConexaoClass{
             p.setSexo(rs.getString(4));
             p.setDetalhes(rs.getString(5));
             p.setAnuncianteID(rs.getLong(6));
-            P.setAnunciante().setNome(rs.getString(7));
+            Usuario anunciante = new Usuario();
+            //TODO ANGRA, COMPLETE OS OUTROS ATRIBUTOS
+            p.setAnunciante(anunciante);
         }
 
         return p;

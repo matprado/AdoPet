@@ -75,7 +75,7 @@ public class Gui extends Application {
 		Gui.User.setSenha(((PasswordField)getComp("password")).getText());
 		try {
 			if(BDConexaoClass.loginUser(Gui.User)){
-				Gui.telaDisponiveis(Gui.paginaatual);
+				Gui.telaDisponiveis();
 			}
 		} catch (SQLException e) {
 			System.out.println("Erro na inicializacao do BD");
@@ -106,11 +106,11 @@ public class Gui extends Application {
 			} catch (SQLException e) {
 				System.out.println("Erro na inicializacao BD!");
 			}
-			Gui.telaDisponiveis(Gui.paginaatual);
+			Gui.telaDisponiveis();
 		}
 	}
 
-	public static void telaDisponiveis(int pagina){
+	public static void telaDisponiveis(){
 		FXMLLoader loader = null;
 		try {
 			loader = new FXMLLoader(new File("src/frontend/disponiveis.fxml").toURI().toURL());
@@ -133,9 +133,12 @@ public class Gui extends Application {
 		}
 		
 		/**
-		 * TODO SETAR NOMES E IMAGENS DOS PETS AQUI USANDO O SET NO GETCOMP
+		 * SETANDO NOMES E IMAGENS DOS PETS AQUI
 		 */
-		
+		for(int i=0; i<9; i++) {
+			((ImageView)Gui.getComp("image" +(i+1))).setImage(pet[i].getIcone());
+			((Text)Gui.getComp("nome_pet" + (i+1))).setText(pet[i].getNome());
+		}
 		
 		Scene S = new Scene(root);
 		Gui.Stg.setScene(S);
@@ -295,12 +298,12 @@ public class Gui extends Application {
 
 	public static void avancaPag() {
 		Gui.paginaatual++;
-		Gui.telaDisponiveis(Gui.paginaatual);
+		Gui.telaDisponiveis();
 	}
 
 	public static void voltaPag() {
 		Gui.paginaatual--;
-		Gui.telaDisponiveis(Gui.paginaatual);
+		Gui.telaDisponiveis();
 	}
     
 }
