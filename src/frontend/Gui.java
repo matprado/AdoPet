@@ -11,9 +11,12 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 
@@ -30,6 +33,9 @@ public class Gui extends Application {
 	static Stage Stg;
 	static Usuario User;
 	static boolean finalizaCadastro;
+	static Usuario contatos[];
+	static Button botaoContato[];
+	
 	
 	public static Object getComp(String str) {
 		return (Object)Gui.root.lookup("#" + str);
@@ -51,7 +57,7 @@ public class Gui extends Application {
 		Gui.root = loader.load();
 		Scene S = new Scene(root);
 		Gui.Stg.setScene(S);
-        Gui.Stg.setTitle("AdoPet - Amigo não se compra!");
+        Gui.Stg.setTitle("AdoPet");
         Gui.Stg.show();
 	}
 	
@@ -85,7 +91,6 @@ public class Gui extends Application {
 		boolean senhaValida = ((TextField) getComp("password")).getLength() != 0;
 		boolean cpfValido = validarCpf(((TextField)getComp("cpf")).getText());
 		boolean validaTermos = ((CheckBox)getComp("aceita")).isSelected();
-		// if(nomeValido && senhaValida && ...)
 		if( nomeValido && cpfValido && senhaValida && validaTermos){
 			try {
 				BDConexaoClass.cadastroUser(setCadastroUser());
@@ -126,12 +131,23 @@ public class Gui extends Application {
 		} catch (IOException e) {
 			System.out.println("Erro no carregamento do FXML");
 		}
+		contatos = BDConexaoClass.getContatos(User);
+		botaoContato = new Button[contatos.size()];
+		AnchorPane painel = (AnchorPane)getComp("pane");
+		for(int i=0; i<contatos.size(); i++) {
+			botaoContato[i].setId(i + "");
+			botaoContato[i].setText(contatos[i].getNome());
+			painel.getChildren().add(botaoContato[i]);
+		}
 		Scene S = new Scene(root);
 		Gui.Stg.setScene(S);
         Gui.Stg.setTitle("AdoPet");
         Gui.Stg.show();
 	}
 	
+	public static void iniciarChat() {
+		
+	}
 	
 	public static void telaPorqueAdotar() {
 		FXMLLoader loader = null;
