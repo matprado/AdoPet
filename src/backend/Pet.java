@@ -12,6 +12,19 @@ public class Pet {
 	private String sexo;
 	private String detalhes;
 	private Usuario anunciante;
+	private long anuncianteID;
+	
+	
+	public long getAnuncianteID() {
+		return anuncianteID;
+	}
+
+
+	public void setAnuncianteID(long anuncianteID) {
+		this.anuncianteID = anuncianteID;
+	}
+
+
 	private Image icone;
 	
 	/**

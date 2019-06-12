@@ -16,11 +16,11 @@ public class DisponiveisManager {
 	}
 	
 	@FXML protected void avancaPag(ActionEvent event) {
-		//Gui.telaDisponiveis(1);
+		Gui.avancaPag();
 	}
 	
 	@FXML protected void voltaPag(ActionEvent event) {
-		//Gui.telaDisponiveis(2);
+		Gui.voltaPag();
 	}
 	
 	@FXML protected void clicaPet(ActionEvent event) {

@@ -282,5 +282,15 @@ public class Gui extends Application {
     	Gui.numeropaginas = 1;
     	Gui.launch(args); //Requisitando inicializacao da Gui
     }
+
+	public static void avancaPag() {
+		Gui.paginaatual++;
+		Gui.telaDisponiveis();
+	}
+
+	public static void voltaPag() {
+		Gui.paginaatual--;
+		Gui.telaDisponiveis();
+	}
     
 }
