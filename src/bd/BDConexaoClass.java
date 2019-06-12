@@ -1,4 +1,9 @@
 package bd;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
@@ -181,7 +186,7 @@ public class BDConexaoClass{
     	
     }
     
-    public static void selecionarImagem(Pet p){
+    public static void selecionarImagem(Pet p) throws SQLException, IOException{
     	
     	Connection con = BDConexao();
     	String select = "SELECT caminho_imagem_pet FROM pets WHERE pet_id = ?";
@@ -190,9 +195,9 @@ public class BDConexaoClass{
     	
     	ResultSet rs = ps.executeQuery();
     	
-    	File arq = new File("\\resources\\petIcone.jpg");
+    	File arq = new File(BDConexaoClass.class.getResource("../../resources").getPath());
     	FileOutputStream fos = new FileOutputStream(arq);
-    	
+    	fos.close();
     	while(rs.next()){
     		InputStream input = rs.getBinaryStream("caminho_imagem_pet");
     		byte[] buffer = new byte[1024];

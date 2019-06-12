@@ -51,7 +51,7 @@ public class Gui extends Application {
 		Gui.root = loader.load();
 		Scene S = new Scene(root);
 		Gui.Stg.setScene(S);
-        Gui.Stg.setTitle("AdoPet");
+        Gui.Stg.setTitle("AdoPet - Amigo não se compra!");
         Gui.Stg.show();
 	}
 	
