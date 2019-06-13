@@ -20,7 +20,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.FileChooser.ExtensionFilter;
 
 
 /**
@@ -44,6 +46,7 @@ public class Gui extends Application {
 	static int index;
 	static int numeropaginas;
 	static int paginaatual;
+	static File fotopet;
 	
 	
 	public static Object getComp(String str) {
@@ -78,7 +81,7 @@ public class Gui extends Application {
 				Gui.telaDisponiveis();
 			}
 		} catch (SQLException e) {
-			System.out.println("Erro na inicializacao do BD");
+			System.out.println("Não encontrou o usuario no BD");
 		}
 	} 
 	
@@ -96,15 +99,15 @@ public class Gui extends Application {
 	}
 	
 	public static void finalizaCadastro() {
-		boolean nomeValido = ((TextField) getComp("user")).getLength() != 0;
+		boolean nomeValido = ((TextField) getComp("name")).getLength() != 0;
 		boolean senhaValida = ((TextField) getComp("password")).getLength() != 0;
 		boolean cpfValido = validarCpf(((TextField)getComp("cpf")).getText());
 		boolean validaTermos = ((CheckBox)getComp("aceita")).isSelected();
-		if( nomeValido && cpfValido && senhaValida && validaTermos){
+		if(nomeValido && cpfValido && senhaValida && validaTermos){
 			try {
 				BDConexaoClass.cadastroUser(setCadastroUser());
 			} catch (SQLException e) {
-				System.out.println("Erro na inicializacao BD!");
+				System.out.println("Erro no cadastro do usuario no BD!");
 			}
 			Gui.telaDisponiveis();
 		}
@@ -115,7 +118,7 @@ public class Gui extends Application {
 		try {
 			loader = new FXMLLoader(new File("src/frontend/disponiveis.fxml").toURI().toURL());
 		} catch (MalformedURLException e) {
-			System.out.println("Erro no carregamento do FXML");
+			System.out.println("Erro na URL do FXML");
 		}
 		try {
 			Gui.root = loader.load();
@@ -123,23 +126,28 @@ public class Gui extends Application {
 			System.out.println("Erro no carregamento do FXML");
 		}
 		
+		((Text)Gui.getComp("npag")).setText("Pagina " + (Gui.paginaatual+1));
+		
+		/*
 		//PEGA OBJETO PET DO BD E SETAR NO GUI.PET[].
-		for(int i=0; i<9; i++) {
+		for(int i=0; i<4; i++) {
 			try {
-				Gui.pet[i] = BDConexaoClass.retornaPet(((Gui.paginaatual-1)*9)+(i+1));
+				Gui.pet[i] = BDConexaoClass.retornaPet(((Gui.paginaatual-1)*4)+(i+1));
 			} catch (NumberFormatException | SQLException e) {
 				System.out.println("Erro no retorno do Pet do BD");
 			}
 		}
 		
-		/**
-		 * SETANDO NOMES E IMAGENS DOS PETS AQUI
-		 */
-		for(int i=0; i<9; i++) {
+		 //SETANDO NOMES E IMAGENS DOS PETS AQUI
+		for(int i=0; i<4; i++) {
+			if(pet[i].getNome() = null){
+				((Text)Gui.getComp("nome_pet" + (i+1))).setText("");
+			}
+			
 			((ImageView)Gui.getComp("image" +(i+1))).setImage(pet[i].getIcone());
 			((Text)Gui.getComp("nome_pet" + (i+1))).setText(pet[i].getNome());
 		}
-		
+		*/
 		Scene S = new Scene(root);
 		Gui.Stg.setScene(S);
         Gui.Stg.setTitle("AdoPet");
@@ -152,7 +160,7 @@ public class Gui extends Application {
 		try {
 			loader = new FXMLLoader(new File("src/frontend/infopet.fxml").toURI().toURL());
 		} catch (MalformedURLException e) {
-			System.out.println("Erro no carregamento do FXML");
+			System.out.println("Erro na URL do FXML");
 		}
 		try {
 			Gui.root = loader.load();
@@ -179,7 +187,7 @@ public class Gui extends Application {
 		try {
 			loader = new FXMLLoader(new File("src/frontend/anunciar.fxml").toURI().toURL());
 		} catch (MalformedURLException e) {
-			System.out.println("Erro no carregamento do FXML");
+			System.out.println("Erro na URL do FXML");
 		}
 		try {
 			Gui.root = loader.load();
@@ -192,6 +200,17 @@ public class Gui extends Application {
         Gui.Stg.show();
 	}
 	
+	public static void escolheFoto() {
+		FileChooser fc = new FileChooser();
+		fc.setTitle("Selecione a foto do pet!");
+		fc.getExtensionFilters().addAll(new ExtensionFilter("Image(.jpg)","*.jpg"));
+		Gui.fotopet= fc.showOpenDialog(Gui.Stg);
+        if (Gui.fotopet != null) {
+        	
+        	Gui.telaDisponiveis();
+        }
+	}
+	
 	
 	public static void telaChat() {
 		FXMLLoader loader = null;
@@ -199,7 +218,7 @@ public class Gui extends Application {
 		try {
 			loader = new FXMLLoader(new File("src/frontend/chat.fxml").toURI().toURL());
 		} catch (MalformedURLException e) {
-			System.out.println("Erro no carregamento do FXML");
+			System.out.println("Erro na URL do FXML");
 		}
 		try {
 			Gui.root = loader.load();
@@ -210,7 +229,7 @@ public class Gui extends Application {
 			Gui.contatos = BDConexaoClass.listaContatos(Gui.User);
 		} catch (SQLException e) {
 			temContato = false;
-			System.out.println("Erro na inicializacao BD!");
+			System.out.println("Erro ao trazer contatos do BD!");
 		}
 		
 		if(temContato) {
@@ -237,7 +256,7 @@ public class Gui extends Application {
 		try {
 			loader = new FXMLLoader(new File("src/frontend/conversa.fxml").toURI().toURL());
 		} catch (MalformedURLException e) {
-			System.out.println("Erro no carregamento do FXML");
+			System.out.println("Erro na URL do FXML");
 		}
 		try {
 			Gui.root = loader.load();
@@ -258,7 +277,7 @@ public class Gui extends Application {
 		try {
 			loader = new FXMLLoader(new File("src/frontend/porqueAdotar.fxml").toURI().toURL());
 		} catch (MalformedURLException e) {
-			System.out.println("Erro no carregamento do FXML");
+			System.out.println("Erro na URL do FXML");
 		}
 		try {
 			Gui.root = loader.load();
@@ -285,24 +304,33 @@ public class Gui extends Application {
     
     public static void main(String[] args) {
     	Gui.User = new Usuario();
-    	Gui.pet = new Pet[9];
+    	Gui.pet = new Pet[4];
     	Gui.index = 0;
+    	Gui.numeropaginas = 1;
     	try {
-			Gui.numeropaginas = BDConexaoClass.getSizePets() / 9;
+			Gui.numeropaginas = BDConexaoClass.getSizePets() / 4;
+			if(Gui.numeropaginas % 4 > 0) {
+				Gui.numeropaginas++;
+			}
 		} catch (SQLException e) {
 			System.out.println("Erro ao receber numero de pets do BD");
 		}
-    	Gui.numeropaginas = 1;
     	Gui.launch(args); //Requisitando inicializacao da Gui
     }
 
 	public static void avancaPag() {
 		Gui.paginaatual++;
+		if(Gui.paginaatual >= Gui.numeropaginas) {
+			Gui.paginaatual = Gui.numeropaginas-1;
+		}
 		Gui.telaDisponiveis();
 	}
 
 	public static void voltaPag() {
 		Gui.paginaatual--;
+		if(Gui.paginaatual <= 0) {
+			Gui.paginaatual = 0;
+		}
 		Gui.telaDisponiveis();
 	}
     

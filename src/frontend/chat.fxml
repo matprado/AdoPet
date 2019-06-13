@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ScrollPane?>
@@ -7,21 +11,21 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: SteelBlue;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.ChatManager">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: SteelBlue;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.ChatManager">
    <children>
       <RadioButton fx:id="aba_disponiveis" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#abaDisponiveis" text="Disponiveis" textFill="WHITE">
          <font>
-            <Font name="Dyuthi" size="14.0" />
+            <Font name="Dyuthi" size="16.0" />
          </font>
       </RadioButton>
       <RadioButton fx:id="aba_chat" layoutX="248.0" layoutY="14.0" mnemonicParsing="false" selected="true" text="Chat" textFill="WHITE">
          <font>
-            <Font name="Dyuthi" size="14.0" />
+            <Font name="Dyuthi" size="16.0" />
          </font>
       </RadioButton>
       <RadioButton fx:id="abaPorqueAdotar" layoutX="458.0" layoutY="14.0" mnemonicParsing="false" onAction="#abaPorqueAdotar" text="Por que adotar?" textFill="WHITE">
          <font>
-            <Font name="Dyuthi" size="14.0" />
+            <Font name="Dyuthi" size="16.0" />
          </font>
       </RadioButton>
       <Label fx:id="texto1" layoutX="164.0" layoutY="79.0" prefHeight="72.0" prefWidth="259.0" text="  Escolha um de seus contatos:" textAlignment="CENTER" textFill="WHITE" textOverrun="CENTER_ELLIPSIS" visible="false">
@@ -31,7 +35,7 @@
       </Label>
       <Label fx:id="texto2" alignment="CENTER" contentDisplay="CENTER" layoutX="109.0" layoutY="140.0" prefHeight="121.0" prefWidth="369.0" text="Não há nenhum contato disponível.&#10;Entre em contato com algum &#10;dos anunciantes na aba &quot;Disponíveis&quot;." textAlignment="CENTER" textFill="WHITE">
          <font>
-            <Font size="18.0" />
+            <Font name="Dyuthi" size="24.0" />
          </font>
       </Label>
       <ScrollPane hbarPolicy="NEVER" layoutX="164.0" layoutY="156.0" prefHeight="201.0" prefWidth="259.0" visible="false">

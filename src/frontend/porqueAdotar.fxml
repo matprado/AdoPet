@@ -11,28 +11,23 @@
    <children>
       <RadioButton fx:id="aba_disponiveis" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#abaDisponiveis" text="Disponiveis" textFill="WHITE">
          <font>
-            <Font name="Dyuthi" size="14.0" />
+            <Font name="Dyuthi" size="16.0" />
          </font>
       </RadioButton>
       <RadioButton fx:id="aba_chat" layoutX="248.0" layoutY="14.0" mnemonicParsing="false" onAction="#abaChat" text="Chat" textFill="WHITE">
          <font>
-            <Font name="Dyuthi" size="14.0" />
+            <Font name="Dyuthi" size="16.0" />
          </font>
       </RadioButton>
       <RadioButton fx:id="porque_adotar" layoutX="458.0" layoutY="14.0" mnemonicParsing="false" selected="true" text="Por que adotar?" textFill="WHITE">
          <font>
-            <Font name="Dyuthi" size="14.0" />
+            <Font name="Dyuthi" size="16.0" />
          </font>
       </RadioButton>
-      <Text fill="WHITE" layoutX="22.0" layoutY="99.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Segundo dados da OMS, Organização Mundial da Saúde, estima-se que cerca de 30 milhões&#10;de animais vivem abandonados em cidades do Brasil, sendo 10 milhões deles gatos e 20 milhões&#10;de cães. Quando se adota um animal, essa ação contribui para reduzir e evitar animais nas ruas.  &#10;Siga conosco esta filosofia, amigo não se compra!" textAlignment="CENTER">
+      <Text fill="WHITE" layoutX="34.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Segundo dados da OMS, Organização Mundial da Saúde,&#10;estima-se quecerca de 30 milhões de animais vivem &#10;abandonados em cidades do Brasil, sendo 10 milhões&#10;deles gatos e 20 milhões de cães. Quando se adota &#10;um animal, essa ação contribui para reduzir e evitar &#10;animais nas ruas.  &#10;Siga conosco esta filosofia, amigo não se compra!" textAlignment="CENTER">
          <font>
-            <Font name="Dyuthi" size="14.0" />
+            <Font name="Dyuthi" size="23.0" />
          </font>
       </Text>
-      <ImageView fitHeight="229.0" fitWidth="343.0" layoutX="128.0" layoutY="175.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../resources/grafico.png" />
-         </image>
-      </ImageView>
    </children>
 </Pane>

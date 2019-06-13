@@ -29,6 +29,7 @@ public class DisponiveisManager {
 	}
 	
 	@FXML protected void clicaAnunciar(ActionEvent event) {
+		Gui.fotopet = null;
 		Gui.telaAnunciar();
 	}
 	
