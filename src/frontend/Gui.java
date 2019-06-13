@@ -27,15 +27,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
 
-
-/**
- * 
- * @author OS FODOES
- * TODO Tela_disponiveis, Tela_pet, Tela_pq_adotar, 
- * Tela_chat_pessoas, Tela_chat_conversa, Tela_final_adocao, Tela_anuncio
- */
-//PRado e ai
-
 public class Gui extends Application {
 	static Parent root;
 	static Stage Stg;
@@ -103,7 +94,7 @@ public class Gui extends Application {
 	}
 	
 	public static void finalizaCadastro() {
-		boolean nomeValido = ((TextField) getComp("name")).getLength() != 0;
+		boolean nomeValido = ((TextField) getComp("user")).getLength() != 0;
 		boolean senhaValida = ((TextField) getComp("password")).getLength() != 0;
 		boolean cpfValido = validarCpf(((TextField)getComp("cpf")).getText());
 		boolean validaTermos = ((CheckBox)getComp("aceita")).isSelected();
@@ -132,26 +123,25 @@ public class Gui extends Application {
 		
 		((Text)Gui.getComp("npag")).setText("Pagina " + (Gui.paginaatual+1));
 		
-		/*
 		//PEGA OBJETO PET DO BD E SETAR NO GUI.PET[].
 		for(int i=0; i<4; i++) {
 			try {
 				Gui.pet[i] = BDConexaoClass.retornaPet(((Gui.paginaatual-1)*4)+(i+1));
-			} catch (NumberFormatException | SQLException e) {
+			} catch (NumberFormatException | SQLException | IOException e) {
 				System.out.println("Erro no retorno do Pet do BD");
 			}
 		}
 		
 		 //SETANDO NOMES E IMAGENS DOS PETS AQUI
 		for(int i=0; i<4; i++) {
-			if(pet[i].getNome() = null){
+			if(Gui.pet[i] == null){
 				((Text)Gui.getComp("nome_pet" + (i+1))).setText("");
 			}
-			
-			((ImageView)Gui.getComp("image" +(i+1))).setImage(pet[i].getIcone());
-			((Text)Gui.getComp("nome_pet" + (i+1))).setText(pet[i].getNome());
+			else {
+				((ImageView)Gui.getComp("image" +(i+1))).setImage(pet[i].getIcone());
+				((Text)Gui.getComp("nome_pet" + (i+1))).setText(pet[i].getNome());
+			}
 		}
-		*/
 		Scene S = new Scene(root);
 		Gui.Stg.setScene(S);
         Gui.Stg.setTitle("AdoPet");
@@ -255,7 +245,7 @@ public class Gui extends Application {
         Gui.Stg.show();
 	}
 	
-	public static void iniciarChat(Usuario contato) {
+	public static void iniciarChat(Usuario contato) throws SQLException {
 		FXMLLoader loader = null;
 		try {
 			loader = new FXMLLoader(new File("src/frontend/conversa.fxml").toURI().toURL());
@@ -268,11 +258,7 @@ public class Gui extends Application {
 			System.out.println("Erro no carregamento do FXML");
 		}
 		if(!BDConexaoClass.existeChat(Gui.User, contato)) {
-			try {
-				BDConexaoClass.comecarChat(Gui.User, contato);
-			} catch (SQLException e) {
-				System.out.println("Erro ao inicializar o chat no BD");
-			}
+			BDConexaoClass.comecarChat(Gui.User, contato);
 			((Label)getComp("textoInicial")).setText(((Label)getComp("textoInicial")).getText() + contato.getNome());
 		}else{
 			((Label)getComp("textoInicial")).setDisable(true);
@@ -286,9 +272,15 @@ public class Gui extends Application {
 	}
 	
 	public static void mostrarMensagensAntigas() {
-		HashMap<int, String> mensagens = getMensagensAntigas(Gui.User, contato);
+		HashMap<Integer, String> mensagens = null;
+		try {
+			mensagens = BDConexaoClass.getMensagensAntigas(Gui.User, contato);
+		} catch (SQLException e) {
+			System.out.println("Erro ao receber mensagens do BD");
+			return;
+		}
 		VBox box = (VBox)getComp("box");
-		for(HashMap.Entry<int, String> msg : mensagens.entrySet()) {
+		for(HashMap.Entry<Integer, String> msg : mensagens.entrySet()) {
 			Label texto = new Label();
 			texto.setText(msg.getValue());
 			if(msg.getKey() == 0) {

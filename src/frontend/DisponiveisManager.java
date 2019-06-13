@@ -1,5 +1,7 @@
 package frontend;
 
+import java.sql.SQLException;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Control;
@@ -40,7 +42,11 @@ public class DisponiveisManager {
 	}
 	
 	@FXML protected void mensagemDono(ActionEvent event) {
-		Gui.iniciarChat(Gui.pet[Gui.index].getAnunciante());
+		try {
+			Gui.iniciarChat(Gui.pet[Gui.index].getAnunciante());
+		} catch (SQLException e) {
+		
+		}
 	}
 	
 	

@@ -1,24 +1,23 @@
 package bd;
+import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-
+import javax.imageio.ImageIO;
 import backend.Usuario;
+import javafx.embed.swing.SwingFXUtils;
 import backend.Pet;
 
-/*TODO ANGRA, ao inves de salvar a imagem do pet lá... Pega na funcao que retorna
- *		o pet, e instacia uma Image retornando ela la...
- */
 
 public class BDConexaoClass{
     
@@ -42,13 +41,14 @@ public class BDConexaoClass{
         Connection con = BDConexao();
         String insert = "INSERT INTO pets values(?,?,?,?,?,?)";
         PreparedStatement ps = con.prepareStatement(insert);
-        ps.setInt(1, p.getPetID());
+        ps.setInt(1, (int)p.getPetID());
         ps.setString(2, p.getEspecie());
         ps.setString(3, p.getNome());
         ps.setString(4, p.getSexo());
         ps.setString(5, p.getDetalhes());
-        ps.setInt(6,p.getAnuncianteID());
-        ResultSet rs = ps.executeQuery();
+        ps.setInt(6,(int)p.getAnuncianteID());
+        @SuppressWarnings("unused")
+		ResultSet rs = ps.executeQuery();
         
     }
     
@@ -81,7 +81,7 @@ public class BDConexaoClass{
         Connection con = BDConexao();
         String insert = "INSERT INTO clientes values(?,?,?,?,?,?,?,?,?)";
         PreparedStatement ps = con.prepareStatement(insert);
-        ps.setInt(1, user.getId());
+        ps.setInt(1, (int)user.getId());
         ps.setString(2, user.getUserName());
         ps.setString(3, user.getSenha());
         ps.setString(4, user.getNome());
@@ -90,7 +90,8 @@ public class BDConexaoClass{
         ps.setString(8, user.getEndereco());
         ps.setString(9, user.getCep());
         
-        ResultSet rs = ps.executeQuery();
+        @SuppressWarnings("unused")
+		ResultSet rs = ps.executeQuery();
     }
     
     public static boolean loginUser(Usuario user) throws SQLException{
@@ -125,17 +126,18 @@ public class BDConexaoClass{
         String del = "Delete FROM pets WHERE nome = ?";
         PreparedStatement ps = con.prepareStatement(del);
         ps.setString(1,p.getNome());
-        ResultSet rs = ps.executeQuery();
+        @SuppressWarnings("unused")
+		ResultSet rs = ps.executeQuery();
 
     }
 
-    public static boolean existeChat(Usuario user1,Usuario user2){
+    public static boolean existeChat(Usuario user1,Usuario user2) throws SQLException{
 
         Connection con = BDConexao();
         String select = "SELECT * FROM chat where user1_id=? AND user2_id=?";
         PreparedStatement ps = con.prepareStatement(select);
-        ps.setInt(1, user1.getId());
-        ps.setInt(2, user2.getId());
+        ps.setInt(1, (int)user1.getId());
+        ps.setInt(2, (int)user2.getId());
 
         ResultSet rs = ps.executeQuery();
 
@@ -146,33 +148,35 @@ public class BDConexaoClass{
         return true;
     }
 
-    public static void comecarChat(Usuario user1,Usuario User2){
+    public static void comecarChat(Usuario user1,Usuario user2) throws SQLException{
         
         Connection con = BDConexao();
         String select = "SELECT * FROM chat where user1_id=? AND user2_id=?";
         PreparedStatement ps = con.prepareStatement(select);
-        ps.setInt(1, user1.getId());
-        ps.setInt(2, user2.getId());
+        ps.setInt(1, (int)user1.getId());
+        ps.setInt(2, (int)user2.getId());
 
-        ResultSet rs = ps.executeQuery();
+        @SuppressWarnings("unused")
+		ResultSet rs = ps.executeQuery();
 
         
         String insert = "INSERT INTO chat Values(?,?)";
         PreparedStatement psi =  con.prepareStatement(insert);
-        psi.setInt(2, user1.getId());
-        psi.setInt(3, user2.getId());
+        psi.setInt(2, (int)user1.getId());
+        psi.setInt(3, (int)user2.getId());
 
-        ResultSet rsi = psi.executeQuery();
+        @SuppressWarnings("unused")
+		ResultSet rsi = psi.executeQuery();
         
     }
 
-    public static HashMap<int,String> getMensagensAntigas(Usuario user1, Usuario user2) throws SQLException{
+    public static HashMap<Integer,String> getMensagensAntigas(Usuario user1, Usuario user2) throws SQLException{
 
         Connection con = BDConexao();
         String select = "SELECT * FROM chat where user1_id=? AND user2_id=?";
         PreparedStatement ps = con.prepareStatement(select);
-        ps.setInt(1, user1.getId());
-        ps.setInt(2, user2.getId());
+        ps.setInt(1, (int)user1.getId());
+        ps.setInt(2, (int)user2.getId());
 
         ResultSet rs = ps.executeQuery();
 
@@ -184,7 +188,7 @@ public class BDConexaoClass{
 
         ResultSet rsp = psp.executeQuery();
 
-        HashMap<int,String> messages = new HashMap<int,String>();
+        HashMap<Integer,String> messages = new HashMap<Integer,String>();
         while(rsp.next()){
             String msg = rsp.getString(4);
             int sent = rsp.getInt(3);
@@ -200,8 +204,8 @@ public class BDConexaoClass{
     	Connection con = BDConexao();
         String pegarID = "Select chat_id FROM chat WHERE user1_id = ? AND user2_id = ?";
         PreparedStatement psc = con.prepareStatement(pegarID);
-        psc.setInt(2,user1.getId());
-        psc.setInt(3,user2.getId());
+        psc.setInt(2,(int)user1.getId());
+        psc.setInt(3,(int)user2.getId());
 
         ResultSet rsc = psc.executeQuery();
 
@@ -212,10 +216,11 @@ public class BDConexaoClass{
         String inserirMensagem = "Insert INTO mensagens(id_chat,id_remetente,mensagem) VALUES(?,?,?)";
         PreparedStatement psi = con.prepareStatement(inserirMensagem);
         psi.setInt(1,chat);
-        psi.setInt(2,user2.getId());
+        psi.setInt(2,(int)user2.getId());
         psi.setString(3,mensagem);
 
-        ResultSet rsi = psi.executeQuery();
+        @SuppressWarnings("unused")
+		ResultSet rsi = psi.executeQuery();
       
     }
     
@@ -224,7 +229,7 @@ public class BDConexaoClass{
     	Connection con = BDConexao();
     	String cont = "SELECT COUNT(chat_id) FROM chat WHERE user1_id = ?";
     	PreparedStatement ps = con.prepareStatement(cont);
-    	ps.setInt(1,user1.getId());
+    	ps.setInt(1,(int)user1.getId());
     	
     	ResultSet rs = ps.executeQuery();
     	
@@ -253,7 +258,7 @@ public class BDConexaoClass{
     	Connection con = BDConexao();
     	String select = "SELECT * FROM chat WHERE user1_id = ?";
     	PreparedStatement ps = con.prepareStatement(select);
-    	ps.setInt(1,user1.getId());
+    	ps.setInt(1,(int)user1.getId());
 
     	ResultSet rs = ps.executeQuery();
     	
@@ -296,13 +301,12 @@ public class BDConexaoClass{
     	Connection con = BDConexao();
     	String select = "SELECT caminho_imagem_pet FROM pets WHERE pet_id = ?";
     	PreparedStatement ps = con.prepareStatement(select);
-    	ps.setInt(1,p.getPetID());
+    	ps.setInt(1,(int)p.getPetID());
     	
         ResultSet rs = ps.executeQuery();
-        java.sql.blob bb = rs.getBlob(7);
+        Blob bb = rs.getBlob(7);
         InputStream in = bb.getBinaryStream();
         BufferedImage image = ImageIO.read(in);
-
         return image;
 
     	/*
@@ -320,7 +324,7 @@ public class BDConexaoClass{
     	
     }
     
-    public static Usuario retornaUsuario(int id){
+    public static Usuario retornaUsuario(int id) throws SQLException{
 
         Usuario user = new Usuario();
         Connection con = BDConexao();
@@ -344,7 +348,7 @@ public class BDConexaoClass{
 
     }
 
-    public static Pet retornaPet(int index) throws NumberFormatException, SQLException{
+    public static Pet retornaPet(int index) throws NumberFormatException, SQLException, IOException{
 
         int indextotal = getSizePets();
         int aux = indextotal - index;
@@ -366,10 +370,10 @@ public class BDConexaoClass{
             p.setDetalhes(rs.getString(5));
             p.setAnuncianteID(rs.getInt(6));
             Usuario anunciante = new Usuario();
-            anunciante = retornaUsuario(p.getAnuncianteID());
+            anunciante = retornaUsuario((int)p.getAnuncianteID());
             p.setAnunciante(anunciante);
+            p.setIcone(SwingFXUtils.toFXImage(BDConexaoClass.selecionarImagem(p), null));
         }
-
         return p;
 
     }
