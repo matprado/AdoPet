@@ -1,5 +1,6 @@
 package frontend;
 
+import bd.BDConexaoClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Control;
@@ -17,12 +18,15 @@ public class ChatManager {
 	
 	@FXML public void apertou(ActionEvent event) {
         int id = Integer.parseInt(((Control)event.getSource()).getId());
-		Gui.iniciarChat(Gui.contatos[id]);
+		Gui.contato = Gui.contatos[id];
+        Gui.iniciarChat();
     }
 	
 	@FXML public void enviouMensagem(ActionEvent event) {
 		if(((TextArea)Gui.getComp("texto")).toString().length() != 0) {
-			
+			//criarMensagem(Gui.User, Gui.contato, ((TextArea)Gui.getComp("texto")).toString());
+			mostrarNovaMensagem(((TextArea)Gui.getComp("texto")).toString());
+			BDConexaoClass.criarMensagem(Gui.User, Gui.contato, ((TextArea)Gui.getComp("texto")).toString());
 		}
 	}
 	

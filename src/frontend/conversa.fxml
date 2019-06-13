@@ -20,9 +20,9 @@
          <children>
             <ScrollPane hbarPolicy="NEVER" prefHeight="277.0" prefWidth="511.0">
                <content>
-                  <VBox alignment="BOTTOM_CENTER" prefHeight="277.0" prefWidth="511.0">
+                  <VBox alignment="BOTTOM_CENTER" prefHeight="277.0" prefWidth="496.0">
                      <children>
-                        <Label prefHeight="29.0" prefWidth="506.0" text="Comece uma conversa com " />
+                        <Label fx:id="textoInicial" alignment="CENTER" prefHeight="31.0" prefWidth="484.0" text="Comece uma conversa com " />
                      </children>
                   </VBox>
                </content>
@@ -30,6 +30,6 @@
          </children>
       </Pane>
       <TextArea fx:id="texto" layoutX="45.0" layoutY="336.0" prefHeight="37.0" prefWidth="459.0" promptText="Digite aqui o texto..." />
-      <Button layoutX="505.0" layoutY="336.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="51.0" text="Enviar" />
+      <Button fx:id="botao" layoutX="504.0" layoutY="336.0" mnemonicParsing="false" onAction="#enviouMensagem" prefHeight="37.0" prefWidth="51.0" text="Enviar" />
    </children>
 </Pane>

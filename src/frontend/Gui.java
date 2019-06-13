@@ -4,12 +4,14 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 import backend.Pet;
 import backend.Usuario;
 import bd.BDConexaoClass;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -19,6 +21,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -38,6 +41,7 @@ public class Gui extends Application {
 	static boolean finalizaCadastro;
 	static Usuario contatos[];
 	static Button botaoContato[];
+	static Usuario contato;
 	
 	//Uso na DisponiveisManager
 	static Pet pet[];
@@ -244,13 +248,44 @@ public class Gui extends Application {
 		} catch (IOException e) {
 			System.out.println("Erro no carregamento do FXML");
 		}
-		
-		((Label)getComp("textoInicial")).setText(((Label)getComp("textoInicial")).getText() + contato.getNome());
-		((Label)getComp("texto")).setText(((Label)getComp("texto")).getText() + contato.getNome());
+		if(!BDConexaoClass.existeChat(Gui.User, contato)) {
+			try {
+				BDConexaoClass.comecarChat(Gui.User, contato);
+			} catch (SQLException e) {
+				System.out.println("Erro ao inicializar o chat no BD");
+			}
+			((Label)getComp("textoInicial")).setText(((Label)getComp("textoInicial")).getText() + contato.getNome());
+		}else{
+			((Label)getComp("textoInicial")).setDisable(true);
+			mostrarMensagensAntigas();		
+		}		
+		((Label)getComp("texto")).setText(((Label)getComp("texto")).getText() + contato.getNome());	
 		Scene S = new Scene(root);
 		Gui.Stg.setScene(S);
         Gui.Stg.setTitle("AdoPet");
         Gui.Stg.show();
+	}
+	
+	public static void mostrarMensagensAntigas() {
+		HashMap<Long, String> mensagens = getMensagensAntigas(Gui.User, contato);
+		VBox box = (VBox)getComp("box");
+		for(HashMap.Entry<Long, String> msg : mensagens.entrySet()) {
+			Label texto = new Label();
+			texto.setText(msg.getValue());
+			if(msg.getKey() == 0) {
+				//mensagem do usuário...
+				texto.setAlignment(Pos.CENTER_LEFT);
+			}else texto.setAlignment(Pos.CENTER_RIGHT);
+			box.getChildren().add(texto);
+		}
+	}
+	
+	public static void mostrarNovaMensagem(String mensagem) {
+		VBox box = (VBox)getComp("box");
+		Label nova = new Label();
+		nova.setText(mensagem);
+		nova.setAlignment(Pos.CENTER_LEFT);
+		box.getChildren().add(nova);
 	}
 	
 	public static void telaPorqueAdotar() {
