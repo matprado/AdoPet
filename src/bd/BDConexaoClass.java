@@ -42,12 +42,12 @@ public class BDConexaoClass{
         Connection con = BDConexao();
         String insert = "INSERT INTO pets values(?,?,?,?,?,?)";
         PreparedStatement ps = con.prepareStatement(insert);
-        ps.setLong(1, p.getPetID());
+        ps.setInt(1, p.getPetID());
         ps.setString(2, p.getEspecie());
         ps.setString(3, p.getNome());
         ps.setString(4, p.getSexo());
         ps.setString(5, p.getDetalhes());
-        ps.setLong(6,p.getAnuncianteID());
+        ps.setInt(6,p.getAnuncianteID());
         ResultSet rs = ps.executeQuery();
         
     }
@@ -81,7 +81,7 @@ public class BDConexaoClass{
         Connection con = BDConexao();
         String insert = "INSERT INTO clientes values(?,?,?,?,?,?,?,?,?)";
         PreparedStatement ps = con.prepareStatement(insert);
-        ps.setLong(1, user.getId());
+        ps.setInt(1, user.getId());
         ps.setString(2, user.getUserName());
         ps.setString(3, user.getSenha());
         ps.setString(4, user.getNome());
@@ -129,71 +129,94 @@ public class BDConexaoClass{
 
     }
 
-
-    public static void comecarChat(Usuario user1, Usuario user2) throws SQLException{
+    public static boolean existeChat(Usuario user1,Usuario user2){
 
         Connection con = BDConexao();
         String select = "SELECT * FROM chat where user1_id=? AND user2_id=?";
         PreparedStatement ps = con.prepareStatement(select);
-        ps.setLong(1, user1.getId());
-        ps.setLong(2, user2.getId());
+        ps.setInt(1, user1.getId());
+        ps.setInt(2, user2.getId());
 
         ResultSet rs = ps.executeQuery();
 
         if(rs.wasNull()){
-            
-            String insert = "INSERT INTO chat Values(?,?)";
-            PreparedStatement psi =  con.prepareStatement(insert);
-            psi.setLong(2, user1.getId());
-            psi.setLong(3, user2.getId());
+            return false;
+        }
 
-            ResultSet rsi = psi.executeQuery();
-            
-        }else{
+        return true;
+    }
 
-            Long id = rs.getLong(1);
-            
-            String puxarMensagens = "Select mensagem,id_remetente FROM mensagens INNER JOIN chat ON chat.chat_id = mensagens.id_chat WHERE chat.chat_id = ?";
-            PreparedStatement psp = con.prepareStatement(puxarMensagens);
-            psp.setLong(1,id);
+    public static void comecarChat(Usuario user1,Usuario User2){
+        
+        Connection con = BDConexao();
+        String select = "SELECT * FROM chat where user1_id=? AND user2_id=?";
+        PreparedStatement ps = con.prepareStatement(select);
+        ps.setInt(1, user1.getId());
+        ps.setInt(2, user2.getId());
 
-            ResultSet rsp = psp.executeQuery();
+        ResultSet rs = ps.executeQuery();
 
+        
+        String insert = "INSERT INTO chat Values(?,?)";
+        PreparedStatement psi =  con.prepareStatement(insert);
+        psi.setInt(2, user1.getId());
+        psi.setInt(3, user2.getId());
 
-            while(rsp.next()){
-                String msg = rsp.getString(1);
-                Long sent = rsp.getLong(2);
+        ResultSet rsi = psi.executeQuery();
+        
+    }
 
-                HashMap<Long,String> messages = new HashMap<Long,String>();
+    public static HashMap<int,String> getMensagensAntigas(Usuario user1, Usuario user2) throws SQLException{
 
-            }
+        Connection con = BDConexao();
+        String select = "SELECT * FROM chat where user1_id=? AND user2_id=?";
+        PreparedStatement ps = con.prepareStatement(select);
+        ps.setInt(1, user1.getId());
+        ps.setInt(2, user2.getId());
 
-           
+        ResultSet rs = ps.executeQuery();
+
+        int id = rs.getInt(1);
+        
+        String puxarMensagens = "Select mensagem,id_remetente FROM mensagens INNER JOIN chat ON chat.chat_id = mensagens.id_chat WHERE chat.chat_id = ?";
+        PreparedStatement psp = con.prepareStatement(puxarMensagens);
+        psp.setInt(1,id);
+
+        ResultSet rsp = psp.executeQuery();
+
+        HashMap<int,String> messages = new HashMap<int,String>();
+        while(rsp.next()){
+            String msg = rsp.getString(4);
+            int sent = rsp.getInt(3);
+
+            messages.put(sent,msg);
 
         }
 
+        return messages;
     }
 
-    public static void criarMensagem(Usuario user1, Usuario user2) throws SQLException{
+    public static void criarMensagem(Usuario user1, Usuario user2,String mensagem) throws SQLException{
     	Connection con = BDConexao();
         String pegarID = "Select chat_id FROM chat WHERE user1_id = ? AND user2_id = ?";
         PreparedStatement psc = con.prepareStatement(pegarID);
-        psc.setLong(2,user1.getId());
-        psc.setLong(3,user2.getId());
+        psc.setInt(2,user1.getId());
+        psc.setInt(3,user2.getId());
 
         ResultSet rsc = psc.executeQuery();
 
 
-        Long chat = rsc.getLong(1);
+        int chat = rsc.getInt(1);
 
 
-        String inserirMensagem = "Insert INTO mensagens VALUES(?) WHERE id_chat = ?";
+        String inserirMensagem = "Insert INTO mensagens(id_chat,id_remetente,mensagem) VALUES(?,?,?)";
         PreparedStatement psi = con.prepareStatement(inserirMensagem);
-        //Pegar mensagem que foi escrita na GUI e colocar em psi.setString(4,);
+        psi.setInt(1,chat);
+        psi.setInt(2,user2.getId());
+        psi.setString(3,mensagem);
 
         ResultSet rsi = psi.executeQuery();
-        
-
+      
     }
     
     public static int getSizeUser(Usuario user1) throws SQLException{
@@ -201,7 +224,7 @@ public class BDConexaoClass{
     	Connection con = BDConexao();
     	String cont = "SELECT COUNT(chat_id) FROM chat WHERE user1_id = ?";
     	PreparedStatement ps = con.prepareStatement(cont);
-    	ps.setLong(1,user1.getId());
+    	ps.setInt(1,user1.getId());
     	
     	ResultSet rs = ps.executeQuery();
     	
@@ -230,7 +253,7 @@ public class BDConexaoClass{
     	Connection con = BDConexao();
     	String select = "SELECT * FROM chat WHERE user1_id = ?";
     	PreparedStatement ps = con.prepareStatement(select);
-    	ps.setLong(1,user1.getId());
+    	ps.setInt(1,user1.getId());
 
     	ResultSet rs = ps.executeQuery();
     	
@@ -240,7 +263,7 @@ public class BDConexaoClass{
     	int i = 0;
     	
     	while(rs.next()){
-    		pessoa[i].setId(rs.getLong(1));
+    		pessoa[i].setId(rs.getInt(1));
     		pessoa[i].setUserName(rs.getString(2));
     		pessoa[i].setSenha(rs.getString(3));
     		pessoa[i].setNome(rs.getString(4));
@@ -273,7 +296,7 @@ public class BDConexaoClass{
     	Connection con = BDConexao();
     	String select = "SELECT caminho_imagem_pet FROM pets WHERE pet_id = ?";
     	PreparedStatement ps = con.prepareStatement(select);
-    	ps.setLong(1,p.getPetID());
+    	ps.setInt(1,p.getPetID());
     	
     	ResultSet rs = ps.executeQuery();
     	
@@ -290,15 +313,30 @@ public class BDConexaoClass{
     			
     	
     }
+    
+    public static Usuario retornaUsuario(int id){
 
-    
-    private static Usuario preencheAnunciante(long anuncianteID) {
-    	Usuario user = new Usuario();
-    	
-    	return user;
+        Usuario user = new Usuario();
+        Connection con = BDConexao();
+        String select = "SELECT * FROM clientes WHERE cliente_id = ?";
+        PreparedStatement ps = con.prepareStatement(select);
+        ps.setInt(1,id);
+        ResultSet rs = ps.executeQuery();
+
+        while(rs.next()){
+            user.setId(rs.getInt(1));
+            user.setUserName(rs.getString(2));
+            user.setSenha(rs.getString(3));
+            user.setNome(rs.getString(4));
+            user.setCpf(rs.getString(5));
+            user.setCidade(rs.getString(6));
+            user.setEndereco(rs.getString(7));
+            user.setCep(rs.getString(8));
+        }
+
+        return user;
+
     }
-    
-    
 
     public static Pet retornaPet(int index) throws NumberFormatException, SQLException{
 
@@ -308,21 +346,21 @@ public class BDConexaoClass{
         Connection con = BDConexao();
         String select = "SELECT * FROM pets WHERE pet_id= ?";
         PreparedStatement ps = con.prepareStatement(select);
-        ps.setLong(1,Long.parseLong("" + aux));
+        ps.setInt(1,aux);
 
         ResultSet rs = ps.executeQuery();
 
         Pet p = new Pet();
 
         while(rs.next()){
-            p.setPetID(rs.getLong(1));
+            p.setPetID(rs.getInt(1));
             p.setEspecie(rs.getString(2));
             p.setNome(rs.getString(3));
             p.setSexo(rs.getString(4));
             p.setDetalhes(rs.getString(5));
-            p.setAnuncianteID(rs.getLong(6));
+            p.setAnuncianteID(rs.getInt(6));
             Usuario anunciante = new Usuario();
-            //TODO ANGRA, COMPLETE OS OUTROS ATRIBUTOS
+            anunciante = retornaUsuario(p.getAnuncianteID());
             p.setAnunciante(anunciante);
         }
 
