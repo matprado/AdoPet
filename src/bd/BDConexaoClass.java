@@ -291,15 +291,21 @@ public class BDConexaoClass{
     	
     }
     
-    public static void selecionarImagem(Pet p) throws SQLException, IOException{
+    public static BufferedImage selecionarImagem(Pet p) throws SQLException, IOException{
     	
     	Connection con = BDConexao();
     	String select = "SELECT caminho_imagem_pet FROM pets WHERE pet_id = ?";
     	PreparedStatement ps = con.prepareStatement(select);
     	ps.setInt(1,p.getPetID());
     	
-    	ResultSet rs = ps.executeQuery();
-    	
+        ResultSet rs = ps.executeQuery();
+        java.sql.blob bb = rs.getBlob(7);
+        InputStream in = bb.getBinaryStream();
+        BufferedImage image = ImageIO.read(in);
+
+        return image;
+
+    	/*
     	File arq = new File(BDConexaoClass.class.getResource("../../resources/iconepet.jpg").getPath());
     	FileOutputStream fos = new FileOutputStream(arq);
     	fos.close();
@@ -310,7 +316,7 @@ public class BDConexaoClass{
     			fos.write(buffer);
     		}
     	}
-    			
+    	*/	
     	
     }
     
