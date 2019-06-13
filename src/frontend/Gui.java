@@ -286,13 +286,13 @@ public class Gui extends Application {
 	}
 	
 	public static void mostrarMensagensAntigas() {
-		HashMap<Long, String> mensagens = getMensagensAntigas(Gui.User, contato);
+		HashMap<int, String> mensagens = getMensagensAntigas(Gui.User, contato);
 		VBox box = (VBox)getComp("box");
-		for(HashMap.Entry<Long, String> msg : mensagens.entrySet()) {
+		for(HashMap.Entry<int, String> msg : mensagens.entrySet()) {
 			Label texto = new Label();
 			texto.setText(msg.getValue());
 			if(msg.getKey() == 0) {
-				//mensagem do usuário...
+				//mensagem do usuï¿½rio...
 				texto.setAlignment(Pos.CENTER_LEFT);
 			}else texto.setAlignment(Pos.CENTER_RIGHT);
 			box.getChildren().add(texto);
