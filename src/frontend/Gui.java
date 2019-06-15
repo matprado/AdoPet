@@ -71,12 +71,8 @@ public class Gui extends Application {
 	public static void login() {
 		Gui.User.setUserName(((TextField)getComp("user")).getText());
 		Gui.User.setSenha(((PasswordField)getComp("password")).getText());
-		try {
-			if(BDConexaoClass.loginUser(Gui.User)){
-				Gui.telaDisponiveis();
-			}
-		} catch (SQLException e) {
-			System.out.println("Não encontrou o usuario no BD");
+		if(BDConexaoClass.loginUser(Gui.User)){
+			Gui.telaDisponiveis();
 		}
 	} 
 	
@@ -99,11 +95,7 @@ public class Gui extends Application {
 		boolean cpfValido = validarCpf(((TextField)getComp("cpf")).getText());
 		boolean validaTermos = ((CheckBox)getComp("aceita")).isSelected();
 		if(nomeValido && cpfValido && senhaValida && validaTermos){
-			try {
-				BDConexaoClass.cadastroUser(setCadastroUser());
-			} catch (SQLException e) {
-				System.out.println("Erro no cadastro do usuario no BD!");
-			}
+			BDConexaoClass.cadastroUser(setCadastroUser());	
 			Gui.telaDisponiveis();
 		}
 	}
@@ -127,7 +119,7 @@ public class Gui extends Application {
 		for(int i=0; i<4; i++) {
 			try {
 				Gui.pet[i] = BDConexaoClass.retornaPet(((Gui.paginaatual-1)*4)+(i+1));
-			} catch (NumberFormatException | SQLException | IOException e) {
+			} catch (NumberFormatException e) {
 				System.out.println("Erro no retorno do Pet do BD");
 			}
 		}
@@ -199,10 +191,14 @@ public class Gui extends Application {
 		fc.setTitle("Selecione a foto do pet!");
 		fc.getExtensionFilters().addAll(new ExtensionFilter("Image(.jpg)","*.jpg"));
 		Gui.fotopet= fc.showOpenDialog(Gui.Stg);
-        if (Gui.fotopet != null) {
-        	
+        if (Gui.fotopet == null) {
         	Gui.telaDisponiveis();
         }
+	}
+	
+	public static void confirmarAnuncio(Pet pet) {
+		BDConexaoClass.cadastroPet(pet);
+		Gui.telaDisponiveis();
 	}
 	
 	
@@ -334,13 +330,9 @@ public class Gui extends Application {
     	Gui.pet = new Pet[4];
     	Gui.index = 0;
     	Gui.numeropaginas = 1;
-    	try {
-			Gui.numeropaginas = BDConexaoClass.getSizePets() / 4;
-			if(Gui.numeropaginas % 4 > 0) {
-				Gui.numeropaginas++;
-			}
-		} catch (SQLException e) {
-			System.out.println("Erro ao receber numero de pets do BD");
+		Gui.numeropaginas = BDConexaoClass.getSizePets() / 4;
+		if(Gui.numeropaginas % 4 > 0) {
+			Gui.numeropaginas++;
 		}
     	Gui.launch(args); //Requisitando inicializacao da Gui
     }
@@ -348,7 +340,7 @@ public class Gui extends Application {
 	public static void avancaPag() {
 		Gui.paginaatual++;
 		if(Gui.paginaatual >= Gui.numeropaginas) {
-			Gui.paginaatual = Gui.numeropaginas-1;
+			Gui.paginaatual = Gui.numeropaginas;
 		}
 		Gui.telaDisponiveis();
 	}

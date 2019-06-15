@@ -13,6 +13,7 @@ public class Pet {
 	private String detalhes;
 	private Usuario anunciante;
 	private long anuncianteID;
+	private Image icone;
 	
 	
 	public long getAnuncianteID() {
@@ -24,9 +25,6 @@ public class Pet {
 		this.anuncianteID = anuncianteID;
 	}
 
-
-	private Image icone;
-	
 	/**
 	 * Construtor da classe
 	 * @param petID - long que representa o id único do pet;

@@ -1,6 +1,6 @@
-CREATE DATABASE project;
+CREATE DATABASE adopet;
 
-USE project;
+USE adopet;
 
 CREATE TABLE if not exists pets(
 	
@@ -10,11 +10,10 @@ CREATE TABLE if not exists pets(
     sexo VARCHAR(20) NOT NULL,
     detalhes VARCHAR(100) not null,
     id_doador LONG NOT NULL,
-    caminho_imagem_pet blob
+    imagem MEDIUMBLOB
 );
 
 ALTER TABLE pets ADD UNIQUE(pet_id);
-ALTER TABLE pets ADD PRIMARY KEY (pet_id);
 
 CREATE TABLE if not exists clientes(
 	
@@ -28,36 +27,21 @@ CREATE TABLE if not exists clientes(
     cep VARCHAR(20)
 	
 );
-
-drop table clientes
 ALTER TABLE clientes ADD UNIQUE(cliente_id);
-ALTER TABLE clientes ADD PRIMARY KEY(cliente_id);
-
-
-/*
-CREATE TABLE IF NOT EXISTS adocao(
-	pet_id int NOT NULL,
-    cliente_id int NOT NULL
-
-)
-*/
 
 
 CREATE TABLE IF NOT EXISTS chat(
 
     chat_id INTEGER  NOT NULL AUTO_INCREMENT primary key,
     user1_id integer NOT NULL,
-    user2_id integer NOT NULL
-    
-    
+    user2_id integer NOT NULL    
 );
 
 ALTER TABLE chat ADD UNIQUE(chat_id);
-ALTER TABLE chat ADD PRIMARY KEY(chat_id);
 
 CREATE TABLE IF NOT EXISTS mensagens(
 
-    id_mensagem int NOT NULL auto_increment,
+    id_mensagem INTEGER NOT NULL AUTO_INCREMENT primary key,
     id_chat INTEGER NOT NULL,
     id_remetente integer NOT NULL,
     mensagem TEXT NOT NULL,
@@ -66,8 +50,9 @@ CREATE TABLE IF NOT EXISTS mensagens(
 );
 
 ALTER TABLE mensagens ADD UNIQUE(id_mensagem);
-ALTER TABLE mensagens ADD PRIMARY KEY(id_mensagem);
 
+SELECT * FROM pets;
 
-SELECT * FROM pets,
-SELECT * FROM clientes
+DELETE FROM pets WHERE pet_id=1;
+
+DELETE FROM clientes WHERE cliente_id=2;

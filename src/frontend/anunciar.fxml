@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
@@ -7,38 +11,43 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: SteelBlue;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.AnunciarManager">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: SteelBlue;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.AnunciarManager">
    <children>
+      <Button fx:id="seleciona_imagem" layoutX="221.0" layoutY="86.0" mnemonicParsing="false" onAction="#selecionarImagem" text="Escolha uma imagem" />
       <Text layoutX="14.0" layoutY="233.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome">
          <font>
             <Font name="Dyuthi" size="14.0" />
          </font>
       </Text>
-      <TextField fx:id="especie" editable="false" layoutX="69.0" layoutY="251.0" prefHeight="25.0" prefWidth="145.0" />
+      <TextField fx:id="nome" layoutX="69.0" layoutY="216.0" prefHeight="25.0" prefWidth="145.0" />
+      <TextField fx:id="especie" layoutX="69.0" layoutY="251.0" prefHeight="25.0" prefWidth="145.0" />
       <Text layoutX="14.0" layoutY="266.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Especie">
          <font>
             <Font name="Dyuthi" size="14.0" />
          </font>
       </Text>
-      <TextField fx:id="sexo" editable="false" layoutX="69.0" layoutY="287.0" prefHeight="25.0" prefWidth="145.0" />
+      <TextField fx:id="sexo" layoutX="69.0" layoutY="287.0" prefHeight="25.0" prefWidth="145.0" />
       <Text layoutX="14.0" layoutY="302.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sexo">
          <font>
             <Font name="Dyuthi" size="14.0" />
          </font>
       </Text>
-      <TextField fx:id="nome" editable="false" layoutX="69.0" layoutY="216.0" prefHeight="25.0" prefWidth="145.0" />
       <Text layoutX="366.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descriçao">
          <font>
             <Font name="Dyuthi" size="18.0" />
          </font>
       </Text>
-      <TextArea fx:id="descricao" editable="false" layoutX="242.0" layoutY="200.0" prefHeight="127.0" prefWidth="318.0">
+      <TextArea fx:id="descricao" layoutX="242.0" layoutY="200.0" prefHeight="127.0" prefWidth="318.0">
          <font>
             <Font name="Dyuthi" size="13.0" />
          </font>
       </TextArea>
       <Button fx:id="voltar" layoutX="128.0" layoutY="360.0" mnemonicParsing="false" onAction="#voltarDisponiveis" prefHeight="25.0" prefWidth="70.0" text="Voltar" />
-      <Button fx:id="seleciona_imagem" layoutX="221.0" layoutY="86.0" mnemonicParsing="false" onAction="#selecionarImagem" text="Escolha uma imagem" />
-      <Button fx:id="confirmar" layoutX="392.0" layoutY="360.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="88.0" text="Confirmar" />
+      <Button fx:id="confirmar" layoutX="392.0" layoutY="360.0" mnemonicParsing="false" onAction="#confirmarAnuncio" prefHeight="26.0" prefWidth="88.0" text="Confirmar" />
+      <Text layoutX="165.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SELECIONE A MELHOR FOTO DE SEU PET!">
+         <font>
+            <Font name="Dyuthi" size="16.0" />
+         </font>
+      </Text>
    </children>
 </Pane>

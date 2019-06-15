@@ -1,12 +1,9 @@
 package bd;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -21,113 +18,153 @@ import backend.Pet;
 
 public class BDConexaoClass{
     
-    
     DriverManager driver;
     
-    public static Connection BDConexao() throws SQLException{
+    
+    public static Connection BDConexao(){
         
-       String con="jdbc:mysql://localhost:3306/poo_db";
-       String server_user = "root";
-       String server_pass = "rootpass";
+       String con="jdbc:mysql://127.0.0.1:3306/adopet";
+       String server_user = "adopet";
+       String server_pass = "@adopet33";
        
        Connection connect = null;
-       connect = DriverManager.getConnection(con,server_user,server_pass);
-       
+       try {
+		connect = DriverManager.getConnection(con,server_user,server_pass);
+	} catch (SQLException e) {
+		System.out.println("Erro ao conectar com o BD");
+	}
        return connect;
         
     }
     
-    public void cadastroPet(Pet p) throws SQLException{
+    public static void cadastroPet(Pet p){
         Connection con = BDConexao();
-        String insert = "INSERT INTO pets values(?,?,?,?,?,?)";
-        PreparedStatement ps = con.prepareStatement(insert);
-        ps.setInt(1, (int)p.getPetID());
-        ps.setString(2, p.getEspecie());
-        ps.setString(3, p.getNome());
-        ps.setString(4, p.getSexo());
-        ps.setString(5, p.getDetalhes());
-        ps.setInt(6,(int)p.getAnuncianteID());
-        @SuppressWarnings("unused")
-		ResultSet rs = ps.executeQuery();
-        
-    }
-    
-    private static byte[] readFile(String file) throws IOException{
-    	
-    	ByteArrayOutputStream bos = null;
-    	try{
-    		File f = new File(file);
-    		FileInputStream fis = new FileInputStream(f);
-    		byte[] buffer = new byte[1024];
-    		bos = new ByteArrayOutputStream();
-    		for(int len; (len = fis.read(buffer)) != -1; ){
-    			bos.write(buffer,0,len);
-    			fis.close();
-    		}
-    		
-    	}
-    	catch(FileNotFoundException e){
-    		System.err.println(e.getMessage());
-    	}catch(IOException e2){
-    		System.err.println(e2.getMessage());
-    	}
-    	return bos != null  ? bos.toByteArray() : null;
-    	
+        String insert = "INSERT INTO pets(species,nome,sexo,detalhes,id_doador,imagem) values(?,?,?,?,?,?)";
+        PreparedStatement ps = null;
+		try {
+			ps = con.prepareStatement(insert);
+		} catch (SQLException e) {
+			System.out.println("Erro na preparacao da Query");
+		}
+        try {
+			ps.setString(1, p.getEspecie());
+			ps.setString(2, p.getNome());
+	        ps.setString(3, p.getSexo());
+	        ps.setString(4, p.getDetalhes());
+	        ps.setInt(5,(int)p.getAnuncianteID());
+	        BufferedImage image = SwingFXUtils.fromFXImage(p.getIcone(), null);
+	        ByteArrayOutputStream A = new ByteArrayOutputStream();
+	        try {
+				ImageIO.write(image, "jpg", A);
+			} catch (IOException e) {
+				System.out.println("Erro ao escrever a imagem!");
+			}
+	        InputStream is = new ByteArrayInputStream(A.toByteArray());
+	        ps.setBlob(6, is);
+		} catch (SQLException e) {
+			System.out.println("Erro ao setar o statament");
+		}
+        try {
+			ps.execute();
+		} catch (SQLException e) {
+			System.out.println("Erro ao executar a Query Cadastro");
+		}
     }
     
     
     // Fun��o que cadastra o usu�rio no Banco de Dados
-    public static void cadastroUser(Usuario user) throws SQLException{
+    public static void cadastroUser(Usuario user){
         Connection con = BDConexao();
-        String insert = "INSERT INTO clientes values(?,?,?,?,?,?,?,?,?)";
-        PreparedStatement ps = con.prepareStatement(insert);
-        ps.setInt(1, (int)user.getId());
-        ps.setString(2, user.getUserName());
-        ps.setString(3, user.getSenha());
-        ps.setString(4, user.getNome());
-        ps.setString(6, user.getCpf());
-        ps.setString(7, user.getCidade());
-        ps.setString(8, user.getEndereco());
-        ps.setString(9, user.getCep());
+        String insert = "INSERT INTO clientes(username,senha,nome,cpf,cidade,endereco,cep) values(?,?,?,?,?,?,?)";
+        System.out.println(insert);
+        PreparedStatement ps = null;
+		try {
+			ps = con.prepareStatement(insert);
+		} catch (SQLException e) {
+			System.out.println("Erro na preparacao da Query");
+		}
+        try {
+			ps.setString(1, user.getUserName());
+	        ps.setString(2, user.getSenha());
+	        ps.setString(3, user.getNome());
+	        ps.setString(4, user.getCpf());
+	        ps.setString(5, user.getCidade());
+	        ps.setString(6, user.getEndereco());
+	        ps.setString(7, user.getCep());
+		} catch (SQLException e) {
+			System.out.println("Erro ao setar valores");
+		}
         
-        @SuppressWarnings("unused")
-		ResultSet rs = ps.executeQuery();
+        try {
+			ps.execute();
+		} catch (SQLException e) {
+			System.out.println("Erro na execucao da Query");
+		}
     }
     
-    public static boolean loginUser(Usuario user) throws SQLException{
-        
+    public static boolean loginUser(Usuario user){
         Connection con = BDConexao();
-        String select = "SELECT * FROM clientes where nomelogin=?";
-        PreparedStatement ps = con.prepareStatement(select);
-        ps.setString(1, user.getUserName());
+        String select = "SELECT * FROM clientes where username=?";
+        PreparedStatement ps = null;
+		try {
+			ps = con.prepareStatement(select);
+		} catch (SQLException e) {
+			System.out.println("Erro ao preparar statament");
+		}
+        try {
+			ps.setString(1, user.getUserName());
+		} catch (SQLException e) {
+			System.out.println("Erro ao setar nome");
+		}
         
-        ResultSet rs = ps.executeQuery();
+        ResultSet rs = null;
+		try {
+			rs = ps.executeQuery();
+		} catch (SQLException e) {
+			System.out.println("Erro ao exucutar a query antes do while");
+		}
+		
+        if(rs == null){
+		    //Nega login, pois n�o existe ningu�m com o nome colocado no campo
+		    return false;
+		}
         
-        if(rs.wasNull()){
-            //Nega login, pois n�o existe ningu�m com o nome colocado no campo
-            return false;
-        }
-        
-        while(rs.next()){
-            String  getpass = rs.getString(3);
-            if(user.getSenha().equals(getpass)){
-            	//Autoriza login, pois o usuario esta no BD;
-                return true;
-            }
-        }
+        try {
+			while(rs.next()){
+			    String  getpass = rs.getString(3);
+			    if(user.getSenha().equals(getpass)){
+			    	//Autoriza login, pois o usuario esta no BD;
+			        return true;
+			    }
+			}
+		} catch (SQLException e) {
+			System.out.println("Erro ao acessar o bd para verificar se \"next\"");
+		}
         //Se nao encontrar nenhuma senha igual, nega login!
         return false;
     }
 
 
-    public static void adotarPet(Pet p) throws SQLException{
+    public static void adotarPet(Pet p){
 
         Connection con = BDConexao();
         String del = "Delete FROM pets WHERE nome = ?";
-        PreparedStatement ps = con.prepareStatement(del);
-        ps.setString(1,p.getNome());
-        @SuppressWarnings("unused")
-		ResultSet rs = ps.executeQuery();
+        PreparedStatement ps = null;
+		try {
+			ps = con.prepareStatement(del);
+		} catch (SQLException e) {
+			System.out.println("Erro ao preparar statament");
+		}
+        try {
+			ps.setString(1,p.getNome());
+		} catch (SQLException e) {
+			System.out.println("Erro ao receber nome");
+		}
+        try {
+			ps.execute();
+		} catch (SQLException e) {
+			System.out.println("Erro ao executar statament");
+		}
 
     }
 
@@ -239,16 +276,29 @@ public class BDConexaoClass{
 
 
        
-    public static int getSizePets() throws SQLException{
+    public static int getSizePets(){
     	
     	Connection con = BDConexao();
     	String cont = "SELECT COUNT(pet_id) FROM pets";
-    	PreparedStatement ps = con.prepareStatement(cont);
+    	PreparedStatement ps = null;
+		try {
+			ps = con.prepareStatement(cont);
+		} catch (SQLException e) {
+			System.out.println("Erro ao preparar a Query");
+		}
     	
-    	ResultSet rs = ps.executeQuery();
+    	ResultSet rs = null;
+		try {
+			rs = ps.executeQuery();
+		} catch (SQLException e) {
+			System.out.println("Erro ao executar o Query RS");
+		}
     	
-    	return rs.getInt(1);
-    	
+    	try {
+			return rs.getInt(1);
+		} catch (SQLException e) {
+			return 0;
+		}
     }
 
 
@@ -284,46 +334,6 @@ public class BDConexaoClass{
     }
 
     
-    
-    public static void inserirImagem(String filename) throws SQLException, IOException{
-    	
-    	String update= "UPDATE pets SET caminho_imagem_pet= ?";
-    	
-    	Connection con = BDConexao();
-    	PreparedStatement ps = con.prepareStatement(update);
-    	ps.setBytes(1,readFile(filename));
-    	ps.executeUpdate();
-    	
-    }
-    
-    public static BufferedImage selecionarImagem(Pet p) throws SQLException, IOException{
-    	
-    	Connection con = BDConexao();
-    	String select = "SELECT caminho_imagem_pet FROM pets WHERE pet_id = ?";
-    	PreparedStatement ps = con.prepareStatement(select);
-    	ps.setInt(1,(int)p.getPetID());
-    	
-        ResultSet rs = ps.executeQuery();
-        Blob bb = rs.getBlob(7);
-        InputStream in = bb.getBinaryStream();
-        BufferedImage image = ImageIO.read(in);
-        return image;
-
-    	/*
-    	File arq = new File(BDConexaoClass.class.getResource("../../resources/iconepet.jpg").getPath());
-    	FileOutputStream fos = new FileOutputStream(arq);
-    	fos.close();
-    	while(rs.next()){
-    		InputStream input = rs.getBinaryStream("caminho_imagem_pet");
-    		byte[] buffer = new byte[1024];
-    		while(input.read(buffer) > 0){
-    			fos.write(buffer);
-    		}
-    	}
-    	*/	
-    	
-    }
-    
     public static Usuario retornaUsuario(int id) throws SQLException{
 
         Usuario user = new Usuario();
@@ -348,32 +358,61 @@ public class BDConexaoClass{
 
     }
 
-    public static Pet retornaPet(int index) throws NumberFormatException, SQLException, IOException{
+    public static Pet retornaPet(int index){
 
         int indextotal = getSizePets();
         int aux = indextotal - index;
 
         Connection con = BDConexao();
         String select = "SELECT * FROM pets WHERE pet_id= ?";
-        PreparedStatement ps = con.prepareStatement(select);
-        ps.setInt(1,aux);
+        PreparedStatement ps = null;
+		try {
+			ps = con.prepareStatement(select);
+		} catch (SQLException e) {
+			System.out.println("Erro ao preparar a statament retornaPet");
+		}
+        try {
+			ps.setInt(1,aux);
+		} catch (SQLException e) {
+			System.out.println("Erro ou setar Int RetornaPet");
+		}
 
-        ResultSet rs = ps.executeQuery();
+        ResultSet rs = null;
+		try {
+			rs = ps.executeQuery();
+		} catch (SQLException e) {
+			System.out.println("Erro ao executar a Query retornaPet");
+		}
 
         Pet p = new Pet();
 
-        while(rs.next()){
-            p.setPetID(rs.getInt(1));
-            p.setEspecie(rs.getString(2));
-            p.setNome(rs.getString(3));
-            p.setSexo(rs.getString(4));
-            p.setDetalhes(rs.getString(5));
-            p.setAnuncianteID(rs.getInt(6));
-            Usuario anunciante = new Usuario();
-            anunciante = retornaUsuario((int)p.getAnuncianteID());
-            p.setAnunciante(anunciante);
-            p.setIcone(SwingFXUtils.toFXImage(BDConexaoClass.selecionarImagem(p), null));
-        }
+        try {
+			while(rs.next()){
+			    p.setPetID(rs.getInt(1));
+			    p.setEspecie(rs.getString(2));
+			    p.setNome(rs.getString(3));
+			    p.setSexo(rs.getString(4));
+			    p.setDetalhes(rs.getString(5));
+			    p.setAnuncianteID(rs.getInt(6));
+			    Usuario anunciante = new Usuario();
+			    anunciante = retornaUsuario((int)p.getAnuncianteID());
+			    p.setAnunciante(anunciante);
+			}
+		} catch (SQLException e) {
+			System.out.println("Erro ao setar return retornaPet");
+		}
+        
+        try {
+            InputStream in = rs.getBlob(7).getBinaryStream();
+            BufferedImage image = ImageIO.read(in);
+			p.setIcone(SwingFXUtils.toFXImage(image, null));
+		} catch (SQLException e) {
+			System.out.println("Exception SQL ao setar o icone");
+		} catch (IOException e) {
+			System.out.println("Exception IO ao setar o icone");
+		}
+        
+        
         return p;
 
     }
