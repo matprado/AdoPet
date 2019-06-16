@@ -324,18 +324,6 @@ public class Gui extends Application {
 			System.out.println("Erro no carregamento do FXML");
 		}
     }
-    
-    public static void main(String[] args) {
-    	Gui.User = new Usuario();
-    	Gui.pet = new Pet[4];
-    	Gui.index = 0;
-    	Gui.numeropaginas = 1;
-		Gui.numeropaginas = BDConexaoClass.getSizePets() / 4;
-		if(Gui.numeropaginas % 4 > 0) {
-			Gui.numeropaginas++;
-		}
-    	Gui.launch(args); //Requisitando inicializacao da Gui
-    }
 
 	public static void avancaPag() {
 		Gui.paginaatual++;
@@ -352,5 +340,17 @@ public class Gui extends Application {
 		}
 		Gui.telaDisponiveis();
 	}
+	
+	public static void run(String[] args) {
+    	Gui.User = new Usuario();
+    	Gui.pet = new Pet[4];
+    	Gui.index = 0;
+    	Gui.numeropaginas = 1;
+		Gui.numeropaginas = BDConexaoClass.getSizePets() / 4;
+		if(BDConexaoClass.getSizePets() % 4 > 0) {
+			Gui.numeropaginas++;
+		}
+    	Gui.launch(args); //Requisitando inicializacao da Gui
+    }
     
 }
