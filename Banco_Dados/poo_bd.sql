@@ -53,6 +53,8 @@ ALTER TABLE mensagens ADD UNIQUE(id_mensagem);
 
 SELECT * FROM pets;
 
+SELECT * FROM clientes;
+
 DELETE FROM pets WHERE pet_id=1;
 
 DELETE FROM clientes WHERE cliente_id=2;

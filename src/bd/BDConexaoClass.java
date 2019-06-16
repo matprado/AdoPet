@@ -361,7 +361,7 @@ public class BDConexaoClass{
     public static Pet retornaPet(int index){
 
         int indextotal = getSizePets();
-        int aux = indextotal - index;
+        int aux = indextotal - index+1;
 
         Connection con = BDConexao();
         String select = "SELECT * FROM pets WHERE pet_id= ?";
@@ -403,6 +403,7 @@ public class BDConexaoClass{
 		}
         
         try {
+        	rs.last();
             InputStream in = rs.getBlob(7).getBinaryStream();
             BufferedImage image = ImageIO.read(in);
 			p.setIcone(SwingFXUtils.toFXImage(image, null));
