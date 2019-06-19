@@ -56,4 +56,9 @@ public class ChatManager {
 		Gui.telaChat();
 	}
 	
+	@FXML public void cancelar(ActionEvent event) {
+		BDConexaoClass.excluirChat(Gui.User, Gui.contato);
+		Gui.telaDisponiveis();
+	}
+	
 }

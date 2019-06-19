@@ -282,8 +282,8 @@ public class Gui extends Application {
 		for(HashMap.Entry<Integer, String> msg : mensagens.entrySet()) {
 			Label texto = new Label();
 			texto.setText(msg.getValue());
-			if(msg.getKey() == 0) {
-				//mensagem do usuï¿½rio...
+			if(msg.getKey() == Gui.User.getId()) {
+				//mensagem do usuário...
 				texto.setAlignment(Pos.CENTER_LEFT);
 			}else texto.setAlignment(Pos.CENTER_RIGHT);
 			box.getChildren().add(texto);
@@ -299,8 +299,9 @@ public class Gui extends Application {
 	}
 	
 	public static void finalizaAdocao() {
-		BDConexaoClass.exluirChat(Gui.User, Gui.contato);
+		BDConexaoClass.excluirChat(Gui.User, Gui.contato);
 		BDConexaoClass.adotaPet(Gui.User, Gui.contato);
+		Gui.telaDisponiveis();
 	}
 	
 	public static void telaPorqueAdotar() {
