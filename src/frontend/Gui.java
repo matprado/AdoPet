@@ -256,7 +256,8 @@ public class Gui extends Application {
         Gui.Stg.show();
 	}
 	
-	public static void iniciarChat(Usuario contato){
+	
+	public static void telaConversa() {
 		FXMLLoader loader = null;
 		try {
 			loader = new FXMLLoader(new File("src/frontend/conversa.fxml").toURI().toURL());
@@ -268,25 +269,26 @@ public class Gui extends Application {
 		} catch (IOException e) {
 			System.out.println("Erro no carregamento do FXML");
 		}
-		try {
-			if(!BDConexaoClass.existeChat(Gui.User, contato)) {
-				BDConexaoClass.comecarChat(Gui.User, contato);
-				((Label)getComp("textoInicial")).setText(((Label)getComp("textoInicial")).getText() + contato.getNome());
-			}else{
-				((Label)getComp("textoInicial")).setDisable(true);
-				mostrarMensagensAntigas();		
-			}
-		} catch (SQLException e) {
-			System.out.println("Erro ao conectar ao BD receber chat");
+		Scene S = new Scene(root);
+		Gui.Stg.setScene(S);
+        Gui.Stg.setTitle("AdoPet");
+        Gui.Stg.show();
+	}
+	
+	
+	public static void iniciarChat(){
+		if(!BDConexaoClass.existeChat(Gui.User, Gui.contato)){
+			BDConexaoClass.comecarChat(Gui.User, Gui.contato);
+			((Label)Gui.getComp("textoInicial")).setText(((Label)getComp("textoInicial")).getText() + Gui.contato.getNome());
+		}else{
+			//((Label)Gui.getComp("textoInicial")).setDisable(true);
+			mostrarMensagensAntigas();		
 		}
-<<<<<<< HEAD
+
 		if(BDConexaoClass.UsuarioAceitou(Gui.User, Gui.contato)) {
-=======
-		/*if(usuario_aceitou) {
->>>>>>> master
-			((Button)getComp("finalizar")).setText("Esperando");
-		}*/
-		((Label)getComp("texto")).setText(((Label)getComp("texto")).getText() + contato.getNome());
+			((Button)Gui.getComp("finalizar")).setText("Esperando");
+		}
+		((Label)Gui.getComp("texto")).setText(((Label)getComp("texto")).getText() + Gui.contato.getNome());
 		Scene S = new Scene(root);
 		Gui.Stg.setScene(S);
         Gui.Stg.setTitle("AdoPet");

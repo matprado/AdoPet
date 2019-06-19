@@ -194,8 +194,8 @@ public class BDConexaoClass{
     	}
     	
     	try {
-			pss.setInt(1,(int)user1.getId());
-			pss.setInt(2,(int)user2.getId());
+			pss.setInt(1,BDConexaoClass.getIdAnun(user1.getUserName()));
+			pss.setInt(2,BDConexaoClass.getIdAnun(user2.getUserName()));
 		} catch (SQLException e1) {
 			System.out.println("Erro ao setar ID's no prepared statament! - Chat");
 		}
@@ -355,15 +355,31 @@ public class BDConexaoClass{
     	
     }
 
-    public static boolean existeChat(Usuario user1,Usuario user2) throws SQLException{
+    public static boolean existeChat(Usuario user1,Usuario user2){
 
         Connection con = BDConexao();
-        String select = "SELECT * FROM chat where user1_id=? AND user2_id=?";
-        PreparedStatement ps = con.prepareStatement(select);
-        ps.setInt(1, (int)user1.getId());
-        ps.setInt(2, (int)user2.getId());
-
-        ResultSet rs = ps.executeQuery();
+        String select = "SELECT * FROM chat WHERE user1_id=? AND user2_id=?";
+        PreparedStatement ps = null;
+		try {
+			ps = con.prepareStatement(select);
+		} catch (SQLException e) {
+			System.out.println("Erro na statement existeChat");
+		}
+		
+        try {
+			ps.setInt(1, BDConexaoClass.getIdAnun(user1.getUserName()));
+			ps.setInt(2, BDConexaoClass.getIdAnun(user2.getUserName()));
+		} catch (SQLException e) {
+			System.out.println("Erro ao setar inteiros Statement - existeChar");
+		}
+        
+        ResultSet rs = null;
+		try {
+			rs = ps.executeQuery();
+		} catch (SQLException e) {
+			System.out.println("Erro ao executar Query - exiteChat");
+			return false;
+		}
 
         if(rs == null){
             return false;
