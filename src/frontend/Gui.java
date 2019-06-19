@@ -279,7 +279,11 @@ public class Gui extends Application {
 		} catch (SQLException e) {
 			System.out.println("Erro ao conectar ao BD receber chat");
 		}
+<<<<<<< HEAD
+		if(BDConexaoClass.UsuarioAceitou(Gui.User, Gui.contato)) {
+=======
 		/*if(usuario_aceitou) {
+>>>>>>> master
 			((Button)getComp("finalizar")).setText("Esperando");
 		}*/
 		((Label)getComp("texto")).setText(((Label)getComp("texto")).getText() + contato.getNome());

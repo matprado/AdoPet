@@ -40,9 +40,15 @@ public class ChatManager {
 	@FXML public void usuarioAceitou(ActionEvent event) {
 		if(((Button)Gui.getComp(((Control)event.getSource()).getId())).getText() == "Finalizar") {
 			((Button)Gui.getComp(((Control)event.getSource()).getId())).setText("Esperando");
+<<<<<<< HEAD
+			BDConexaoClass.finaliza(Gui.User, Gui.contato);	
+		}
+		if(BDConexaoClass.UsuarioAceitou(Gui.contato, Gui.User)) {
+=======
 			//definir_no_bd_usuario_aceitou...
 		}
 		/*if(contato_tbm_aceitou) {
+>>>>>>> master
 			Gui.finalizaAdocao();
 		}*/
 		
