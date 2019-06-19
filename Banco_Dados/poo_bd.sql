@@ -34,7 +34,9 @@ CREATE TABLE IF NOT EXISTS chat(
 
     chat_id INTEGER  NOT NULL AUTO_INCREMENT primary key,
     user1_id integer NOT NULL,
-    user2_id integer NOT NULL    
+    user2_id integer NOT NULL,
+    confirma_user1 boolean NOT NULL,
+    confirma_user2 boolean NOT NULL
 );
 
 ALTER TABLE chat ADD UNIQUE(chat_id);
