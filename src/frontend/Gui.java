@@ -259,8 +259,11 @@ public class Gui extends Application {
 		}else{
 			((Label)getComp("textoInicial")).setDisable(true);
 			mostrarMensagensAntigas();		
-		}		
-		((Label)getComp("texto")).setText(((Label)getComp("texto")).getText() + contato.getNome());	
+		}
+		if(usuario_aceitou) {
+			((Button)getComp("finalizar")).setText("Esperando");
+		}
+		((Label)getComp("texto")).setText(((Label)getComp("texto")).getText() + contato.getNome());
 		Scene S = new Scene(root);
 		Gui.Stg.setScene(S);
         Gui.Stg.setTitle("AdoPet");
@@ -279,8 +282,8 @@ public class Gui extends Application {
 		for(HashMap.Entry<Integer, String> msg : mensagens.entrySet()) {
 			Label texto = new Label();
 			texto.setText(msg.getValue());
-			if(msg.getKey() == 0) {
-				//mensagem do usuï¿½rio...
+			if(msg.getKey() == Gui.User.getId()) {
+				//mensagem do usuário...
 				texto.setAlignment(Pos.CENTER_LEFT);
 			}else texto.setAlignment(Pos.CENTER_RIGHT);
 			box.getChildren().add(texto);
@@ -293,6 +296,12 @@ public class Gui extends Application {
 		nova.setText(mensagem);
 		nova.setAlignment(Pos.CENTER_LEFT);
 		box.getChildren().add(nova);
+	}
+	
+	public static void finalizaAdocao() {
+		BDConexaoClass.excluirChat(Gui.User, Gui.contato);
+		BDConexaoClass.adotaPet(Gui.User, Gui.contato);
+		Gui.telaDisponiveis();
 	}
 	
 	public static void telaPorqueAdotar() {

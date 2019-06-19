@@ -8,10 +8,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: SteelBlue;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.ChatManager">
    <children>
-      <Label layoutX="172.0" layoutY="14.0" prefHeight="28.0" prefWidth="257.0" text="Conversa com " textAlignment="CENTER" textFill="WHITE">
+      <Label layoutX="45.0" layoutY="15.0" prefHeight="28.0" prefWidth="316.0" text="Conversa com " textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>
@@ -31,5 +30,7 @@
       </Pane>
       <TextArea fx:id="texto" layoutX="45.0" layoutY="336.0" prefHeight="37.0" prefWidth="459.0" promptText="Digite aqui o texto..." />
       <Button fx:id="botao" layoutX="504.0" layoutY="336.0" mnemonicParsing="false" onAction="#enviouMensagem" prefHeight="37.0" prefWidth="51.0" text="Enviar" />
+      <Button fx:id="finalizar" layoutX="470.0" layoutY="11.0" mnemonicParsing="false" onAction="#usuarioAceitou" prefHeight="37.0" prefWidth="86.0" text="Finalizar" />
+      <Button fx:id="voltar" layoutX="376.0" layoutY="11.0" mnemonicParsing="false" onAction="#voltar" prefHeight="37.0" prefWidth="86.0" text="Voltar" />
    </children>
 </Pane>
