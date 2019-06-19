@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
@@ -32,73 +33,39 @@
             <Font name="Dyuthi" size="16.0" />
          </font>
       </RadioButton>
-      <GridPane layoutX="65.0" layoutY="68.0" prefHeight="264.0" prefWidth="471.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-        </columnConstraints>
-        <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Pane fx:id="pet1" onMouseClicked="#clicaPet" prefHeight="200.0" prefWidth="200.0">
-               <children>
-                  <ImageView fx:id="image1" fitHeight="96.0" fitWidth="157.0" layoutX="40.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
-                  <Text fx:id="nome_pet1" layoutX="10.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="215.13671875">
-                     <font>
-                        <Font name="Dyuthi" size="17.0" />
-                     </font></Text>
-               </children>
-            </Pane>
-            <Pane fx:id="pet2" onMouseClicked="#clicaPet" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1">
-               <children>
-                  <ImageView fx:id="image2" fitHeight="96.0" fitWidth="157.0" layoutX="40.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
-                  <Text fx:id="nome_pet2" layoutX="10.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="215.13671875">
-                     <font>
-                        <Font name="Dyuthi" size="17.0" />
-                     </font>
-                  </Text>
-               </children>
-            </Pane>
-            <Pane fx:id="pet3" onMouseClicked="#clicaPet" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
-               <children>
-                  <ImageView fx:id="image3" fitHeight="96.0" fitWidth="157.0" layoutX="40.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
-                  <Text fx:id="nome_pet3" layoutX="10.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="215.13671875">
-                     <font>
-                        <Font name="Dyuthi" size="17.0" />
-                     </font>
-                  </Text>
-               </children>
-            </Pane>
-            <Pane fx:id="pet4" onMouseClicked="#clicaPet" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <children>
-                  <ImageView fx:id="image4" fitHeight="96.0" fitWidth="157.0" layoutX="40.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
-                  <Text fx:id="nome_pet4" layoutX="10.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="215.13671875">
-                     <font>
-                        <Font name="Dyuthi" size="17.0" />
-                     </font>
-                  </Text>
-               </children>
-            </Pane>
-         </children>
-      </GridPane>
       <Button fx:id="anunciar" layoutX="14.0" layoutY="355.0" mnemonicParsing="false" onAction="#clicaAnunciar" prefHeight="25.0" prefWidth="88.0" text="Anunciar">
          <font>
             <Font name="Dyuthi" size="16.0" />
          </font></Button>
-      <Button fx:id="voltar" layoutX="477.0" layoutY="355.0" mnemonicParsing="false" onAction="#voltaPag" text="&lt;--">
+      <Button fx:id="voltar" layoutX="176.0" layoutY="355.0" mnemonicParsing="false" onAction="#voltaPag" text="&lt;--">
          <font>
             <Font name="Dyuthi" size="16.0" />
          </font></Button>
-      <Button fx:id="avancar" layoutX="536.0" layoutY="355.0" mnemonicParsing="false" onAction="#avancaPag" text="--&gt;">
+      <Button fx:id="avancar" layoutX="358.0" layoutY="355.0" mnemonicParsing="false" onAction="#avancaPag" text="--&gt;">
          <font>
             <Font name="Dyuthi" size="16.0" />
          </font></Button>
-      <Text fx:id="npag" layoutX="293.0" layoutY="391.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-">
+      <Text fx:id="npag" layoutX="225.0" layoutY="376.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-" textAlignment="CENTER" wrappingWidth="123.64013671875">
          <font>
             <Font name="Dyuthi" size="13.0" />
          </font>
       </Text>
+      <ImageView fx:id="image1" fitHeight="112.0" fitWidth="171.0" layoutX="48.0" layoutY="56.0" nodeOrientation="INHERIT" pickOnBounds="true">
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </ImageView>
+      <ImageView fx:id="image2" fitHeight="112.0" fitWidth="171.0" layoutX="358.0" layoutY="56.0" nodeOrientation="INHERIT" pickOnBounds="true" />
+      <ImageView fx:id="image3" fitHeight="112.0" fitWidth="171.0" layoutX="48.0" layoutY="200.0" nodeOrientation="INHERIT" pickOnBounds="true" />
+      <ImageView fx:id="image4" fitHeight="112.0" fitWidth="171.0" layoutX="358.0" layoutY="200.0" nodeOrientation="INHERIT" pickOnBounds="true" />
+      <Button fx:id="nome_pet1" layoutX="48.0" layoutY="168.0" mnemonicParsing="false" onAction="#clicaPet" prefHeight="25.0" prefWidth="171.0" text="Button" />
+      <Button fx:id="nome_pet2" layoutX="358.0" layoutY="168.0" mnemonicParsing="false" onAction="#clicaPet" prefHeight="25.0" prefWidth="171.0" text="Button" />
+      <Button fx:id="nome_pet3" layoutX="48.0" layoutY="312.0" mnemonicParsing="false" onAction="#clicaPet" prefHeight="25.0" prefWidth="171.0" text="Button" />
+      <Button fx:id="nome_pet4" layoutX="358.0" layoutY="312.0" mnemonicParsing="false" onAction="#clicaPet" prefHeight="25.0" prefWidth="171.0" text="Button" />
+      <Button layoutX="525.0" layoutY="355.0" mnemonicParsing="false" onAction="#sair" prefHeight="38.0" prefWidth="62.0" text="Sair">
+         <font>
+            <Font name="Dyuthi" size="13.0" />
+         </font>
+      </Button>
    </children>
 </Pane>

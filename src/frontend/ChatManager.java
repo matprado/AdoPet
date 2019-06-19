@@ -22,11 +22,7 @@ public class ChatManager {
 	@FXML public void apertou(ActionEvent event) {
         int id = Integer.parseInt(((Control)event.getSource()).getId());
 		Gui.contato = Gui.contatos[id];
-        try {
-			Gui.iniciarChat(Gui.contato);
-		} catch (SQLException e) {
-			System.out.println("Erro ao iniciar chat");
-		}
+        Gui.iniciarChat(Gui.contato);
     }
 	
 	@FXML public void enviouMensagem(ActionEvent event) {

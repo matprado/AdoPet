@@ -8,7 +8,7 @@ CREATE TABLE if not exists pets(
 	species varchar(20) NOT NULL,
     nome varchar(50) NOT NULL,
     sexo VARCHAR(20) NOT NULL,
-    detalhes VARCHAR(100) not null,
+    detalhes VARCHAR(256) not null,
     id_doador LONG NOT NULL,
     imagem MEDIUMBLOB
 );
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS mensagens(
     id_chat INTEGER NOT NULL,
     id_remetente integer NOT NULL,
     mensagem TEXT NOT NULL,
-    key message_length (mensagem(255)),
+    key message_length (mensagem(256)),
     FOREIGN KEY(id_chat) REFERENCES chat(chat_id)
 );
 

@@ -38,6 +38,41 @@ public class BDConexaoClass{
         
     }
     
+    public static int getIdAnun(String username) {
+    	Connection con = BDConexao();
+    	String select = "SELECT cliente_id FROM clientes WHERE username=?";
+    	PreparedStatement ps = null;
+		try {
+			ps = con.prepareStatement(select);
+		} catch (SQLException e) {
+			System.out.println("Erro na preparacao da Query getIdAnun");
+		}
+		try {
+			ps.setString(1, username);
+		} catch (SQLException e) {
+			System.out.println("Erro ao setar na Query getIdAnun");
+		}
+		
+		ResultSet rs = null;
+		
+		try {
+			rs = ps.executeQuery();
+		} catch (SQLException e) {
+			System.out.println("Erro ao executar a Query getIdAnun - ");
+		}
+		try {
+			rs.last();
+		} catch (SQLException e1) {
+			System.out.println("Erro ao indexar first - getAnun");
+		}
+		try {
+			return rs.getInt(1);
+		} catch (SQLException e) {
+			return 0;
+		}
+		
+    }
+    
     public static void cadastroPet(Pet p){
         Connection con = BDConexao();
         String insert = "INSERT INTO pets(species,nome,sexo,detalhes,id_doador,imagem) values(?,?,?,?,?,?)";
@@ -52,7 +87,8 @@ public class BDConexaoClass{
 			ps.setString(2, p.getNome());
 	        ps.setString(3, p.getSexo());
 	        ps.setString(4, p.getDetalhes());
-	        ps.setInt(5,(int)p.getAnuncianteID());
+	        int idAnun = getIdAnun(Gui.User.getUserName());
+	        ps.setInt(5,idAnun);
 	        BufferedImage image = SwingFXUtils.fromFXImage(p.getIcone(), null);
 	        ByteArrayOutputStream A = new ByteArrayOutputStream();
 	        try {
@@ -431,7 +467,7 @@ public class BDConexaoClass{
     public static int getSizePets(){
     	
     	Connection con = BDConexao();
-    	String cont = "SELECT COUNT(pet_id) FROM pets";
+    	String cont = "SELECT COUNT(*) FROM pets";
     	PreparedStatement ps = null;
 		try {
 			ps = con.prepareStatement(cont);
@@ -447,6 +483,7 @@ public class BDConexaoClass{
 		}
     	
     	try {
+    		rs.last();
 			return rs.getInt(1);
 		} catch (SQLException e) {
 			return 0;
@@ -513,10 +550,9 @@ public class BDConexaoClass{
     public static Pet retornaPet(int index){
 
         int indextotal = getSizePets();
-        int aux = indextotal - index+1;
-
+        int aux = indextotal - (index);
         Connection con = BDConexao();
-        String select = "SELECT * FROM pets WHERE pet_id= ?";
+        String select = "SELECT * FROM pets WHERE pet_id=?";
         PreparedStatement ps = null;
 		try {
 			ps = con.prepareStatement(select);
@@ -559,12 +595,9 @@ public class BDConexaoClass{
             InputStream in = rs.getBlob(7).getBinaryStream();
             BufferedImage image = ImageIO.read(in);
 			p.setIcone(SwingFXUtils.toFXImage(image, null));
-		} catch (SQLException e) {
-			System.out.println("Exception SQL ao setar o icone");
-		} catch (IOException e) {
-			System.out.println("Exception IO ao setar o icone");
+		} catch (SQLException | IOException e) {
+			return null;
 		}
-        
         
         return p;
 
