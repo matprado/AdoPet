@@ -44,11 +44,11 @@ public class ChatManager {
 	@FXML public void usuarioAceitou(ActionEvent event) {
 		if(((Button)Gui.getComp(((Control)event.getSource()).getId())).getText() == "Finalizar") {
 			((Button)Gui.getComp(((Control)event.getSource()).getId())).setText("Esperando");
-			definir_no_bd_usuario_aceitou...
+			//definir_no_bd_usuario_aceitou...
 		}
-		if(contato_tbm_aceitou) {
+		/*if(contato_tbm_aceitou) {
 			Gui.finalizaAdocao();
-		}
+		}*/
 		
 	}
 	
@@ -57,7 +57,7 @@ public class ChatManager {
 	}
 	
 	@FXML public void cancelar(ActionEvent event) {
-		BDConexaoClass.excluirChat(Gui.User, Gui.contato);
+		//BDConexaoClass.excluirChat(Gui.User, Gui.contato);
 		Gui.telaDisponiveis();
 	}
 	

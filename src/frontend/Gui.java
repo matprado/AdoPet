@@ -260,9 +260,9 @@ public class Gui extends Application {
 			((Label)getComp("textoInicial")).setDisable(true);
 			mostrarMensagensAntigas();		
 		}
-		if(usuario_aceitou) {
+		/*if(usuario_aceitou) {
 			((Button)getComp("finalizar")).setText("Esperando");
-		}
+		}*/
 		((Label)getComp("texto")).setText(((Label)getComp("texto")).getText() + contato.getNome());
 		Scene S = new Scene(root);
 		Gui.Stg.setScene(S);
@@ -283,7 +283,7 @@ public class Gui extends Application {
 			Label texto = new Label();
 			texto.setText(msg.getValue());
 			if(msg.getKey() == Gui.User.getId()) {
-				//mensagem do usuário...
+				//mensagem do usuï¿½rio...
 				texto.setAlignment(Pos.CENTER_LEFT);
 			}else texto.setAlignment(Pos.CENTER_RIGHT);
 			box.getChildren().add(texto);
@@ -299,8 +299,8 @@ public class Gui extends Application {
 	}
 	
 	public static void finalizaAdocao() {
-		BDConexaoClass.excluirChat(Gui.User, Gui.contato);
-		BDConexaoClass.adotaPet(Gui.User, Gui.contato);
+		/*BDConexaoClass.excluirChat(Gui.User, Gui.contato);
+		BDConexaoClass.adotaPet(Gui.User, Gui.contato);*/
 		Gui.telaDisponiveis();
 	}
 	
