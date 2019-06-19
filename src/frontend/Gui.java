@@ -37,8 +37,8 @@ public class Gui extends Application {
 	static Usuario contato;
 	
 	//Uso na DisponiveisManager
-	static Pet pet[];
-	static int index;
+	public static Pet pet[];
+	public static int index;
 	static int numeropaginas;
 	static int paginaatual;
 	static File fotopet;

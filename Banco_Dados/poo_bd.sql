@@ -31,12 +31,12 @@ ALTER TABLE clientes ADD UNIQUE(cliente_id);
 
 
 CREATE TABLE IF NOT EXISTS chat(
-
     chat_id INTEGER  NOT NULL AUTO_INCREMENT primary key,
-    user1_id integer NOT NULL,
-    user2_id integer NOT NULL,
+    user1_id INTEGER NOT NULL,
+    user2_id INTEGER NOT NULL,
     confirma_user1 boolean NOT NULL,
-    confirma_user2 boolean NOT NULL
+    confirma_user2 boolean NOT NULL,
+	pet_id INTEGER NOT NULL
 );
 
 ALTER TABLE chat ADD UNIQUE(chat_id);
@@ -52,6 +52,10 @@ CREATE TABLE IF NOT EXISTS mensagens(
 );
 
 ALTER TABLE mensagens ADD UNIQUE(id_mensagem);
+
+DROP TABLE chat;
+
+DROP TABLE mensagens;
 
 SELECT * FROM pets;
 
