@@ -143,67 +143,153 @@ public class BDConexaoClass{
         //Se nao encontrar nenhuma senha igual, nega login!
         return false;
     }
+    
+    
+    public static boolean UsuarioAceitou(Usuario user1, Usuario user2) {
+    	String select = "SELECT confirma_user1 FROM chat whereuser1_id=? and user2_id=?";
+    	String up = "UPDATE chat SET confirma_user1=true where user1_id=? and user2_id=?";
+    	String up2= "UPDATE chat SET confirma_user2=true where user1_id=? and user2_id=?";
+    	
+    	PreparedStatement pss = null;
+    	PreparedStatement psu1 = null;
+    	PreparedStatement psu2 = null;
+    	
+    	try {
+    		pss = con.prepareStatement(select);
+    	}catch(SQLException e) {
+    		System.out.println("Erro ao preparar Statement");
+    	}
+    	
+    	pss.setInt(1,user1.getId());
+    	pss.setInt(2,user2.getId());
+    	
+    	ResultSet rss = null;
+    	
+    	try {
+    		rss = pss.executeQuery();
+    	}catch(SQLException e) {
+    		System.out.println("Erro ao executar a Query");
+    	}
+    	
+    	rss.first();
+    	
+    	if(rss.getBoolean(1)) {
+    		return true;
+    	}
+    	
+    	return false;
+    }
 
 
-    public static void adotarPet(Pet p){
+    public static int finaliza(Usuario user1, Usuario user2) {
+ 
+    	
+    	String up1= "UPDATE chat SET confirma_user1=true where user1_id=? and user2_id=?";
+    	String up2= "UPDATE chat SET confirma_user2=true where user1_id=? and user2_id=?";
+    	
+    	
+    	PreparedStatement psu1 = null;
+    	PreparedStatement psu2 = null;
+    	
+    	
+    	if(UsuarioAceitou(user1,user2) == false) {
+    		try {
+    			psu1 = con.prepareStatement(up1);
+    		}catch(SQLException e) {
+        		System.out.println("Erro ao preparar Statement");
+        	}
+    		psu1.setInt(1,user1.getId());
+    		psu1.setInt(2,user2.getId());
+    		ResultSet rsu1 = null;
+    		try {
+    			rsu1 = psu1.executeQuery();
+    		}catch(SQLException e) {
+    			System.out.println("Erro ao executar a Query");
+    		}
+    		return 1;
+    		
+    	}else {
+    		try {
+    			psu2 = con.prepareStatement(up1);
+    		}catch(SQLException e) {
+    			System.out.println("Erro ao preparar Statement");
+        	}
+    		psu2.setInt(1,user1.getId());
+    		psu2.setInt(2,user2.getId());
+    		ResultSet rsu2 = null;
+    		try {
+    			rsu2 = psu2.executeQuery();
+    		}catch(SQLException e) {
+    			System.out.println("Erro ao executar a Query");
+    		}
+    		
+    		return 2;
+    	}
+    	
+    	return 0;
+    }
 
-        Connection con = BDConexao();
-        String del = "Delete FROM pets WHERE nome = ?";
-        PreparedStatement ps = null;
-		try {
-			ps = con.prepareStatement(del);
-		} catch (SQLException e) {
-			System.out.println("Erro ao preparar statament");
-		}
-        try {
-			ps.setString(1,p.getNome());
-		} catch (SQLException e) {
-			System.out.println("Erro ao receber nome");
-		}
-        try {
-			ps.execute();
-		} catch (SQLException e) {
-			System.out.println("Erro ao executar statament");
-		}
+    public static void adotarPet(Pet p,Usuario user1, Usuario user2){
 
-		String up = "ALTER TABLE pets AUTO_INCREMENT=?";
-		String pegarId = "Select pet_id FROM pets";
-
-		PreparedStatement pss = null;
-		try{
-			pss = con.prepareStatement(pegarId);
-		}catch(SQLException e){
-			System.out.println("Erro ao preparar statement");
-		}
-
-		ResultSet rss = null;
-		try{
-			rss = pss.executeQuery();
-		}catch(SQLException e){
-			System.out.println("Erro ao executar query");
-		}
-
-		rs.last();
-		int id = rs.getInt(1);
-
-		PreparedStatement psu = null;
-		try{
-			psu = con.prepareStatement(up);
-		}catch(SQLException e){
-			System.out.println("Erro ao preparar statement");
-		}
-
-		psu.setInt(1,id-1);
-
-		ResultSet rsu = null;
-		try{
-			rsu = psu.executeQuery();
-		}catch(SQLException e){
-			System.out.println("Erro ao executar query");
-		}
-
-		
-
+    	if(finaliza(user1,user2) == 2) {
+    	
+	        Connection con = BDConexao();
+	        String del = "Delete FROM pets WHERE nome = ?";
+	        PreparedStatement ps = null;
+			try {
+				ps = con.prepareStatement(del);
+			} catch (SQLException e) {
+				System.out.println("Erro ao preparar statament");
+			}
+	        try {
+				ps.setString(1,p.getNome());
+			} catch (SQLException e) {
+				System.out.println("Erro ao receber nome");
+			}
+	        try {
+				ps.execute();
+			} catch (SQLException e) {
+				System.out.println("Erro ao executar statament");
+			}
+	
+			String up = "ALTER TABLE pets AUTO_INCREMENT=?";
+			String pegarId = "Select pet_id FROM pets";
+	
+			PreparedStatement pss = null;
+			try{
+				pss = con.prepareStatement(pegarId);
+			}catch(SQLException e){
+				System.out.println("Erro ao preparar statement");
+			}
+	
+			ResultSet rss = null;
+			try{
+				rss = pss.executeQuery();
+			}catch(SQLException e){
+				System.out.println("Erro ao executar query");
+			}
+	
+			rs.last();
+			int id = rs.getInt(1);
+	
+			PreparedStatement psu = null;
+			try{
+				psu = con.prepareStatement(up);
+			}catch(SQLException e){
+				System.out.println("Erro ao preparar statement");
+			}
+	
+			psu.setInt(1,id-1);
+	
+			ResultSet rsu = null;
+			try{
+				rsu = psu.executeQuery();
+			}catch(SQLException e){
+				System.out.println("Erro ao executar query");
+			}
+			
+    	}
+    	
     }
 
     public static boolean existeChat(Usuario user1,Usuario user2) throws SQLException{
@@ -216,7 +302,7 @@ public class BDConexaoClass{
 
         ResultSet rs = ps.executeQuery();
 
-        if(!rs)){
+        if(rs == null)){
             return false;
         }
 
@@ -292,6 +378,7 @@ public class BDConexaoClass{
 		psi.execute();
       
     }
+    
     
     public static int getSizeUser(Usuario user1) throws SQLException{
     	
