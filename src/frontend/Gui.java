@@ -259,8 +259,11 @@ public class Gui extends Application {
 		}else{
 			((Label)getComp("textoInicial")).setDisable(true);
 			mostrarMensagensAntigas();		
-		}		
-		((Label)getComp("texto")).setText(((Label)getComp("texto")).getText() + contato.getNome());	
+		}
+		if(usuario_aceitou) {
+			((Button)getComp("finalizar")).setText("Esperando");
+		}
+		((Label)getComp("texto")).setText(((Label)getComp("texto")).getText() + contato.getNome());
 		Scene S = new Scene(root);
 		Gui.Stg.setScene(S);
         Gui.Stg.setTitle("AdoPet");
@@ -293,6 +296,11 @@ public class Gui extends Application {
 		nova.setText(mensagem);
 		nova.setAlignment(Pos.CENTER_LEFT);
 		box.getChildren().add(nova);
+	}
+	
+	public static void finalizaAdocao() {
+		BDConexaoClass.exluirChat(Gui.User, Gui.contato);
+		BDConexaoClass.adotaPet(Gui.User, Gui.contato);
 	}
 	
 	public static void telaPorqueAdotar() {
