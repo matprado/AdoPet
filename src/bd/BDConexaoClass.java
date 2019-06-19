@@ -196,7 +196,7 @@ public class BDConexaoClass{
     		try {
     			psu1 = con.prepareStatement(up1);
     		}catch(SQLException e) {
-        		System.out.println("Erro ao preparar Statement");
+        		System.out.println("Erro ao preparar Statement"); 
         	}
     		psu1.setInt(1,user1.getId());
     		psu1.setInt(2,user2.getId());
@@ -231,64 +231,63 @@ public class BDConexaoClass{
 
     public static void adotarPet(Pet p,Usuario user1, Usuario user2){
 
-    	if(finaliza(user1,user2) == 2) {
-    	
-	        Connection con = BDConexao();
-	        String del = "Delete FROM pets WHERE nome = ?";
-	        PreparedStatement ps = null;
-			try {
-				ps = con.prepareStatement(del);
-			} catch (SQLException e) {
-				System.out.println("Erro ao preparar statament");
-			}
-	        try {
-				ps.setString(1,p.getNome());
-			} catch (SQLException e) {
-				System.out.println("Erro ao receber nome");
-			}
-	        try {
-				ps.execute();
-			} catch (SQLException e) {
-				System.out.println("Erro ao executar statament");
-			}
+    
+        Connection con = BDConexao();
+        String del = "Delete FROM pets WHERE pet_id = ?";
+        PreparedStatement ps = null;
+		try {
+			ps = con.prepareStatement(del);
+		} catch (SQLException e) {
+			System.out.println("Erro ao preparar statament");
+		}
+        try {
+			ps.setString(1,p.getNome());
+		} catch (SQLException e) {
+			System.out.println("Erro ao receber nome");
+		}
+        try {
+			ps.execute();
+		} catch (SQLException e) {
+			System.out.println("Erro ao executar statament");
+		}
+
+		String up = "ALTER TABLE pets AUTO_INCREMENT=?";
+		String pegarId = "Select pet_id FROM pets";
+
+		PreparedStatement pss = null;
+		try{
+			pss = con.prepareStatement(pegarId);
+		}catch(SQLException e){
+			System.out.println("Erro ao preparar statement");
+		}
+
+		ResultSet rss = null;
+		try{
+			rss = pss.executeQuery();
+		}catch(SQLException e){
+			System.out.println("Erro ao executar query");
+		}
+
+		rs.last();
+		int id = rs.getInt(1);
+
+		PreparedStatement psu = null;
+		try{
+			psu = con.prepareStatement(up);
+		}catch(SQLException e){
+			System.out.println("Erro ao preparar statement");
+		}
+
+		psu.setInt(1,id-1);
+
+		ResultSet rsu = null;
+		try{
+			rsu = psu.executeQuery();
+		}catch(SQLException e){
+			System.out.println("Erro ao executar query");
+		}
+		
 	
-			String up = "ALTER TABLE pets AUTO_INCREMENT=?";
-			String pegarId = "Select pet_id FROM pets";
-	
-			PreparedStatement pss = null;
-			try{
-				pss = con.prepareStatement(pegarId);
-			}catch(SQLException e){
-				System.out.println("Erro ao preparar statement");
-			}
-	
-			ResultSet rss = null;
-			try{
-				rss = pss.executeQuery();
-			}catch(SQLException e){
-				System.out.println("Erro ao executar query");
-			}
-	
-			rs.last();
-			int id = rs.getInt(1);
-	
-			PreparedStatement psu = null;
-			try{
-				psu = con.prepareStatement(up);
-			}catch(SQLException e){
-				System.out.println("Erro ao preparar statement");
-			}
-	
-			psu.setInt(1,id-1);
-	
-			ResultSet rsu = null;
-			try{
-				rsu = psu.executeQuery();
-			}catch(SQLException e){
-				System.out.println("Erro ao executar query");
-			}
-			
-    	}
     	
     }
 
