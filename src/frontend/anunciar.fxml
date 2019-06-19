@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -13,7 +14,10 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: SteelBlue;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.AnunciarManager">
    <children>
-      <Button fx:id="seleciona_imagem" layoutX="221.0" layoutY="86.0" mnemonicParsing="false" onAction="#selecionarImagem" text="Escolha uma imagem" />
+      <Button fx:id="seleciona_imagem" layoutX="346.0" layoutY="81.0" mnemonicParsing="false" onAction="#selecionarImagem" text="Escolha uma imagem">
+         <font>
+            <Font name="Dyuthi" size="13.0" />
+         </font></Button>
       <Text layoutX="14.0" layoutY="233.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome">
          <font>
             <Font name="Dyuthi" size="14.0" />
@@ -44,10 +48,11 @@
       </TextArea>
       <Button fx:id="voltar" layoutX="128.0" layoutY="360.0" mnemonicParsing="false" onAction="#voltarDisponiveis" prefHeight="25.0" prefWidth="70.0" text="Voltar" />
       <Button fx:id="confirmar" layoutX="392.0" layoutY="360.0" mnemonicParsing="false" onAction="#confirmarAnuncio" prefHeight="26.0" prefWidth="88.0" text="Confirmar" />
-      <Text layoutX="165.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SELECIONE A MELHOR FOTO DE SEU PET!">
+      <Text layoutX="252.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SELECIONE A MELHOR FOTO DE SEU PET!" textAlignment="CENTER" wrappingWidth="318.0">
          <font>
             <Font name="Dyuthi" size="16.0" />
          </font>
       </Text>
+      <ImageView fx:id="imagem_anuncio" fitHeight="150.0" fitWidth="204.0" layoutX="26.0" layoutY="22.0" nodeOrientation="INHERIT" pickOnBounds="true" />
    </children>
 </Pane>

@@ -19,6 +19,8 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -30,18 +32,18 @@ import javafx.stage.FileChooser.ExtensionFilter;
 public class Gui extends Application {
 	static Parent root;
 	static Stage Stg;
-	static Usuario User;
+	public static Usuario User;
 	static boolean finalizaCadastro;
 	static Usuario contatos[];
 	static Button botaoContato[];
 	static Usuario contato;
 	
 	//Uso na DisponiveisManager
-	static Pet pet[];
-	static int index;
+	public static Pet pet[];
+	public static int index;
 	static int numeropaginas;
 	static int paginaatual;
-	static File fotopet;
+	static Image fotopet;
 	
 	
 	public static Object getComp(String str) {
@@ -101,6 +103,11 @@ public class Gui extends Application {
 	}
 
 	public static void telaDisponiveis(){
+		if(BDConexaoClass.getSizePets() < 4) {
+			Gui.numeropaginas = 1;
+		}
+		Gui.numeropaginas = BDConexaoClass.getSizePets() / 4;
+		
 		FXMLLoader loader = null;
 		try {
 			loader = new FXMLLoader(new File("src/frontend/disponiveis.fxml").toURI().toURL());
@@ -118,7 +125,7 @@ public class Gui extends Application {
 		//PEGA OBJETO PET DO BD E SETAR NO GUI.PET[].
 		for(int i=0; i<4; i++) {
 			try {
-				Gui.pet[i] = BDConexaoClass.retornaPet(((Gui.paginaatual-1)*4)+(i+1));
+				Gui.pet[i] = BDConexaoClass.retornaPet(((Gui.paginaatual)*4)+(i+1)-1);
 			} catch (NumberFormatException e) {
 				System.out.println("Erro no retorno do Pet do BD");
 			}
@@ -127,11 +134,12 @@ public class Gui extends Application {
 		 //SETANDO NOMES E IMAGENS DOS PETS AQUI
 		for(int i=0; i<4; i++) {
 			if(Gui.pet[i] == null){
-				((Text)Gui.getComp("nome_pet" + (i+1))).setText("");
+				((Button)Gui.getComp("nome_pet" + (i+1))).setVisible(false);
 			}
 			else {
+				((Button)Gui.getComp("nome_pet" + (i+1))).setVisible(true);
 				((ImageView)Gui.getComp("image" +(i+1))).setImage(pet[i].getIcone());
-				((Text)Gui.getComp("nome_pet" + (i+1))).setText(pet[i].getNome());
+				((Button)Gui.getComp("nome_pet" + (i+1))).setText(pet[i].getNome());
 			}
 		}
 		Scene S = new Scene(root);
@@ -160,8 +168,13 @@ public class Gui extends Application {
 		((TextField)(Gui.getComp("especie"))).setText((Gui.pet[Gui.index].getEspecie()));
 		((TextField)(Gui.getComp("sexo"))).setText((Gui.pet[Gui.index].getSexo()));
 		((TextField)(Gui.getComp("dono"))).setText((Gui.pet[Gui.index].getAnunciante().getNome()));
-		((TextField)(Gui.getComp("descricao"))).setText((Gui.pet[Gui.index].getDetalhes()));
+		((TextArea)(Gui.getComp("descricao"))).setText((Gui.pet[Gui.index].getDetalhes()));
 	
+		if(BDConexaoClass.getIdAnun(Gui.User.getUserName()) == Gui.pet[Gui.index].getAnuncianteID()) {
+			((Button)(Gui.getComp("mensagem"))).setVisible(false);
+		}else {
+			((Button)(Gui.getComp("mensagem"))).setVisible(true);
+		}
 		Scene S = new Scene(root);
 		Gui.Stg.setScene(S);
         Gui.Stg.setTitle("AdoPet - Info");
@@ -189,15 +202,17 @@ public class Gui extends Application {
 	public static void escolheFoto() {
 		FileChooser fc = new FileChooser();
 		fc.setTitle("Selecione a foto do pet!");
-		fc.getExtensionFilters().addAll(new ExtensionFilter("Image(.jpg)","*.jpg"));
-		Gui.fotopet= fc.showOpenDialog(Gui.Stg);
-        if (Gui.fotopet == null) {
+		fc.getExtensionFilters().addAll(new ExtensionFilter("Image(.jpg .jpeg)","*.jpg","*.jpeg"));
+		Gui.fotopet= new Image(fc.showOpenDialog(Gui.Stg).toURI().toString());
+		if (Gui.fotopet == null) {
         	Gui.telaDisponiveis();
         }
+        ((ImageView)Gui.getComp("imagem_anuncio")).setImage(Gui.fotopet);
 	}
 	
 	public static void confirmarAnuncio(Pet pet) {
 		BDConexaoClass.cadastroPet(pet);
+		Gui.paginaatual = 0;
 		Gui.telaDisponiveis();
 	}
 	
@@ -241,7 +256,7 @@ public class Gui extends Application {
         Gui.Stg.show();
 	}
 	
-	public static void iniciarChat(Usuario contato) throws SQLException {
+	public static void iniciarChat(Usuario contato){
 		FXMLLoader loader = null;
 		try {
 			loader = new FXMLLoader(new File("src/frontend/conversa.fxml").toURI().toURL());
@@ -253,16 +268,24 @@ public class Gui extends Application {
 		} catch (IOException e) {
 			System.out.println("Erro no carregamento do FXML");
 		}
-		if(!BDConexaoClass.existeChat(Gui.User, contato)) {
-			BDConexaoClass.comecarChat(Gui.User, contato);
-			((Label)getComp("textoInicial")).setText(((Label)getComp("textoInicial")).getText() + contato.getNome());
-		}else{
-			((Label)getComp("textoInicial")).setDisable(true);
-			mostrarMensagensAntigas();		
+		try {
+			if(!BDConexaoClass.existeChat(Gui.User, contato)) {
+				BDConexaoClass.comecarChat(Gui.User, contato);
+				((Label)getComp("textoInicial")).setText(((Label)getComp("textoInicial")).getText() + contato.getNome());
+			}else{
+				((Label)getComp("textoInicial")).setDisable(true);
+				mostrarMensagensAntigas();		
+			}
+		} catch (SQLException e) {
+			System.out.println("Erro ao conectar ao BD receber chat");
 		}
+<<<<<<< HEAD
 		if(BDConexaoClass.UsuarioAceitou(Gui.User, Gui.contato)) {
+=======
+		/*if(usuario_aceitou) {
+>>>>>>> master
 			((Button)getComp("finalizar")).setText("Esperando");
-		}
+		}*/
 		((Label)getComp("texto")).setText(((Label)getComp("texto")).getText() + contato.getNome());
 		Scene S = new Scene(root);
 		Gui.Stg.setScene(S);
@@ -283,7 +306,7 @@ public class Gui extends Application {
 			Label texto = new Label();
 			texto.setText(msg.getValue());
 			if(msg.getKey() == Gui.User.getId()) {
-				//mensagem do usuário...
+				//mensagem do usuï¿½rio...
 				texto.setAlignment(Pos.CENTER_LEFT);
 			}else texto.setAlignment(Pos.CENTER_RIGHT);
 			box.getChildren().add(texto);
@@ -299,8 +322,8 @@ public class Gui extends Application {
 	}
 	
 	public static void finalizaAdocao() {
-		BDConexaoClass.excluirChat(Gui.User, Gui.contato);
-		BDConexaoClass.adotaPet(Gui.User, Gui.contato);
+		/*BDConexaoClass.excluirChat(Gui.User, Gui.contato);
+		BDConexaoClass.adotaPet(Gui.User, Gui.contato);*/
 		Gui.telaDisponiveis();
 	}
 	
@@ -336,8 +359,8 @@ public class Gui extends Application {
 
 	public static void avancaPag() {
 		Gui.paginaatual++;
-		if(Gui.paginaatual >= Gui.numeropaginas) {
-			Gui.paginaatual = Gui.numeropaginas;
+		if(Gui.paginaatual >= (BDConexaoClass.getSizePets()/4)) {
+			Gui.paginaatual = (BDConexaoClass.getSizePets()/4);
 		}
 		Gui.telaDisponiveis();
 	}
@@ -355,10 +378,10 @@ public class Gui extends Application {
     	Gui.pet = new Pet[4];
     	Gui.index = 0;
     	Gui.numeropaginas = 1;
-		Gui.numeropaginas = BDConexaoClass.getSizePets() / 4;
-		if(BDConexaoClass.getSizePets() % 4 > 0) {
-			Gui.numeropaginas++;
+    	if(BDConexaoClass.getSizePets() < 4) {
+			Gui.numeropaginas = 1;
 		}
+		Gui.numeropaginas = (BDConexaoClass.getSizePets() / 4);
     	Gui.launch(args); //Requisitando inicializacao da Gui
     }
     

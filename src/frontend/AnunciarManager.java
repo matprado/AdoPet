@@ -5,7 +5,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 
 public class AnunciarManager {
 
@@ -25,7 +24,7 @@ public class AnunciarManager {
 		pet.setDetalhes(((TextArea)Gui.getComp("descricao")).getText());
 		pet.setAnunciante(Gui.User);
 		pet.setAnuncianteID(Gui.User.getId());
-		pet.setIcone(new Image((Gui.fotopet).toURI().toString()));
+		pet.setIcone(Gui.fotopet);
 		Gui.confirmarAnuncio(pet);
 	}
 	

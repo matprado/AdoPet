@@ -22,11 +22,7 @@ public class ChatManager {
 	@FXML public void apertou(ActionEvent event) {
         int id = Integer.parseInt(((Control)event.getSource()).getId());
 		Gui.contato = Gui.contatos[id];
-        try {
-			Gui.iniciarChat(Gui.contato);
-		} catch (SQLException e) {
-			System.out.println("Erro ao iniciar chat");
-		}
+        Gui.iniciarChat(Gui.contato);
     }
 	
 	@FXML public void enviouMensagem(ActionEvent event) {
@@ -44,11 +40,17 @@ public class ChatManager {
 	@FXML public void usuarioAceitou(ActionEvent event) {
 		if(((Button)Gui.getComp(((Control)event.getSource()).getId())).getText() == "Finalizar") {
 			((Button)Gui.getComp(((Control)event.getSource()).getId())).setText("Esperando");
+<<<<<<< HEAD
 			BDConexaoClass.finaliza(Gui.User, Gui.contato);	
 		}
 		if(BDConexaoClass.UsuarioAceitou(Gui.contato, Gui.User)) {
-			Gui.finalizaAdocao();
+=======
+			//definir_no_bd_usuario_aceitou...
 		}
+		/*if(contato_tbm_aceitou) {
+>>>>>>> master
+			Gui.finalizaAdocao();
+		}*/
 		
 	}
 	
@@ -57,7 +59,7 @@ public class ChatManager {
 	}
 	
 	@FXML public void cancelar(ActionEvent event) {
-		BDConexaoClass.excluirChat(Gui.User, Gui.contato);
+		//BDConexaoClass.excluirChat(Gui.User, Gui.contato);
 		Gui.telaDisponiveis();
 	}
 	

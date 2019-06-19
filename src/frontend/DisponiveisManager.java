@@ -1,7 +1,6 @@
 package frontend;
 
-import java.sql.SQLException;
-
+import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Control;
@@ -26,7 +25,7 @@ public class DisponiveisManager {
 	}
 	
 	@FXML protected void clicaPet(ActionEvent event) {
-		Gui.index = ((int)(((Control)event.getSource()).getId().charAt(3))) - 1;
+		Gui.index = ((int)(((Control)event.getSource()).getId().charAt(8))-48) - 1;
 		Gui.telaInfoPet();
 	}
 	
@@ -42,12 +41,15 @@ public class DisponiveisManager {
 	}
 	
 	@FXML protected void mensagemDono(ActionEvent event) {
-		try {
-			Gui.iniciarChat(Gui.pet[Gui.index].getAnunciante());
-		} catch (SQLException e) {
-		
-		}
+		Gui.iniciarChat(Gui.pet[Gui.index].getAnunciante());
 	}
 	
+	@FXML protected void sair(ActionEvent event) {
+		try {
+			Gui.telaInicial();
+		} catch (IOException e) {
+			return;
+		}
+	}
 	
 }

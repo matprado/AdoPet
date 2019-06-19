@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
  * Essa classe representa um pet em adoção;
  * */
 public class Pet {
-	private long petID;
+	private int petID;
 	private String especie;
 	private String nome;
 	private String sexo;
@@ -34,15 +34,6 @@ public class Pet {
 	 * @param detalhes - String que contém detalhes adicionais do pet;
 	 * @param anunciante - Usuario 
 	 */
-	public Pet(long petID, String especie, String nome, String sexo, String detalhes, Usuario anunciante, Image icone) {
-		this.petID = petID;
-		this.especie = especie;
-		this.nome = nome;
-		this.sexo = sexo;
-		this.detalhes = detalhes;
-		this.anunciante = anunciante;
-		this.icone = icone;
-	}
 	
 	
 	public Pet() {
@@ -117,7 +108,7 @@ public class Pet {
 	}
 
 
-	public void setPetID(long petID) {
+	public void setPetID(int petID) {
 		this.petID = petID;
 	}
 
