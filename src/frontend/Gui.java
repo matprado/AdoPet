@@ -260,7 +260,7 @@ public class Gui extends Application {
 			((Label)getComp("textoInicial")).setDisable(true);
 			mostrarMensagensAntigas();		
 		}
-		if(usuario_aceitou) {
+		if(BDConexaoClass.UsuarioAceitou(Gui.User, Gui.contato)) {
 			((Button)getComp("finalizar")).setText("Esperando");
 		}
 		((Label)getComp("texto")).setText(((Label)getComp("texto")).getText() + contato.getNome());
