@@ -166,6 +166,44 @@ public class BDConexaoClass{
 			System.out.println("Erro ao executar statament");
 		}
 
+		String up = "ALTER TABLE pets AUTO_INCREMENT=?";
+		String pegarId = "Select pet_id FROM pets";
+
+		PreparedStatement pss = null;
+		try{
+			pss = con.prepareStatement(pegarId);
+		}catch(SQLException e){
+			System.out.println("Erro ao preparar statement");
+		}
+
+		ResultSet rss = null;
+		try{
+			rss = pss.executeQuery();
+		}catch(SQLException e){
+			System.out.println("Erro ao executar query");
+		}
+
+		rs.last();
+		int id = rs.getInt(1);
+
+		PreparedStatement psu = null;
+		try{
+			psu = con.prepareStatement(up);
+		}catch(SQLException e){
+			System.out.println("Erro ao preparar statement");
+		}
+
+		psu.setInt(1,id-1);
+
+		ResultSet rsu = null;
+		try{
+			rsu = psu.executeQuery();
+		}catch(SQLException e){
+			System.out.println("Erro ao executar query");
+		}
+
+		
+
     }
 
     public static boolean existeChat(Usuario user1,Usuario user2) throws SQLException{
@@ -178,7 +216,7 @@ public class BDConexaoClass{
 
         ResultSet rs = ps.executeQuery();
 
-        if(rs.wasNull()){
+        if(!rs)){
             return false;
         }
 
@@ -188,22 +226,16 @@ public class BDConexaoClass{
     public static void comecarChat(Usuario user1,Usuario user2) throws SQLException{
         
         Connection con = BDConexao();
-        String select = "SELECT * FROM chat where user1_id=? AND user2_id=?";
-        PreparedStatement ps = con.prepareStatement(select);
-        ps.setInt(1, (int)user1.getId());
-        ps.setInt(2, (int)user2.getId());
-
-        @SuppressWarnings("unused")
-		ResultSet rs = ps.executeQuery();
-
         
-        String insert = "INSERT INTO chat Values(?,?)";
+        String insert = "INSERT INTO chat(user1_id,user2_id,confirma_user1,confirma_user2) Values(?,?,?,?)";
         PreparedStatement psi =  con.prepareStatement(insert);
-        psi.setInt(2, (int)user1.getId());
-        psi.setInt(3, (int)user2.getId());
+        psi.setInt(1, (int)user1.getId());
+		psi.setInt(2, (int)user2.getId());
+		psi.setBoolean(3, false);
+		psi.setBoolean(4, false);
 
         @SuppressWarnings("unused")
-		ResultSet rsi = psi.executeQuery();
+		psi.execute();
         
     }
 
@@ -257,7 +289,7 @@ public class BDConexaoClass{
         psi.setString(3,mensagem);
 
         @SuppressWarnings("unused")
-		ResultSet rsi = psi.executeQuery();
+		psi.execute();
       
     }
     
