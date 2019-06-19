@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import bd.BDConexaoClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.control.TextArea;
 
@@ -38,6 +39,22 @@ public class ChatManager {
 				System.out.println("Erro ao criar nova mensagem!");
 			}
 		}
+	}
+	
+	@FXML public void usuarioAceitou(ActionEvent event) {
+		
+		if(((Button)Gui.getComp(((Control)event.getSource()).getId())).getText() == "Finalizar") {
+			((Button)Gui.getComp(((Control)event.getSource()).getId())).setText("Esperando");
+			definir_no_bd_usuario_aceitou...
+		}
+		if(contato_tbm_aceitou) {
+			Gui.finalizaAdocao();
+		}
+		
+	}
+	
+	@FXML public void voltar(ActionEvent event) {
+		Gui.telaChat();
 	}
 	
 }
