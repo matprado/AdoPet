@@ -414,32 +414,71 @@ public class BDConexaoClass{
 		}
     }
 
-    public static HashMap<Integer,String> getMensagensAntigas(Usuario user1, Usuario user2) throws SQLException{
+    public static HashMap<Integer,String> getMensagensAntigas(Usuario user1, Usuario user2){
 
         Connection con = BDConexao();
         String select = "SELECT * FROM chat where user1_id=? AND user2_id=?";
-        PreparedStatement ps = con.prepareStatement(select);
-        ps.setInt(1, (int)user1.getId());
-        ps.setInt(2, (int)user2.getId());
+        PreparedStatement ps = null;
+		try {
+			ps = con.prepareStatement(select);
+		} catch (SQLException e) {
+			System.out.println("Erro PS - getMensagens");
+		}
+        try {
+			ps.setInt(1, BDConexaoClass.getIdAnun(user1.getUserName()));
+			ps.setInt(2, BDConexaoClass.getIdAnun(user2.getUserName()));
+		} catch (SQLException e) {
+			System.out.println("Erro PS setInt - getMensagens");
+		}
 
-        ResultSet rs = ps.executeQuery();
-
-        int id = rs.getInt(1);
-        
+        ResultSet rs = null;
+		try {
+			rs = ps.executeQuery();
+		} catch (SQLException e) {
+			System.out.println("Erro execucao Query - getMensagens");
+		}
+		
+		int id = 0;
+		
+		try {
+			rs.first();
+			id = rs.getInt(1);
+		} catch (SQLException e) {
+			System.out.println("Erro no get da Query - getMensagens");
+		}
+		
+        //MENSAGENS
+		
         String puxarMensagens = "Select mensagem,id_remetente FROM mensagens INNER JOIN chat ON chat.chat_id = mensagens.id_chat WHERE chat.chat_id = ?";
-        PreparedStatement psp = con.prepareStatement(puxarMensagens);
-        psp.setInt(1,id);
+        PreparedStatement psp = null;
+		try {
+			psp = con.prepareStatement(puxarMensagens);
+		} catch (SQLException e) {
+			System.out.println("Erro na PS2 - getMensagens");
+		}
+        try {
+			psp.setInt(1,id);
+		} catch (SQLException e) {
+			System.out.println("Erro setId da Query - getMensagens");
+		}
 
-        ResultSet rsp = psp.executeQuery();
+        ResultSet rsp = null;
+		try {
+			rsp = psp.executeQuery();
+		} catch (SQLException e) {
+			System.out.println("Erro na exec Query2 - getMensagens");
+		}
 
         HashMap<Integer,String> messages = new HashMap<Integer,String>();
-        while(rsp.next()){
-            String msg = rsp.getString(4);
-            int sent = rsp.getInt(3);
-
-            messages.put(sent,msg);
-
-        }
+        try {
+			while(rsp.next()){
+			    String msg = rsp.getString(4);
+			    int sent = rsp.getInt(3);
+			    messages.put(sent,msg);
+			}
+		} catch (SQLException e) {
+			System.out.println("Erro nas mensagens - getMensagens");
+		}
 
         return messages;
     }

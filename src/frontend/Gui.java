@@ -269,10 +269,6 @@ public class Gui extends Application {
 		} catch (IOException e) {
 			System.out.println("Erro no carregamento do FXML");
 		}
-		Scene S = new Scene(root);
-		Gui.Stg.setScene(S);
-        Gui.Stg.setTitle("AdoPet");
-        Gui.Stg.show();
 	}
 	
 	
@@ -281,14 +277,14 @@ public class Gui extends Application {
 			BDConexaoClass.comecarChat(Gui.User, Gui.contato);
 			((Label)Gui.getComp("textoInicial")).setText(((Label)getComp("textoInicial")).getText() + Gui.contato.getNome());
 		}else{
-			//((Label)Gui.getComp("textoInicial")).setDisable(true);
+			((Label)Gui.getComp("textoInicial")).setDisable(true);
 			mostrarMensagensAntigas();		
 		}
 
 		if(BDConexaoClass.UsuarioAceitou(Gui.User, Gui.contato)) {
 			((Button)Gui.getComp("finalizar")).setText("Esperando");
 		}
-		((Label)Gui.getComp("texto")).setText(((Label)getComp("texto")).getText() + Gui.contato.getNome());
+		((Label)Gui.getComp("titulo")).setText(((Label)getComp("titulo")).getText() + Gui.contato.getNome());
 		Scene S = new Scene(root);
 		Gui.Stg.setScene(S);
         Gui.Stg.setTitle("AdoPet");
@@ -297,12 +293,7 @@ public class Gui extends Application {
 	
 	public static void mostrarMensagensAntigas() {
 		HashMap<Integer, String> mensagens = null;
-		try {
-			mensagens = BDConexaoClass.getMensagensAntigas(Gui.User, contato);
-		} catch (SQLException e) {
-			System.out.println("Erro ao receber mensagens do BD");
-			return;
-		}
+		mensagens = BDConexaoClass.getMensagensAntigas(Gui.User, contato);
 		VBox box = (VBox)getComp("box");
 		for(HashMap.Entry<Integer, String> msg : mensagens.entrySet()) {
 			Label texto = new Label();
