@@ -30,8 +30,8 @@
       </Pane>
       <TextArea fx:id="texto" layoutX="45.0" layoutY="336.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="28.0" prefWidth="441.0" promptText="Digite aqui o texto..." />
       <Button fx:id="botao" layoutX="494.0" layoutY="336.0" mnemonicParsing="false" onAction="#enviouMensagem" prefHeight="28.0" prefWidth="61.0" text="Enviar" />
-      <Button fx:id="finalizar" layoutX="377.0" layoutY="15.0" mnemonicParsing="false" onAction="#usuarioAceitou" prefHeight="28.0" prefWidth="85.0" text="Finalizar" />
-      <Button fx:id="voltar" layoutX="295.0" layoutY="15.0" mnemonicParsing="false" onAction="#voltar" prefHeight="28.0" prefWidth="75.0" text="Voltar" />
+      <Button fx:id="finalizar" layoutX="330.0" layoutY="15.0" mnemonicParsing="false" onAction="#usuarioAceitou" prefHeight="28.0" prefWidth="135.0" text="Finalizar" />
+      <Button fx:id="voltar" layoutX="248.0" layoutY="15.0" mnemonicParsing="false" onAction="#voltar" prefHeight="28.0" prefWidth="75.0" text="Voltar" />
       <Button fx:id="cancelar" layoutX="470.0" layoutY="15.0" mnemonicParsing="false" onAction="#cancelar" prefHeight="28.0" prefWidth="85.0" text="Cancelar" />
    </children>
 </Pane>

@@ -412,6 +412,9 @@ public class Gui extends Application {
 		}else{
 			//caso contrario, mostra mensagens antigas;
 			Gui.mostrarMensagensAntigas();
+			if(BDConexaoClass.UsuarioAceitou(Gui.User,Gui.contato)) {
+				((Button)Gui.getComp("finalizar")).setDisable(true);
+			}
 		}
 		//Se o usuario ja aceitou a adotagem entao muda o texto do botao
 		if(BDConexaoClass.UsuarioAceitou(Gui.User, Gui.contato)) {
@@ -500,8 +503,7 @@ public class Gui extends Application {
 	 * Metodo para finalizar uma adocao;
 	 */
 	public static void finalizaAdocao() {
-		/*BDConexaoClass.excluirChat(Gui.User, Gui.contato);
-		BDConexaoClass.adotaPet(Gui.User, Gui.contato);*/
+		BDConexaoClass.finaliza(Gui.User, Gui.contato);
 		Gui.telaDisponiveis();
 	}
 	

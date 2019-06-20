@@ -323,10 +323,8 @@ public class BDConexaoClass{
 
     	Connection con = BDConexao();
     	String up1= "UPDATE chat SET confirma_user1=true where (user1_id=? AND user2_id=?) OR (user2_id=? AND user1_id=?)";
-    	String up2= "UPDATE chat SET confirma_user2=true where (user1_id=? AND user2_id=?) OR (user2_id=? AND user1_id=?)";
     	
     	PreparedStatement psu1 = null;
-    	PreparedStatement psu2 = null;
     	
     	if(UsuarioAceitou(user1,user2) == false) {
     		try {
@@ -351,28 +349,7 @@ public class BDConexaoClass{
     		}
     		
     	}else {
-    		try {
-    			psu2 = con.prepareStatement(up2);
-    		}catch(SQLException e) {
-    			System.out.println("Erro ao preparar Statement - finaliza");
-    			return;
-    		}
-    		
-    		try {
-    			psu2.setInt(1,BDConexaoClass.getIdAnun(user1.getUserName()));
-				psu2.setInt(2,BDConexaoClass.getIdAnun(user2.getUserName()));
-				psu2.setInt(3,BDConexaoClass.getIdAnun(user1.getUserName()));
-				psu2.setInt(4,BDConexaoClass.getIdAnun(user2.getUserName()));
-			} catch (SQLException e1) {
-				System.out.println("Erro ao setar args ps2 - finaliza");
-				return;
-			}
-    		try {
-    			psu2.execute();
-    		}catch(SQLException e) {
-    			System.out.println("Erro ao executar a Query - finaliza");
-    			return;
-    		}
+    		BDConexaoClass.adotarPet(user1, user2);
     	}
     	return;
     }
