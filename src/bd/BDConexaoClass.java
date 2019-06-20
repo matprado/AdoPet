@@ -623,7 +623,7 @@ public class BDConexaoClass{
     public static Vector<Pair<Integer,String>> getMensagensAntigas(Usuario user1, Usuario user2){
 
         Connection con = BDConexao();
-        String select = "SELECT * FROM chat WHERE (user1_id=? AND user2_id=?) OR (user2_id=? AND user1_id=?)";
+        String select = "SELECT * FROM chat WHERE (user1_id=? AND user2_id=? AND pet_id=?) OR (user2_id=? AND user1_id=? AND pet_id=?)";
         PreparedStatement ps = null;
 		try {
 			ps = con.prepareStatement(select);
@@ -633,8 +633,10 @@ public class BDConexaoClass{
         try {
 			ps.setInt(1, BDConexaoClass.getIdAnun(user1.getUserName()));
 			ps.setInt(2, BDConexaoClass.getIdAnun(user2.getUserName()));
-			ps.setInt(3, BDConexaoClass.getIdAnun(user1.getUserName()));
-			ps.setInt(4, BDConexaoClass.getIdAnun(user2.getUserName()));
+			ps.setInt(3, getPetId(user1, user1));
+			ps.setInt(4, BDConexaoClass.getIdAnun(user1.getUserName()));
+			ps.setInt(5, BDConexaoClass.getIdAnun(user2.getUserName()));
+			ps.setInt(6, getPetId(user1, user2));
         } catch (SQLException e) {
 			System.out.println("Erro PS setInt - getMensagens");
 		}
