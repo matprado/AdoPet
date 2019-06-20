@@ -625,7 +625,7 @@ public class BDConexaoClass{
      * @return Um vector que contem os ids dos usuarios e as suas respectivas mensagens
      * 
      */
-    public static Vector<Pair<Integer,String>> getMensagensAntigas(Usuario user1, Usuario user2, int id_pet){
+    public static Vector<Pair<Integer,String>> getMensagensAntigas(Usuario user1, Usuario user2){
         Connection con = BDConexao();
         String select = "SELECT chat_id FROM chat WHERE ((user1_id=? AND user2_id=?) OR (user2_id=? AND user1_id=?)) AND pet_id=?";
         PreparedStatement ps = null;
@@ -639,7 +639,7 @@ public class BDConexaoClass{
 			ps.setInt(2, BDConexaoClass.getIdAnun(user2.getUserName()));
 			ps.setInt(3, BDConexaoClass.getIdAnun(user1.getUserName()));
 			ps.setInt(4, BDConexaoClass.getIdAnun(user2.getUserName()));
-			ps.setInt(5, id_pet);
+			ps.setInt(5, (int)Gui.petCorrente.getPetID());
         } catch (SQLException e) {
 			System.out.println("Erro PS setInt - getMensagens");
 		}
