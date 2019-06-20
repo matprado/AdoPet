@@ -1,7 +1,7 @@
 package backend;
 
 /*
- * Essa classe representa um usu√°rio do programa;
+ * Essa classe representa um usu·rio do programa;
  * */
 public class Usuario {
 	
@@ -16,15 +16,15 @@ public class Usuario {
 
 	/**
 	 * Construtor da classe
-	 * @param id - long que representa o id √∫nico do usu√°rio;
-	 * @param userName - String que representa o nome de login do usu√°rio;
-	 * @param senha - String que representa a senha do usu√°rio;
-	 * @param nome - String que representa o nome do usu√°rio;
-	 * @param idade - int que representa a idade do usu√°rio;
-	 * @param cpf - String que representa o Cadastro de Pessoa F√≠sica;
-	 * @param cidade - String que representa a cidade do usu√°rio;
-	 * @param endereco - String que representa o endere√ßo do usu√°rio;
-	 * @param cep - String que representa o CEP do usu√°rio;
+	 * @param id - long que representa o id ˙nico do usu·rio;
+	 * @param userName - String que representa o nome de login do usu·rio;
+	 * @param senha - String que representa a senha do usu·rio;
+	 * @param nome - String que representa o nome do usu·rio;
+	 * @param idade - int que representa a idade do usu·rio;
+	 * @param cpf - String que representa o Cadastro de Pessoa FÌsica;
+	 * @param cidade - String que representa a cidade do usu·rio;
+	 * @param endereco - String que representa o endereÁo do usu·rio;
+	 * @param cep - String que representa o CEP do usu·rio;
 	 */
 	public Usuario(long id, String userName, String senha, String nome, int idade, String cpf, String cidade, String endereco, String cep) {
 		this.id = id;
@@ -37,13 +37,16 @@ public class Usuario {
 		this.cep = cep;
 	}
 	
+	/**
+	 * Construtor vazio
+	 */
 	public Usuario() {
 		;
 	}
 
 	/**
 	 * Getter para o atributo de id;
-	 * @return - long com o id do usu√°rio;
+	 * @return - long com o id do usu·rio;
 	 */
 	public long getId() {
 		return id;
@@ -51,7 +54,7 @@ public class Usuario {
 	
 	/**
 	 * Setter para o atributo de id;
-	 * @param id - long com o id do usu√°rio;
+	 * @param id - long com o id do usu·rio;
 	 */
 	public void setId(long id) {
 		this.id = id;
@@ -59,7 +62,7 @@ public class Usuario {
 	
 	/**
 	 * Getter para o atributo de nome de login;
-	 * @return - String com o nome de login do usu√°rio;
+	 * @return - String com o nome de login do usu·rio;
 	 */
 	public String getUserName() {
 		return userName;
@@ -67,7 +70,7 @@ public class Usuario {
 
 	/**
 	 * Setter para o atributo de nome de login;
-	 * @param userName - String com o nome de login do usu√°rio;
+	 * @param userName - String com o nome de login do usu·rio;
 	 */
 	public void setUserName(String userName) {
 		this.userName = userName;
@@ -75,7 +78,7 @@ public class Usuario {
 
 	/**
 	 * Getter para o atributo de senha;
-	 * @return - String com a senha do usu√°rio;
+	 * @return - String com a senha do usu·rio;
 	 */
 	public String getSenha() {
 		return senha;
@@ -83,7 +86,7 @@ public class Usuario {
 
 	/**
 	 * Setter para o atributo de senha;
-	 * @param senha - String com a senha do usu√°rio;
+	 * @param senha - String com a senha do usu·rio;
 	 */
 	public void setSenha(String senha) {
 		this.senha = senha;
@@ -91,7 +94,7 @@ public class Usuario {
 
 	/**
 	 * Getter para o atributo de nome;
-	 * @return - String com o nome do usu√°rio;
+	 * @return - String com o nome do usu·rio;
 	 */
 	public String getNome() {
 		return nome;
@@ -99,7 +102,7 @@ public class Usuario {
 
 	/**
 	 * Setter para o atributo de nome;
-	 * @param nome - String com o nome do usu√°rio;
+	 * @param nome - String com o nome do usu·rio;
 	 */
 	public void setNome(String nome) {
 		this.nome = nome;
@@ -107,7 +110,7 @@ public class Usuario {
 	
 	/**
 	 * Getter para o atributo de CPF;
-	 * @return - String com o CPF do usu√°rio;
+	 * @return - String com o CPF do usu·rio;
 	 */
 	public String getCpf() {
 		return cpf;
@@ -115,7 +118,7 @@ public class Usuario {
 	
 	/**
 	 * Setter para o atributo de CPF;
-	 * @param cpf - String com o CPF do usu√°rio;
+	 * @param cpf - String com o CPF do usu·rio;
 	 */
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
@@ -123,7 +126,7 @@ public class Usuario {
 	
 	/**
 	 * Getter para o atributo de cidade;
-	 * @return - String com a cidade do usu√°rio;
+	 * @return - String com a cidade do usu·rio;
 	 */
 	public String getCidade() {
 		return cidade;
@@ -131,7 +134,7 @@ public class Usuario {
 	
 	/**
 	 * Setter para o atributo de cidade;
-	 * @param cidade - String com a cidade do usu√°rio;
+	 * @param cidade - String com a cidade do usu·rio;
 	 */
 	public void setCidade(String cidade) {
 		this.cidade = cidade;
@@ -139,7 +142,7 @@ public class Usuario {
 	
 	/**
 	 * Getter para o atributo de endere√ßo;
-	 * @return - String com o endere√ßo do usu√°rio;
+	 * @return - String com o endere√ßo do usu·rio;
 	 */
 	public String getEndereco() {
 		return endereco;
@@ -147,7 +150,7 @@ public class Usuario {
 
 	/**
 	 * Setter para o atributo de endere√ßo;
-	 * @param endereco - String com o endere√ßo do usu√°rio;
+	 * @param endereco - String com o endereÁo do usu·rio;
 	 */
 	public void setEndereco(String endereco) {
 		this.endereco = endereco;
@@ -155,7 +158,7 @@ public class Usuario {
 	
 	/**
 	 * Getter para o atributo de CEP;
-	 * @return - String com o CEP do usu√°rio;
+	 * @return - String com o CEP do usu·rio;
 	 */
 	public String getCep() {
 		return cep;
@@ -163,31 +166,11 @@ public class Usuario {
 	
 	/**
 	 * Setter para o atributo de CEP;
-	 * @param cep - String com o CEP do usu√°rio;
+	 * @param cep - String com o CEP do usu·rio;
 	 */
 	public void setCep(String cep) {
 		this.cep = cep;
 	}
-	
-	/**
-	 * M√©todo para registrar um usu√°rio chamando um m√©todo abstrato da classe do banco de dados;
-	 * @param u - objeto do usu√°rio que ser√° registrado
-	 */
-	public void registrarUsuario(Usuario u) {
-		//chama o m√©todo do banco de dados para registrar e passa o usu√°rio(this) como par√¢metro
-	}
-	
-	/**
-	 * M√©todo de login de um usu√°rio com nome e senha;
-	 * @param userName - nome de login do usu√°rio;
-	 * @param senha - senha do usu√°rio;
-	 * @return - O objeto correspondente ao usu√°rio;
-	 */
-	public Usuario loginUsuario(String userName, String senha) {
-		//procurar no bd e recuperar o usu√°rio, retornando o mesmo;
-		return null;
-	}
-	
 	
 	
 }

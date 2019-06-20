@@ -221,8 +221,11 @@ public class Gui extends Application {
 		Gui.telaDisponiveis();
 	}
 	
-	
+	/**
+	 * Método que imprime a tela de contatos do chat;
+	 */
 	public static void telaChat() {
+		//carrega o fxml correspondente
 		FXMLLoader loader = null;
 		try {
 			loader = new FXMLLoader(new File("src/frontend/chat.fxml").toURI().toURL());
@@ -234,9 +237,12 @@ public class Gui extends Application {
 		} catch (IOException e) {
 			System.out.println("Erro no carregamento do FXML");
 		}
+		//carrega os contatos do usuário logado
 		Gui.contatos = BDConexaoClass.listaContatos(Gui.User);
 		
+		//se ter algum contato
 		if(Gui.contatos.length != 0) {
+			//cria um botão para cada contato
 			Gui.botaoContato = new Button[Gui.contatos.length];
 			VBox painel = ((VBox)((ScrollPane)Gui.getComp("spane")).getContent().lookup("#vpane"));
 			((Label)getComp("texto1")).setVisible(true);
@@ -257,17 +263,22 @@ public class Gui extends Application {
 				((ScrollPane)Gui.getComp("spane")).setVisible(true);
 			}
 		}else {
+			//caso contrário, mostra texto de que não há contatos;
 			((Label)getComp("texto2")).setVisible(true);
 			((Label)getComp("texto1")).setVisible(false);
 		}
+		//carrega a cena
 		Scene S = new Scene(root);
 		Gui.Stg.setScene(S);
         Gui.Stg.setTitle("AdoPet");
         Gui.Stg.show();
 	}
 	
-	
+	/**
+	 * Método para imprimir a tela de chat entre o usuário e o contato escolhido;
+	 */
 	public static void iniciarChat(){
+		//carrega o fxml correspondente
 		FXMLLoader loader = null;
 		try {
 			loader = new FXMLLoader(new File("src/frontend/conversa.fxml").toURI().toURL());
@@ -280,28 +291,40 @@ public class Gui extends Application {
 			System.out.println("Erro no carregamento do FXML");
 		}
 		
+		//se ainda não existe um chat entre o usuário e seu contato, então cria-se um;
 		if(!BDConexaoClass.existeChat(Gui.User, Gui.contato)){
 			BDConexaoClass.comecarChat(Gui.User, Gui.contato);
 		}else{
+			//caso contrário, mostra mensagens antigas;
 			Gui.mostrarMensagensAntigas();
 		}
-		
+		//Se o usuário já aceitou a adotagem então muda o texto do botão
 		if(BDConexaoClass.UsuarioAceitou(Gui.User, Gui.contato)) {
 			((Button)Gui.getComp("finalizar")).setText("Esperando");
 		}
+		//mostra com quem o usuário está conversando
 		((Label)Gui.getComp("titulo")).setText(((Label)getComp("titulo")).getText() + Gui.contato.getUserName());
+		//carrega a cena
 		Scene S = new Scene(Gui.root);
 		Gui.Stg.setScene(S);
         Gui.Stg.setTitle("AdoPet");
         Gui.Stg.show();
 	}
 	
+	/**
+	 * Método para mostrar mesagens antigas entre o usuário e seu contato escolhido;
+	 */
 	public static void mostrarMensagensAntigas() {
+		//cria um vector de elementos do tipo pair que são pares de inteiros com strings;
 		Vector<Pair<Integer, String>> mensagens = null;
+		//recupera os pares de mensagens antigas;
 		mensagens = BDConexaoClass.getMensagensAntigas(Gui.User, contato);
 		VBox box = (VBox)((ScrollPane)Gui.getComp("pbox")).getContent().lookup("#box");
+		//alinha todas as mensagens de acordo com quem enviou
 		for(int i=0; i<mensagens.size(); i++) {
+			//texto da mensagem fica numa label
 			Label texto = new Label();
+			//os valores inteiros dos pairs representam quem mandou a mensagem
 			if(mensagens.get(i).getId() == BDConexaoClass.getIdAnun((Gui.User.getUserName()))) {
 				texto.setText("[" + Gui.contato.getUserName() + "]: " + mensagens.get(i).getMensagem());
 				texto.setMinWidth(470);
@@ -313,17 +336,24 @@ public class Gui extends Application {
 				texto.setMinHeight(30);
 				texto.setAlignment(Pos.CENTER_RIGHT);
 			}
+			//coloca a label na caixa de chat;
 			box.getChildren().add(texto);
 		}
 	}
 	
+	/**
+	 * Método para mostrar uma nova mensagem no chat;
+	 * @param mensagem - String com a nova mensagem;
+	 */
 	public static void mostrarNovaMensagem(String mensagem) {
 		VBox box = (VBox)((ScrollPane)Gui.getComp("pbox")).getContent().lookup("#box");
+		//mensagem fica numa label
 		Label nova = new Label();
 		nova.setText("[voce]: " + mensagem);
 		nova.setMinWidth(470);
 		nova.setMinHeight(30);
 		nova.setAlignment(Pos.TOP_RIGHT);
+		//coloca a label na caixa de chat;
 		box.getChildren().add(nova);
 	}
 	
