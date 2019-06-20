@@ -2,10 +2,14 @@ package backend;
 
 import javafx.scene.image.Image;
 
-/*
- * Essa classe representa um pet em adoção;
- * */
+/**
+ * Essa classe representa um pet em adocao;
+ * @authors Mateus Prado, Mateus Tomieiro, Victor Reis, Matheus Rigato
+ *
+ */
 public class Pet {
+	
+	//Atributos do pet:
 	private int petID;
 	private String especie;
 	private String nome;
@@ -15,43 +19,51 @@ public class Pet {
 	private long anuncianteID;
 	private Image icone;
 	
-	
+	/**
+	 * Getter para o ID do anunciante;
+	 * @return - O ID do anunciante;
+	 */
 	public long getAnuncianteID() {
 		return anuncianteID;
 	}
 
-
+	/**
+	 * Setter para o ID do anunciante;
+	 * @param anuncianteID - Novo valor do ID do anunciante;
+	 */
 	public void setAnuncianteID(long anuncianteID) {
 		this.anuncianteID = anuncianteID;
 	}
 
 	/**
 	 * Construtor da classe
-	 * @param petID - long que representa o id único do pet;
-	 * @param especie - String que representa a espécie do pet;
+	 * @param petID - long que representa o id unico do pet;
+	 * @param especie - String que representa a especie do pet;
 	 * @param nome - String que representa o nome do pet;
 	 * @param sexo - String que representa o sexo do pet;
-	 * @param detalhes - String que contém detalhes adicionais do pet;
+	 * @param detalhes - String que contem detalhes adicionais do pet;
 	 * @param anunciante - Usuario 
 	 */
 	
-	
+	/**
+	 * Construtor vazio
+	 */
 	public Pet() {
 		;
 	}
 
 
 	/**
-	 * Getter para o atributo de ícone do pet;
-	 * @return - Image com o ícone do pet;
+	 * Getter para o atributo de icone do pet;
+	 * @return - Image com o icone do pet;
 	 */
 	public Image getIcone() {
 		return this.icone;
 	}
 
 	/**
-	 * Setter para o atributo de ícone do pet;
-	 * @param icone - Image com ícone;
+	 * Setter para o atributo de icone do pet;
+	 * @param icone - Image com icone;
 	 */
 	public void setIcone(Image icone) {
 		this.icone = icone;
@@ -123,8 +135,8 @@ public class Pet {
 	}
 
 	/**
-	 * Setter para o atributo de espécie do pet;
-	 * @param especie - String com a espécie do pet;
+	 * Setter para o atributo de especie do pet;
+	 * @param especie - String com a especie do pet;
 	 */
 	public void setEspecie(String especie) {
 		this.especie = especie;
@@ -151,7 +163,7 @@ public class Pet {
 	
 	/**
 	 * Setter para o atributo de anunciante do pet;
-	 * @param anunciante - Usuário que está anunciando o pet;
+	 * @param anunciante - Usuario que esta anunciando o pet;
 	 */
 	public void setAnunciante(Usuario anunciante) {
 		this.anunciante = anunciante;

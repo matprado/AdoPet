@@ -7,16 +7,33 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.control.TextArea;
 
+/**
+ * Classe de manager para as telas envolvendo chat;
+ * @authors Mateus Prado, Mateus Tomieiro, Victor Reis, Matheus Rigato;
+ *
+ */
 public class ChatManager {
 	
+	/**
+	 * Metodo para ir ate a tela de disponiveis;
+	 * @param event - evento realizado;
+	 */
 	@FXML protected void abaDisponiveis(ActionEvent event) {
 		Gui.telaDisponiveis();
 	}
 	
+	/**
+	 * Metodo para ir ate a tela de porque adotar;
+	 * @param event - evento realizado;
+	 */
 	@FXML protected void abaPorqueAdotar(ActionEvent event) {
 		Gui.telaPorqueAdotar();
 	}
 	
+	/**
+	 * Metodo para quando se escolhe um contato;
+	 * @param event - evento realizado;
+	 */
 	public static void apertou(ActionEvent event) {
         String aux = ((Control)event.getSource()).getId();
 		aux = aux.replaceFirst("b", "");
@@ -44,6 +61,10 @@ public class ChatManager {
 		}
 	}
 	
+	/**
+	 * Metodo para quando o usuario aceita prosseguir com a adocao;
+	 * @param event - evento realizado;
+	 */
 	@FXML public void usuarioAceitou(ActionEvent event) {
 		if(((Button)Gui.getComp(((Control)event.getSource()).getId())).getText() == "Finalizar") {
 			((Button)Gui.getComp(((Control)event.getSource()).getId())).setText("Esperando");
@@ -55,10 +76,19 @@ public class ChatManager {
 		
 	}
 	
+	/**
+	 * Metodo para quando o usuario volta numa tela anterior;
+	 * @param event - evento realizado;
+	 */
 	@FXML public void voltar(ActionEvent event) {
 		Gui.telaChat();
 	}
 	
+	
+	/**
+	 * Metodo para quando o usuario cancela um chat;
+	 * @param event - evento realizado;
+	 */
 	@FXML public void cancelar(ActionEvent event) {
 		//BDConexaoClass.excluirChat(Gui.User, Gui.contato);
 		Gui.telaDisponiveis();
