@@ -9,11 +9,13 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
+import java.util.Vector;
+
 import javax.imageio.ImageIO;
 import backend.Usuario;
 import frontend.Gui;
 import javafx.embed.swing.SwingFXUtils;
+import backend.Pair;
 import backend.Pet;
 
 
@@ -424,7 +426,7 @@ public class BDConexaoClass{
 		}
     }
 
-    public static HashMap<Integer,String> getMensagensAntigas(Usuario user1, Usuario user2){
+    public static Vector<Pair<Integer,String>> getMensagensAntigas(Usuario user1, Usuario user2){
 
         Connection con = BDConexao();
         String select = "SELECT * FROM chat WHERE (user1_id=? AND user2_id=?) OR (user2_id=? AND user1_id=?)";
@@ -453,7 +455,6 @@ public class BDConexaoClass{
 		try {
 			rs.first();
 			id = rs.getInt(1);
-			System.out.println(id);
 		} catch (SQLException e1) {
 			System.out.println("Erro no get da Query - getMensagens");
 		}
@@ -480,18 +481,34 @@ public class BDConexaoClass{
 			System.out.println("Erro na exec Query2 - getMensagens");
 		}
 
-        HashMap<Integer,String> messages = new HashMap<Integer,String>();
+		int i=0;
+		try {
+			while(rsp.next()){
+			    i++;
+			}
+		} catch (SQLException e) {
+			System.out.println("Erro nas mensagens - getMensagens");
+		}
+		
+		try {
+			rsp.beforeFirst();
+		} catch (SQLException e1) {
+			System.out.println("Primeiro do result");
+		}
+		
+		Vector<Pair<Integer,String>> pares = new Vector<Pair<Integer, String>>(i);
+		i=0;
         try {
 			while(rsp.next()){
 				String msg = rsp.getString(1);
 				int sent = rsp.getInt(2);
-			    messages.put(sent,msg);
+			    pares.add(new Pair<Integer,String>(sent,msg));
 			}
 		} catch (SQLException e) {
 			System.out.println("Erro nas mensagens - getMensagens");
 		}
 
-        return messages;
+        return pares;
     }
 
     public static void criarMensagem(Usuario user1, Usuario user2,String mensagem){

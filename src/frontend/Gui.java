@@ -4,11 +4,13 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.sql.SQLException;
-import java.util.HashMap;
+import java.util.Vector;
 
 import backend.Pet;
 import backend.Usuario;
 import bd.BDConexaoClass;
+import backend.Pair;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
@@ -288,13 +290,14 @@ public class Gui extends Application {
 	}
 	
 	public static void mostrarMensagensAntigas() {
-		HashMap<Integer, String> mensagens = null;
+		Vector<Pair<Integer, String>> mensagens = null;
 		mensagens = BDConexaoClass.getMensagensAntigas(Gui.User, contato);
 		VBox box = (VBox)((ScrollPane)Gui.getComp("pbox")).getContent().lookup("#box");
-		for(HashMap.Entry<Integer, String> msg : mensagens.entrySet()) {
+		System.out.println(mensagens.size());
+		for(int i=0; i<mensagens.size(); i++) {
 			Label texto = new Label();
-			texto.setText(msg.getValue());
-			if(msg.getKey() == BDConexaoClass.getIdAnun((Gui.User.getUserName()))) {
+			texto.setText(mensagens.get(i).getMensagem());
+			if(mensagens.get(i).getId() == BDConexaoClass.getIdAnun((Gui.User.getUserName()))) {
 				//mensagem do usu�rio...
 				texto.setAlignment(Pos.CENTER_LEFT);
 			}else texto.setAlignment(Pos.CENTER_RIGHT);
@@ -303,7 +306,7 @@ public class Gui extends Application {
 	}
 	
 	public static void mostrarNovaMensagem(String mensagem) {
-		VBox box = (VBox)((ScrollPane)Gui.getComp("pbox")).getContent().lookup("box");
+		VBox box = (VBox)((ScrollPane)Gui.getComp("pbox")).getContent().lookup("#box");
 		Label nova = new Label();
 		nova.setText(mensagem);
 		nova.setMinWidth(470);

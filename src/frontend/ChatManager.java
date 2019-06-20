@@ -20,7 +20,6 @@ public class ChatManager {
 	@FXML public void apertou(ActionEvent event) {
         int id = Integer.parseInt(((Control)event.getSource()).getId());
 		Gui.contato = Gui.contatos[id];
-		System.out.println(Gui.contato.getNome());
 		Gui.iniciarChat();
     }
 	
