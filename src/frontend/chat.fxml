@@ -38,12 +38,12 @@
          <children>
             <ScrollPane fx:id="spane" hbarPolicy="NEVER" layoutY="-1.0" pannable="true" prefHeight="444.0" prefWidth="503.0" vbarPolicy="ALWAYS" visible="false">
                <content>
-                  <VBox fx:id="vpane" alignment="CENTER" prefHeight="440.0" prefWidth="487.0" visible="false" />
+                  <VBox fx:id="vpane" alignment="CENTER" prefHeight="440.0" prefWidth="487.0" />
                </content>
             </ScrollPane>
             <ScrollPane fx:id="spane_pet" hbarPolicy="NEVER" pannable="true" prefHeight="442.0" prefWidth="503.0" vbarPolicy="ALWAYS" visible="false">
                <content>
-                  <VBox fx:id="vpane_pet" alignment="CENTER" prefHeight="443.0" prefWidth="496.0" visible="false" />
+                  <VBox fx:id="vpane_pet" alignment="CENTER" prefHeight="443.0" prefWidth="496.0" />
                </content>
             </ScrollPane>
          </children>
