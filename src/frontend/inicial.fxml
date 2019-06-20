@@ -1,39 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.paint.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<Pane fx:id="fundo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: SteelBlue;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.InicialManager">
+<Pane fx:id="fundo" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1024.0" style="-fx-background-color: SteelBlue;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.InicialManager">
    <children>
-      <TextField fx:id="user" layoutX="161.0" layoutY="186.0" prefHeight="28.0" prefWidth="291.0" />
-      <PasswordField fx:id="password" layoutX="161.0" layoutY="220.0" prefHeight="28.0" prefWidth="291.0" />
-      <Button fx:id="login" layoutX="328.0" layoutY="273.0" mnemonicParsing="false" onAction="#clickLogin" prefHeight="54.0" prefWidth="124.0" text="Login">
+      <TextField fx:id="user" layoutX="301.0" layoutY="426.0" prefHeight="54.0" prefWidth="452.0">
          <font>
-            <Font name="Dyuthi" size="22.0" />
+            <Font size="22.0" />
+         </font></TextField>
+      <PasswordField fx:id="password" layoutX="301.0" layoutY="495.0" prefHeight="53.0" prefWidth="453.0">
+         <font>
+            <Font size="20.0" />
+         </font></PasswordField>
+      <Button fx:id="login" layoutX="542.0" layoutY="599.0" mnemonicParsing="false" onAction="#clickLogin" prefHeight="72.0" prefWidth="211.0" text="Login">
+         <font>
+            <Font name="Dyuthi" size="30.0" />
          </font>
       </Button>
-      <Button fx:id="cadastro" layoutX="161.0" layoutY="273.0" mnemonicParsing="false" onAction="#clickCadastro" prefHeight="54.0" prefWidth="124.0" text="Cadastrar" textAlignment="CENTER">
+      <Button fx:id="cadastro" layoutX="273.0" layoutY="599.0" mnemonicParsing="false" onAction="#clickCadastro" prefHeight="70.0" prefWidth="200.0" text="Cadastrar" textAlignment="CENTER">
          <font>
-            <Font name="Dyuthi" size="22.0" />
+            <Font name="Dyuthi" size="30.0" />
          </font>
       </Button>
-      <Text fill="WHITE" layoutX="89.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ADOPET" textAlignment="CENTER" wrappingWidth="434.0">
+      <Text fill="WHITE" layoutX="200.0" layoutY="463.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login">
          <font>
-            <Font name="Dyuthi" size="84.0" />
+            <Font name="Dyuthi" size="30.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="115.0" layoutY="206.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Login">
+      <Text fill="WHITE" layoutX="193.0" layoutY="525.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Senha" wrappingWidth="93.0">
          <font>
-            <Font name="Dyuthi" size="17.0" />
+            <Font name="Dyuthi" size="30.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="115.0" layoutY="236.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Senha" wrappingWidth="40.2265625">
+      <ImageView fitHeight="429.0" fitWidth="508.0" layoutX="241.0" layoutY="8.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../animals-3803422_960_720.png" />
+         </image>
+      </ImageView>
+      <Text fill="WHITE" layoutX="175.0" layoutY="286.0" rotate="-20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ADOPET" textAlignment="CENTER" wrappingWidth="672.6666870117188">
          <font>
-            <Font name="Dyuthi" size="16.0" />
+            <Font name="Dyuthi" size="100.0" />
          </font>
       </Text>
    </children>

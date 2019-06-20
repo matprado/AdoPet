@@ -1,33 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
-<?import javafx.scene.chart.*?>
-<?import javafx.scene.text.*?>
-<?import javafx.scene.control.*?>
-<?import java.lang.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: SteelBlue;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.PorqueAdotarManager">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1024.0" style="-fx-background-color: SteelBlue;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.PorqueAdotarManager">
    <children>
-      <RadioButton fx:id="aba_disponiveis" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#abaDisponiveis" text="Disponiveis" textFill="WHITE">
+      <RadioButton fx:id="aba_disponiveis" layoutX="75.0" layoutY="14.0" mnemonicParsing="false" onAction="#abaDisponiveis" text="Disponiveis" textFill="WHITE">
          <font>
-            <Font name="Dyuthi" size="16.0" />
+            <Font name="Dyuthi" size="32.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="aba_chat" layoutX="248.0" layoutY="14.0" mnemonicParsing="false" onAction="#abaChat" text="Chat" textFill="WHITE">
+      <RadioButton fx:id="aba_chat" layoutX="453.0" layoutY="14.0" mnemonicParsing="false" onAction="#abaChat" text="Chat" textFill="WHITE">
          <font>
-            <Font name="Dyuthi" size="16.0" />
+            <Font name="Dyuthi" size="32.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="porque_adotar" layoutX="458.0" layoutY="14.0" mnemonicParsing="false" selected="true" text="Por que adotar?" textFill="WHITE">
+      <RadioButton fx:id="porque_adotar" layoutX="711.0" layoutY="14.0" mnemonicParsing="false" selected="true" text="Por que adotar?" textFill="WHITE">
          <font>
-            <Font name="Dyuthi" size="16.0" />
+            <Font name="Dyuthi" size="32.0" />
          </font>
       </RadioButton>
-      <Text fill="WHITE" layoutX="34.0" layoutY="111.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Segundo dados da OMS, Organização Mundial da Saúde,&#10;estima-se que cerca de 30 milhões de animais vivem &#10;abandonados em cidades do Brasil, sendo 10 milhões&#10;deles gatos e 20 milhões de cães. Quando se adota &#10;um animal, essa ação contribui para reduzir e evitar &#10;animais nas ruas.  &#10;Siga conosco esta filosofia, amigo não se compra!" textAlignment="CENTER">
+      <Text fill="WHITE" layoutX="115.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Segundo dados da OMS, Organização Mundial da Saúde,&#10;estima-se que cerca de 30 milhões de animais vivem &#10;abandonados em cidades do Brasil, sendo 10 milhões&#10;deles gatos e 20 milhões de cães. Quando se adota &#10;um animal, essa ação contribui para reduzir e evitar &#10;animais nas ruas.  &#10;Siga conosco esta filosofia, amigo não se compra!" textAlignment="CENTER" wrappingWidth="796.23486328125">
          <font>
-            <Font name="Dyuthi" size="23.0" />
+            <Font name="Dyuthi" size="33.0" />
          </font>
       </Text>
+      <ImageView fitHeight="227.0" fitWidth="243.0" layoutX="401.0" layoutY="453.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../dog-1517090_960_720.png" />
+         </image>
+      </ImageView>
    </children>
 </Pane>
