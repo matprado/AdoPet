@@ -273,6 +273,8 @@ public class Gui extends Application {
 		((TextField)(Gui.getComp("especie"))).setText((Gui.pet[Gui.index].getEspecie()));
 		((TextField)(Gui.getComp("sexo"))).setText((Gui.pet[Gui.index].getSexo()));
 		((TextField)(Gui.getComp("dono"))).setText((Gui.pet[Gui.index].getAnunciante().getNome()));
+		((TextField)(Gui.getComp("cidade"))).setText((Gui.pet[Gui.index].getAnunciante().getCidade()));
+		((TextField)(Gui.getComp("endereco"))).setText((Gui.pet[Gui.index].getAnunciante().getEndereco()));
 		((TextArea)(Gui.getComp("descricao"))).setText((Gui.pet[Gui.index].getDetalhes()));
 	
 		if(BDConexaoClass.getIdAnun(Gui.User.getUserName()) == Gui.pet[Gui.index].getAnuncianteID()) {
@@ -417,7 +419,7 @@ public class Gui extends Application {
 			((Button)Gui.getComp("finalizar")).setText("Esperando");
 		}
 		//mostra com quem o usuario esta conversando
-		((Label)Gui.getComp("titulo")).setText(((Label)getComp("titulo")).getText() + Gui.contato.getUserName());
+		((Label)Gui.getComp("titulo")).setText(((Label)getComp("titulo")).getText() + Gui.contato.getNome());
 		//carrega a cena
 		Scene S = new Scene(root);
 		Gui.Stg.setScene(S);

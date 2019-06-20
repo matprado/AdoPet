@@ -1,58 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.image.*?>
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: SteelBlue;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.AnunciarManager">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: SteelBlue;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.AnunciarManager">
    <children>
-      <Button fx:id="seleciona_imagem" layoutX="346.0" layoutY="81.0" mnemonicParsing="false" onAction="#selecionarImagem" text="Escolha uma imagem">
+      <Button fx:id="seleciona_imagem" layoutX="565.0" layoutY="228.0" mnemonicParsing="false" onAction="#selecionarImagem" text="Escolha uma imagem">
          <font>
-            <Font name="Dyuthi" size="13.0" />
+            <Font name="Dyuthi" size="25.0" />
          </font></Button>
-      <Text layoutX="14.0" layoutY="233.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome">
+      <Text layoutX="114.0" layoutY="432.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome">
          <font>
-            <Font name="Dyuthi" size="14.0" />
+            <Font name="Dyuthi" size="25.0" />
          </font>
       </Text>
-      <TextField fx:id="nome" layoutX="69.0" layoutY="216.0" prefHeight="25.0" prefWidth="145.0" />
-      <TextField fx:id="especie" layoutX="69.0" layoutY="251.0" prefHeight="25.0" prefWidth="145.0" />
-      <Text layoutX="14.0" layoutY="266.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Especie">
+      <TextField fx:id="nome" layoutX="209.0" layoutY="411.0" prefHeight="39.0" prefWidth="249.0">
          <font>
-            <Font name="Dyuthi" size="14.0" />
+            <Font size="20.0" />
+         </font></TextField>
+      <TextField fx:id="especie" layoutX="209.0" layoutY="467.0" prefHeight="39.0" prefWidth="249.0">
+         <font>
+            <Font size="20.0" />
+         </font></TextField>
+      <Text layoutX="110.0" layoutY="488.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Especie" wrappingWidth="119.37109375">
+         <font>
+            <Font name="Dyuthi" size="25.0" />
          </font>
       </Text>
-      <TextField fx:id="sexo" layoutX="69.0" layoutY="287.0" prefHeight="25.0" prefWidth="145.0" />
-      <Text layoutX="14.0" layoutY="302.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sexo">
+      <TextField fx:id="sexo" layoutX="206.0" layoutY="523.0" prefHeight="29.0" prefWidth="249.0">
          <font>
-            <Font name="Dyuthi" size="14.0" />
+            <Font size="20.0" />
+         </font></TextField>
+      <Text layoutX="117.0" layoutY="551.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sexo">
+         <font>
+            <Font name="Dyuthi" size="25.0" />
          </font>
       </Text>
-      <Text layoutX="366.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descriçao">
+      <Text layoutX="670.0" layoutY="381.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descriçao">
          <font>
-            <Font name="Dyuthi" size="18.0" />
+            <Font name="Dyuthi" size="25.0" />
          </font>
       </Text>
-      <TextArea fx:id="descricao" layoutX="242.0" layoutY="200.0" prefHeight="127.0" prefWidth="318.0">
+      <TextArea fx:id="descricao" layoutX="518.0" layoutY="398.0" prefHeight="167.0" prefWidth="415.0" wrapText="true">
          <font>
-            <Font name="Dyuthi" size="13.0" />
+            <Font name="Dyuthi" size="20.0" />
          </font>
       </TextArea>
-      <Button fx:id="voltar" layoutX="128.0" layoutY="360.0" mnemonicParsing="false" onAction="#voltarDisponiveis" prefHeight="25.0" prefWidth="70.0" text="Voltar" />
-      <Button fx:id="confirmar" layoutX="392.0" layoutY="360.0" mnemonicParsing="false" onAction="#confirmarAnuncio" prefHeight="26.0" prefWidth="88.0" text="Confirmar" />
-      <Text layoutX="252.0" layoutY="46.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SELECIONE A MELHOR FOTO DE SEU PET!" textAlignment="CENTER" wrappingWidth="318.0">
+      <Button fx:id="voltar" layoutX="277.0" layoutY="655.0" mnemonicParsing="false" onAction="#voltarDisponiveis" prefHeight="60.0" prefWidth="187.0" text="Voltar">
          <font>
-            <Font name="Dyuthi" size="16.0" />
+            <Font size="25.0" />
+         </font></Button>
+      <Button fx:id="confirmar" layoutX="554.0" layoutY="655.0" mnemonicParsing="false" onAction="#confirmarAnuncio" prefHeight="60.0" prefWidth="187.0" text="Confirmar">
+         <font>
+            <Font size="25.0" />
+         </font></Button>
+      <Text layoutX="529.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SELECIONE A MELHOR FOTO DE SEU PET!" textAlignment="CENTER" wrappingWidth="318.0">
+         <font>
+            <Font name="Dyuthi" size="30.0" />
          </font>
       </Text>
-      <ImageView fx:id="imagem_anuncio" fitHeight="150.0" fitWidth="204.0" layoutX="26.0" layoutY="22.0" nodeOrientation="INHERIT" pickOnBounds="true" />
+      <ImageView fx:id="imagem_anuncio" fitHeight="245.0" fitWidth="332.0" layoutX="110.0" layoutY="96.0" nodeOrientation="INHERIT" pickOnBounds="true" />
    </children>
 </Pane>
