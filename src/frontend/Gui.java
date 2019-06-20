@@ -420,5 +420,48 @@ public class Gui extends Application {
 		Gui.numeropaginas = (BDConexaoClass.getSizePets() / 4);
     	Gui.launch(args); //Requisitando inicializacao da Gui
     }
+	
+	/**
+	 * Método para conferir se um cpf é válido ou não;
+	 * @param cpf - string com o cpf
+	 * @return - boolen com a verificação;
+	 */
+	public static boolean verificaCPF(String cpf) {
+		
+		if(cpf.length() != 11) return false; //conferer se o cpf tem todos os digitos
+					
+		try {
+			Long.parseLong(cpf);  //confere se não há digitos no meio
+		}catch(Exception e) {
+			return false;
+		}
+		
+		int[] dig = new int[11];
+		
+		for(int i=0; i<11; i++) {
+			dig[i] = Character.getNumericValue(cpf.charAt(i));     //faz um vetor com os digitos
+		}
+		
+		//Verifica a validade do cpf:
+		
+		int soma = 0, aux = 10;
+		for(int i=0; i<9; i++) {
+			soma += dig[i] * aux--; 
+		}	
+		soma = (soma * 10) % 11;
+		if(soma != dig[9]) return false;
+		
+		
+		soma = 0;
+		aux = 11;
+		for(int i=0; i<10; i++) {
+			soma += dig[i] * aux--;
+		}
+		
+		soma = (soma * 10) % 11;	
+		if(soma != dig[10]) return false;
+		
+		return true;
+	}
     
 }
