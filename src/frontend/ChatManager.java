@@ -20,10 +20,20 @@ public class ChatManager {
 	public static void apertou(ActionEvent event) {
         String aux = ((Control)event.getSource()).getId();
 		aux = aux.replaceFirst("b", "");
-		int id = Integer.parseInt(aux);
-        Gui.contato = Gui.contatos[id];
-		Gui.iniciarChat();
+		int id = Integer.parseInt(aux);		
+		Gui.contato = Gui.contatos[id];
+		//EXIBE TELA COM PETS CONVERSADOS//
+		Gui.mostraPetsChat();
     }
+	
+	public static void apertouPet(ActionEvent event) {
+		String aux = ((Control)event.getSource()).getId();
+		aux = aux.replaceFirst("bp", "");
+		int id = Integer.parseInt(aux);		
+		Gui.selecionadoChat = Gui.vpets.elementAt(id);
+		Gui.petCorrente = Gui.selecionadoChat;
+		Gui.iniciarChat();
+	}
 	
 	@FXML public void enviouMensagem(ActionEvent event) {
 		if(((TextArea)Gui.getComp("texto")).getText().length() != 0) {
@@ -53,5 +63,4 @@ public class ChatManager {
 		//BDConexaoClass.excluirChat(Gui.User, Gui.contato);
 		Gui.telaDisponiveis();
 	}
-	
 }

@@ -47,6 +47,10 @@ public class Gui extends Application {
 	static int numeropaginas;
 	static int paginaatual;
 	static Image fotopet;
+	public static Button[] botaoPets;
+	public static Vector<Pet> vpets;
+	public static Pet selecionadoChat;
+	public static Pet petCorrente;
 	
 	
 	public static Object getComp(String str) {
@@ -222,7 +226,7 @@ public class Gui extends Application {
 	}
 	
 	/**
-	 * Método que imprime a tela de contatos do chat;
+	 * Mï¿½todo que imprime a tela de contatos do chat;
 	 */
 	public static void telaChat() {
 		//carrega o fxml correspondente
@@ -237,12 +241,12 @@ public class Gui extends Application {
 		} catch (IOException e) {
 			System.out.println("Erro no carregamento do FXML");
 		}
-		//carrega os contatos do usuário logado
+		//carrega os contatos do usuï¿½rio logado
 		Gui.contatos = BDConexaoClass.listaContatos(Gui.User);
 		
 		//se ter algum contato
 		if(Gui.contatos.length != 0) {
-			//cria um botão para cada contato
+			//cria um botï¿½o para cada contato
 			Gui.botaoContato = new Button[Gui.contatos.length];
 			VBox painel = ((VBox)((ScrollPane)Gui.getComp("spane")).getContent().lookup("#vpane"));
 			((Label)getComp("texto1")).setVisible(true);
@@ -263,7 +267,7 @@ public class Gui extends Application {
 				((ScrollPane)Gui.getComp("spane")).setVisible(true);
 			}
 		}else {
-			//caso contrário, mostra texto de que não há contatos;
+			//caso contrï¿½rio, mostra texto de que nï¿½o hï¿½ contatos;
 			((Label)getComp("texto2")).setVisible(true);
 			((Label)getComp("texto1")).setVisible(false);
 		}
@@ -275,7 +279,7 @@ public class Gui extends Application {
 	}
 	
 	/**
-	 * Método para imprimir a tela de chat entre o usuário e o contato escolhido;
+	 * Mï¿½todo para imprimir a tela de chat entre o usuï¿½rio e o contato escolhido;
 	 */
 	public static void iniciarChat(){
 		//carrega o fxml correspondente
@@ -291,34 +295,56 @@ public class Gui extends Application {
 			System.out.println("Erro no carregamento do FXML");
 		}
 		
-		//se ainda não existe um chat entre o usuário e seu contato, então cria-se um;
+		//se ainda nï¿½o existe um chat entre o usuï¿½rio e seu contato, entï¿½o cria-se um;
 		if(!BDConexaoClass.existeChat(Gui.User, Gui.contato)){
 			BDConexaoClass.comecarChat(Gui.User, Gui.contato);
 		}else{
-			//caso contrário, mostra mensagens antigas;
+			//caso contrï¿½rio, mostra mensagens antigas;
 			Gui.mostrarMensagensAntigas();
 		}
-		//Se o usuário já aceitou a adotagem então muda o texto do botão
+		//Se o usuï¿½rio jï¿½ aceitou a adotagem entï¿½o muda o texto do botï¿½o
 		if(BDConexaoClass.UsuarioAceitou(Gui.User, Gui.contato)) {
 			((Button)Gui.getComp("finalizar")).setText("Esperando");
 		}
-		//mostra com quem o usuário está conversando
-		((Label)Gui.getComp("titulo")).setText(((Label)getComp("titulo")).getText() + Gui.contato.getUserName());
 		//carrega a cena
-		Scene S = new Scene(Gui.root);
+		Scene S = new Scene(root);
 		Gui.Stg.setScene(S);
         Gui.Stg.setTitle("AdoPet");
         Gui.Stg.show();
 	}
 	
+	public static void mostraPetsChat() {
+		
+		Gui.vpets = BDConexaoClass.getPetsFromChat(Gui.User, Gui.contato);
+		
+		Gui.botaoPets = new Button[vpets.size()];
+		VBox painel = ((VBox)((ScrollPane)Gui.getComp("spane_pet")).getContent().lookup("#vpane_pet"));
+		for(int i=0; i<vpets.size(); i++) {
+			Gui.botaoPets[i] = new Button();
+			Gui.botaoPets[i].setOnAction(new EventHandler<ActionEvent>() {
+				@Override public void handle(ActionEvent event) {
+					ChatManager.apertouPet(event);
+				}
+			});
+			Gui.botaoPets[i].setId(i + "bp");
+			Gui.botaoPets[i].setText(Gui.vpets.get(i).getNome());
+			Gui.botaoPets[i].setVisible(true);
+			Gui.botaoPets[i].setMinSize(320, 30);
+			Gui.botaoPets[i].setAlignment(Pos.CENTER);
+			painel.getChildren().add(Gui.botaoPets[i]);
+			((ScrollPane)Gui.getComp("spane_pet")).setVisible(true);
+			((ScrollPane)Gui.getComp("spane")).setVisible(false);
+		}
+	}
+	
 	/**
-	 * Método para mostrar mesagens antigas entre o usuário e seu contato escolhido;
+	 * Mï¿½todo para mostrar mesagens antigas entre o usuï¿½rio e seu contato escolhido;
 	 */
 	public static void mostrarMensagensAntigas() {
-		//cria um vector de elementos do tipo pair que são pares de inteiros com strings;
+		//cria um vector de elementos do tipo pair que sï¿½o pares de inteiros com strings;
 		Vector<Pair<Integer, String>> mensagens = null;
 		//recupera os pares de mensagens antigas;
-		mensagens = BDConexaoClass.getMensagensAntigas(Gui.User, contato);
+		mensagens = BDConexaoClass.getMensagensAntigas(Gui.User, contato, (int)Gui.selecionadoChat.getPetID());
 		VBox box = (VBox)((ScrollPane)Gui.getComp("pbox")).getContent().lookup("#box");
 		//alinha todas as mensagens de acordo com quem enviou
 		for(int i=0; i<mensagens.size(); i++) {
@@ -342,7 +368,7 @@ public class Gui extends Application {
 	}
 	
 	/**
-	 * Método para mostrar uma nova mensagem no chat;
+	 * Mï¿½todo para mostrar uma nova mensagem no chat;
 	 * @param mensagem - String com a nova mensagem;
 	 */
 	public static void mostrarNovaMensagem(String mensagem) {
@@ -380,7 +406,6 @@ public class Gui extends Application {
         Gui.Stg.setTitle("AdoPet");
         Gui.Stg.show();
 	}
-	
 	
 	@Override
     public void start (Stage stage){
@@ -422,16 +447,16 @@ public class Gui extends Application {
     }
 	
 	/**
-	 * Método para conferir se um cpf é válido ou não;
+	 * Mï¿½todo para conferir se um cpf ï¿½ vï¿½lido ou nï¿½o;
 	 * @param cpf - string com o cpf
-	 * @return - boolen com a verificação;
+	 * @return - boolen com a verificaï¿½ï¿½o;
 	 */
 	public static boolean verificaCPF(String cpf) {
 		
 		if(cpf.length() != 11) return false; //conferer se o cpf tem todos os digitos
 					
 		try {
-			Long.parseLong(cpf);  //confere se não há digitos no meio
+			Long.parseLong(cpf);  //confere se nï¿½o hï¿½ digitos no meio
 		}catch(Exception e) {
 			return false;
 		}

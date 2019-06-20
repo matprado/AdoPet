@@ -53,6 +53,8 @@ CREATE TABLE IF NOT EXISTS mensagens(
 
 ALTER TABLE mensagens ADD UNIQUE(id_mensagem);
 
+SELECT DISTINCTROW(user2_id) FROM chat WHERE user1_id = 4;
+
 DROP TABLE mensagens;
 DROP TABLE chat;
 
@@ -63,7 +65,7 @@ TRUNCATE TABLE chat;
 SELECT * FROM mensagens;
 SELECT * FROM chat;
 
-SELECT pet_id FROM chat WHERE ((user1_id=4 AND user2_id=6) OR (user2_id=4 AND user1_id=6)) AND pet_id=11;
+SELECT chat_id FROM chat WHERE ((user1_id=4 AND user2_id=6) OR (user2_id=4 AND user1_id=6)) AND pet_id=11;
 
 SELECT * FROM clientes WHERE cliente_id=4;
 
@@ -74,9 +76,15 @@ SELECT * FROM chat WHERE (user1_id=4 AND user2_id=6 AND pet_id=11) OR (user2_id=
 
 
 SELECT * FROM chat WHERE user1_id=4 AND user2_id=5;
-
+SELECT * FROM chat WHERE ((user1_id=6 AND user2_id=4) OR (user1_id=4 AND user2_id=6)) AND pet_id=11;
 
 
 DELETE FROM pets WHERE pet_id=1;
 
 DELETE FROM clientes WHERE cliente_id=2;
+
+
+
+
+
+

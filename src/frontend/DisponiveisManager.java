@@ -26,6 +26,7 @@ public class DisponiveisManager {
 	
 	@FXML protected void clicaPet(ActionEvent event) {
 		Gui.index = ((int)(((Control)event.getSource()).getId().charAt(8))-48) - 1;
+		Gui.petCorrente = Gui.pet[Gui.index];
 		Gui.telaInfoPet();
 	}
 	

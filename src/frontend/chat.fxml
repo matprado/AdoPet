@@ -42,7 +42,12 @@
          <children>
             <ScrollPane fx:id="spane" hbarPolicy="NEVER" pannable="true" prefHeight="280.0" prefWidth="377.0" vbarPolicy="ALWAYS" visible="false">
                <content>
-                  <VBox fx:id="vpane" alignment="TOP_CENTER" prefHeight="280.0" prefWidth="374.0" />
+                  <VBox fx:id="vpane" alignment="CENTER" prefHeight="280.0" prefWidth="374.0" />
+               </content>
+            </ScrollPane>
+            <ScrollPane fx:id="spane_pet" pannable="true" prefHeight="274.0" prefWidth="377.0" visible="false">
+               <content>
+                  <VBox fx:id="vpane_pet" alignment="CENTER" prefHeight="271.0" prefWidth="373.0" />
                </content>
             </ScrollPane>
          </children>
