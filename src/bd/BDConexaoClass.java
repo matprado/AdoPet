@@ -23,6 +23,10 @@ public class BDConexaoClass{
     
     DriverManager driver;
     
+    /*
+     * BDConexao - Faz conexao com o Banco de Dados
+     * @return - Objeto Connection para executar as Queries
+     */
     
     public static Connection BDConexao(){
         
@@ -40,6 +44,12 @@ public class BDConexaoClass{
         
     }
     
+    /*
+     * getIdAnun - funcao que retorna o id do usuario que tem determinado nome de usuario
+     * @param username - Recebe o nome de usuario
+     * @return id do usuario
+     * 
+     */
     public static int getIdAnun(String username) {
     	Connection con = BDConexao();
     	String select = "SELECT cliente_id FROM clientes WHERE username=?";
@@ -74,7 +84,10 @@ public class BDConexaoClass{
 		}
 		
     }
-    
+    /*
+     * cadastroPet - funcao que adiciona pet no Banco de Dados
+     * @param p - recebe um Objeto Pet 
+     */
     public static void cadastroPet(Pet p){
         Connection con = BDConexao();
         String insert = "INSERT INTO pets(species,nome,sexo,detalhes,id_doador,imagem) values(?,?,?,?,?,?)";
@@ -110,7 +123,10 @@ public class BDConexaoClass{
 		}
     }
     
-    // Fun��o que cadastra o usu�rio no Banco de Dados
+    /*
+     * cadastroUser - 
+     * 
+     */
     public static void cadastroUser(Usuario user){
         Connection con = BDConexao();
         String insert = "INSERT INTO clientes(username,senha,nome,cpf,cidade,endereco,cep) values(?,?,?,?,?,?,?)";
@@ -353,7 +369,67 @@ public class BDConexaoClass{
     	}
     	return;
     }
-
+    
+    
+    
+    public static void excluirChat(Usuario user1, Usuario user2){ 
+    	 
+		Connection con = BDConexao(); 
+ 
+		int id = getSizeUser(user1, user2); 
+ 
+		Connection con = BDConexao(); 
+ 
+		String excluirMensagens = "DELETE FROM mensagens WHERE id_chat=?"; 
+		String deletarChat = "DELETE FROM chat WHERE chat_id=?"; 
+ 
+		PreparedStatement ps = null; 
+ 
+		try{ 
+			ps = con.prepareStatement(excluirMensagens); 
+		}catch (SQLException e) { 
+			System.out.println("Erro ao preparar a statament excluirMensagens"); 
+		} 
+ 
+		try{ 
+			ps.setInt(1, id); 
+		}catch (SQLException e) { 
+			System.out.println("Erro ao setar a statement excluirMensagens"); 
+		} 
+ 
+		try{ 
+			ps.execute(); 
+		} catch (SQLException e) { 
+			System.out.println("Erro ao executar a Query excluirMensagens"); 
+		} 
+ 
+		PreparedStatement psd = null;   
+ 
+		try{ 
+			psd = con.prepareStatement(deletarChat); 
+		}catch (SQLException e) { 
+			System.out.println("Erro ao preparar a statament deletarChat"); 
+		} 
+ 
+		try{ 
+			psd.setInt(1, id); 
+		}catch (SQLException e) { 
+			System.out.println("Erro ao setar a statement deletarChat"); 
+		} 
+ 
+		try{ 
+			psd.execute(); 
+		}catch (SQLException e) { 
+			System.out.println("Erro ao executar a Query excluirMensagens"); 
+		} 
+ 
+	} 
+    
+    /*
+     * excluirTodosChats - 
+     * 
+     * 
+     */
     public static void excluirTodosChats(int id){
 
 		Connection con = BDConexao();
@@ -436,7 +512,7 @@ public class BDConexaoClass{
     
     public static void adotarPet(Usuario user1, Usuario user2){
 
-    	int petId = 0;//BDConexaoClass.getPetId(user1,user2);
+    	//BDConexaoClass.getPetId(user1,user2);
     	
     	excluirTodosChats(petId);
     	
