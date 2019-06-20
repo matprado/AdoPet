@@ -196,10 +196,10 @@ public class BDConexaoClass{
 		}	
 		try{
 			
-			ps.setInt(1, getIdAnun(user1.getUserName()));
-			ps.setInt(2, getIdAnun(user2.getUserName()));
-			ps.setInt(3, getIdAnun(user1.getUserName()));
-			ps.setInt(4, getIdAnun(user2.getUserName()));
+			ps.setInt(1, BDConexaoClass.getIdAnun(user1.getUserName()));
+			ps.setInt(2, BDConexaoClass.getIdAnun(user2.getUserName()));
+			ps.setInt(3, BDConexaoClass.getIdAnun(user1.getUserName()));
+			ps.setInt(4, BDConexaoClass.getIdAnun(user2.getUserName()));
 		} catch(SQLException e){
 			System.out.println("Erro ao setar statement");
 		}
@@ -239,8 +239,8 @@ public class BDConexaoClass{
     	}
     	
     	try {
-			pss.setInt(1,getIdAnun(user1.getUserName()));
-			pss.setInt(2,getIdAnun(user2.getUserName()));
+			pss.setInt(1,BDConexaoClass.getIdAnun(user1.getUserName()));
+			pss.setInt(2,BDConexaoClass.getIdAnun(user2.getUserName()));
 		} catch (SQLException e1) {
 			System.out.println("Erro ao setar ID's no prepared statament! - Chat");
 		}
@@ -341,10 +341,10 @@ public class BDConexaoClass{
         		System.out.println("Erro ao preparar Statement"); 
         	}
     		try {
-				psu1.setInt(1,getIdAnun(user1.getUserName()));
-				psu1.setInt(2,getIdAnun(user2.getUserName()));
-				psu1.setInt(3,getIdAnun(user1.getUserName()));
-				psu1.setInt(4,getIdAnun(user2.getUserName()));
+				psu1.setInt(1,BDConexaoClass.getIdAnun(user1.getUserName()));
+				psu1.setInt(2,BDConexaoClass.getIdAnun(user2.getUserName()));
+				psu1.setInt(3,BDConexaoClass.getIdAnun(user1.getUserName()));
+				psu1.setInt(4,BDConexaoClass.getIdAnun(user2.getUserName()));
 			} catch (SQLException e1) {
 				System.out.println("Erro ao setar args statement - finaliza");
 			}
@@ -365,10 +365,10 @@ public class BDConexaoClass{
     		}
     		
     		try {
-    			psu2.setInt(1,getIdAnun(user1.getUserName()));
-				psu2.setInt(2,getIdAnun(user2.getUserName()));
-				psu2.setInt(3,getIdAnun(user1.getUserName()));
-				psu2.setInt(4,getIdAnun(user2.getUserName()));
+    			psu2.setInt(1,BDConexaoClass.getIdAnun(user1.getUserName()));
+				psu2.setInt(2,BDConexaoClass.getIdAnun(user2.getUserName()));
+				psu2.setInt(3,BDConexaoClass.getIdAnun(user1.getUserName()));
+				psu2.setInt(4,BDConexaoClass.getIdAnun(user2.getUserName()));
 			} catch (SQLException e1) {
 				System.out.println("Erro ao setar args ps2 - finaliza");
 				return;
@@ -462,7 +462,7 @@ public class BDConexaoClass{
     public static void adotarPet(Usuario user1, Usuario user2){
 
     
-    	int petId = getPetId(user1,user2);
+    	int petId = BDConexaoClass.getPetId(user1,user2);
     	
     	excluirTodosChats(petId);
     	
@@ -533,7 +533,6 @@ public class BDConexaoClass{
 			System.out.println("Erro ao executar query");
 		}
 
-    	
     }
     /*
      * Verifica se existe algum chat criado entre dois usuarios
