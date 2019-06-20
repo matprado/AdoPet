@@ -14,7 +14,7 @@
          <font>
             <Font name="Dyuthi" size="25.0" />
          </font></Button>
-      <Text layoutX="114.0" layoutY="432.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome">
+      <Text layoutX="133.0" layoutY="437.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome">
          <font>
             <Font name="Dyuthi" size="25.0" />
          </font>
@@ -27,16 +27,16 @@
          <font>
             <Font size="20.0" />
          </font></TextField>
-      <Text layoutX="110.0" layoutY="488.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Especie" wrappingWidth="119.37109375">
+      <Text layoutX="122.0" layoutY="490.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Especie" wrappingWidth="119.37109375">
          <font>
             <Font name="Dyuthi" size="25.0" />
          </font>
       </Text>
-      <TextField fx:id="sexo" layoutX="206.0" layoutY="523.0" prefHeight="29.0" prefWidth="249.0">
+      <TextField fx:id="sexo" layoutX="209.0" layoutY="518.0" prefHeight="29.0" prefWidth="249.0">
          <font>
             <Font size="20.0" />
          </font></TextField>
-      <Text layoutX="117.0" layoutY="551.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sexo">
+      <Text layoutX="146.0" layoutY="541.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sexo">
          <font>
             <Font name="Dyuthi" size="25.0" />
          </font>

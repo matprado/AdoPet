@@ -17,7 +17,7 @@
          </font></TextField>
       <PasswordField fx:id="password" layoutX="301.0" layoutY="495.0" prefHeight="53.0" prefWidth="453.0">
          <font>
-            <Font size="20.0" />
+            <Font size="15.0" />
          </font></PasswordField>
       <Button fx:id="login" layoutX="542.0" layoutY="599.0" mnemonicParsing="false" onAction="#clickLogin" prefHeight="72.0" prefWidth="211.0" text="Login">
          <font>
