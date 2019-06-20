@@ -475,7 +475,7 @@ public class BDConexaoClass{
 			System.out.println("Erro ao preparar statament");
 		}
         try {
-			ps.setString(1,p.getNome());
+			ps.setString(1,petId);
 		} catch (SQLException e) {
 			System.out.println("Erro ao receber nome");
 		}
@@ -528,12 +528,11 @@ public class BDConexaoClass{
 		}
 
 		try{
-			psu.executeQuery();
+			psu.execute();
 		}catch(SQLException e){
 			System.out.println("Erro ao executar query");
 		}
-		
-	
+
     	
     }
     /*
