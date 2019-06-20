@@ -182,6 +182,50 @@ public class BDConexaoClass{
         return false;
     }
     
+    public static int getPetId(Usuario user1, Usuario user2){
+		Connection con = BDConexao();
+
+		String select = "SELECT pet_id FROM chat where (user1_id=? AND user2_id = ?) OR (user2_id=? AND user1_id=?)";
+
+		PreparedStatement ps = null;
+
+		try{
+			ps = con.prepareStatement(select);
+		}catch (SQLException e) {
+			System.out.println("Erro ao preparar a Query");
+		}	
+		try{
+			
+			ps.setInt(1, getIdAnun(user1.getUserName()));
+			ps.setInt(2, getIdAnun(user2.getUserName()));
+			ps.setInt(3, getIdAnun(user1.getUserName()));
+			ps.setInt(4, getIdAnun(user2.getUserName()));
+		} catch(SQLException e){
+			System.out.println("Erro ao setar statement");
+		}
+
+		ResultSet rs = null;
+
+		try{
+			rs = ps.executeQuery();
+		}catch(SQLException e){
+			System.out.println("Erro ao executar a query");
+		}
+
+		try{
+			rs.last();
+		}catch(SQLException e){
+			System.out.println("Erro ao colocar o ponteiro no registro");
+		}
+
+		try{
+			return rs.getInt(1);
+		}catch(SQLException e){
+			return 0;
+		}
+
+	}
+    
     
     public static boolean UsuarioAceitou(Usuario user1, Usuario user2) {
     	Connection con = BDConexao();
@@ -195,8 +239,8 @@ public class BDConexaoClass{
     	}
     	
     	try {
-			pss.setInt(1,BDConexaoClass.getIdAnun(user1.getUserName()));
-			pss.setInt(2,BDConexaoClass.getIdAnun(user2.getUserName()));
+			pss.setInt(1,getIdAnun(user1.getUserName()));
+			pss.setInt(2,getIdAnun(user2.getUserName()));
 		} catch (SQLException e1) {
 			System.out.println("Erro ao setar ID's no prepared statament! - Chat");
 		}
@@ -209,14 +253,6 @@ public class BDConexaoClass{
     		System.out.println("Erro ao executar a Query");
     	}
     	
-    	try {
-			if(!rss.next()) {
-				return false;
-			}
-		} catch (SQLException e1) {
-			System.out.println("Erro ao dar fetch no tamanho - userAceitou");
-		}
-    		
     	try {
 			rss.first();
 		} catch (SQLException e) {
@@ -235,12 +271,65 @@ public class BDConexaoClass{
     	return false;
     }
 
+    public static void excluirChat(Usuario user1, Usuario user2){
+
+		Connection con = BDConexao();
+
+		int id = getSizeUser(user1, user2);
+
+		Connection con = BDConexao();
+
+		String excluirMensagens = "DELETE FROM mensagens WHERE id_chat=?";
+		String deletarChat = "DELETE FROM chat WHERE chat_id=?";
+
+		PreparedStatement ps = null;
+
+		try{
+			ps = con.prepareStatement(excluirMensagens);
+		}catch (SQLException e) {
+			System.out.println("Erro ao preparar a statament excluirMensagens");
+		}
+
+		try{
+			ps.setInt(1, id);
+		}catch (SQLException e) {
+			System.out.println("Erro ao setar a statement excluirMensagens");
+		}
+
+		try{
+			ps.execute();
+		} catch (SQLException e) {
+			System.out.println("Erro ao executar a Query excluirMensagens");
+		}
+
+		PreparedStatement psd = null;  
+
+		try{
+			psd = con.prepareStatement(deletarChat);
+		}catch (SQLException e) {
+			System.out.println("Erro ao preparar a statament deletarChat");
+		}
+
+		try{
+			psd.setInt(1, id);
+		}catch (SQLException e) {
+			System.out.println("Erro ao setar a statement deletarChat");
+		}
+
+		try{
+			psd.execute();
+		}catch (SQLException e) {
+			System.out.println("Erro ao executar a Query excluirMensagens");
+		}
+
+	}
+
 
     public static void finaliza(Usuario user1, Usuario user2) {
- 
+
     	Connection con = BDConexao();
-    	String up1= "UPDATE chat SET confirma_user1=true where user1_id=? and user2_id=?";
-    	String up2= "UPDATE chat SET confirma_user2=true where user1_id=? and user2_id=?";
+    	String up1= "UPDATE chat SET confirma_user1=true where (user1_id=? AND user2_id=?) OR (user2_id=? AND user1_id=?)";
+    	String up2= "UPDATE chat SET confirma_user2=true where (user1_id=? AND user2_id=?) OR (user2_id=? AND user1_id=?)";
     	
     	PreparedStatement psu1 = null;
     	PreparedStatement psu2 = null;
@@ -252,8 +341,10 @@ public class BDConexaoClass{
         		System.out.println("Erro ao preparar Statement"); 
         	}
     		try {
-				psu1.setInt(1,(int)user1.getId());
-				psu1.setInt(2,(int)user2.getId());
+				psu1.setInt(1,getIdAnun(user1.getUserName()));
+				psu1.setInt(2,getIdAnun(user2.getUserName()));
+				psu1.setInt(3,getIdAnun(user1.getUserName()));
+				psu1.setInt(4,getIdAnun(user2.getUserName()));
 			} catch (SQLException e1) {
 				System.out.println("Erro ao setar args statement - finaliza");
 			}
@@ -274,8 +365,10 @@ public class BDConexaoClass{
     		}
     		
     		try {
-    			psu2.setInt(1,(int)user1.getId());
-				psu2.setInt(2,(int)user2.getId());
+    			psu2.setInt(1,getIdAnun(user1.getUserName()));
+				psu2.setInt(2,getIdAnun(user2.getUserName()));
+				psu2.setInt(3,getIdAnun(user1.getUserName()));
+				psu2.setInt(4,getIdAnun(user2.getUserName()));
 			} catch (SQLException e1) {
 				System.out.println("Erro ao setar args ps2 - finaliza");
 				return;
@@ -290,9 +383,89 @@ public class BDConexaoClass{
     	return;
     }
 
-    public static void adotarPet(Pet p,Usuario user1, Usuario user2){
+    public static void excluirTodosChats(int id){
+
+		Connection con = BDConexao();
+
+		String select = "SELECT chat_id FROM chat WHERE pet_id=?";
+
+		PreparedStatement ps = null;
+
+		try{
+			ps = con.prepareStatement(select);
+		}catch (SQLException e) {
+			System.out.println("Erro ao preparar statament");
+		}
+
+		try{
+			ps.setInt(1,id);
+		}catch (SQLException e) {
+			System.out.println("Erro ao receber ID");
+		}
+
+		ResultSet rs = null;
+
+		try{
+			rs = ps.executeQuery();
+		} catch (SQLException e) {
+			System.out.println("Erro ao executar statament");
+		}
+
+		String delMensagens = "DELETE FROM mensagens WHERE id_chat=?";
+		PreparedStatement psdm = null;
+
+		while(rs.next()){
+
+			try{
+				psdm = con.prepareStatement(delMensagens);
+			}catch (SQLException e) {
+				System.out.println("Erro ao preparar statament");
+			}
+
+			try{
+				psdm.setInt(1,rs.getInt(1));
+			}catch (SQLException e) {
+				System.out.println("Erro ao receber ID");
+			}
+
+			try{
+				psdm.execute();
+			}catch(SQLException e){
+				System.out.println("Erro ao executar a Query");
+			}
+
+		}
+
+		String delChats = "DELETE FROM chat WHERE pet_id=?";
+
+		PreparedStatement psdc = null;
+
+		try{
+			psdc = con.prepareStatement(delChats);
+		}catch (SQLException e) {
+			System.out.println("Erro ao preparar statament");
+		}
+		
+		try{
+			psdc.setInt(1,id);
+		}catch (SQLException e) {
+			System.out.println("Erro ao receber ID");
+		}
+
+		try{
+			psdc.execute();
+		}catch(SQLException e){
+			System.out.println("Erro ao executar a Query");
+		}
+	}
+    
+    public static void adotarPet(Usuario user1, Usuario user2){
 
     
+    	int petId = getPetId(user1,user2);
+    	
+    	excluirTodosChats(petId);
+    	
         Connection con = BDConexao();
         String del = "Delete FROM pets WHERE pet_id = ?";
         PreparedStatement ps = null;
@@ -302,7 +475,7 @@ public class BDConexaoClass{
 			System.out.println("Erro ao preparar statament");
 		}
         try {
-			ps.setString(1,p.getNome());
+			ps.setString(1,petId);
 		} catch (SQLException e) {
 			System.out.println("Erro ao receber nome");
 		}
@@ -355,14 +528,20 @@ public class BDConexaoClass{
 		}
 
 		try{
-			psu.executeQuery();
+			psu.execute();
 		}catch(SQLException e){
 			System.out.println("Erro ao executar query");
 		}
-		
-	
+
     	
     }
+    /*
+     * Verifica se existe algum chat criado entre dois usuarios
+     * @param user1 - Recebe o primeiro usuario
+     * @param user2 - Recebe o segundo usuario
+     * @return Retorna um boolean que demonstra a existência do chat(ou não) no Banco de Dados
+     * 
+     */
 
     public static boolean existeChat(Usuario user1,Usuario user2){
         Connection con = BDConexao();
@@ -400,6 +579,13 @@ public class BDConexaoClass{
         return false;
     }
 
+    /*
+     * cria uma query que adiciona um novo chat no Banco de Dados
+     * @param user1 - Primeiro usuario participante do chat
+     * @param user2 - Segundo usuario participante do chat
+     * 
+     */
+    
     public static void comecarChat(Usuario user1,Usuario user2){
         
         Connection con = BDConexao();
@@ -426,10 +612,17 @@ public class BDConexaoClass{
 		}
     }
 
+    /*
+     * Retorna todas as mensagens que dois usuarios já tiveram entre si
+     * @param user1 - Primeiro usuario participante do chat
+     * @param user2 - Segundo usuario participante do chat
+     * @return Um vector que contem os ids dos usuarios e as suas respectivas mensagens
+     * 
+     */
     public static Vector<Pair<Integer,String>> getMensagensAntigas(Usuario user1, Usuario user2){
 
         Connection con = BDConexao();
-        String select = "SELECT * FROM chat WHERE (user1_id=? AND user2_id=?) OR (user2_id=? AND user1_id=?)";
+        String select = "SELECT * FROM chat WHERE (user1_id=? AND user2_id=? AND pet_id=?) OR (user2_id=? AND user1_id=? AND pet_id=?)";
         PreparedStatement ps = null;
 		try {
 			ps = con.prepareStatement(select);
@@ -439,8 +632,10 @@ public class BDConexaoClass{
         try {
 			ps.setInt(1, BDConexaoClass.getIdAnun(user1.getUserName()));
 			ps.setInt(2, BDConexaoClass.getIdAnun(user2.getUserName()));
-			ps.setInt(3, BDConexaoClass.getIdAnun(user1.getUserName()));
-			ps.setInt(4, BDConexaoClass.getIdAnun(user2.getUserName()));
+			ps.setInt(3, getPetId(user1, user1));
+			ps.setInt(4, BDConexaoClass.getIdAnun(user1.getUserName()));
+			ps.setInt(5, BDConexaoClass.getIdAnun(user2.getUserName()));
+			ps.setInt(6, getPetId(user1, user2));
         } catch (SQLException e) {
 			System.out.println("Erro PS setInt - getMensagens");
 		}
@@ -511,6 +706,14 @@ public class BDConexaoClass{
         return pares;
     }
 
+    /*
+     * Cria uma query que coloca uma mensagem de acordo com o chat de dois usuarios
+     * @param user1 - Primeiro participante do chat
+     * @param user2 - Segundo participante do chat
+     * @param mensagem - Mensagem que foi enviada
+     * 
+     */
+    
     public static void criarMensagem(Usuario user1, Usuario user2,String mensagem){
     	Connection con = BDConexao();
         String pegarID = "Select chat_id FROM chat WHERE (user1_id = ? AND user2_id = ?) OR (user1_id = ? AND user2_id = ?)";
