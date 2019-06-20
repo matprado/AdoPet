@@ -3,6 +3,7 @@ package frontend;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.util.InputMismatchException;
 import java.util.Vector;
 
 import backend.Pet;
@@ -32,6 +33,11 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser.ExtensionFilter;
 
+/**
+ * Essa classe representa a GUI do programa;
+ * @authors Mateus Prado, Mateus Tomieiro, Victor Reis, Matheus Rigato;
+ *
+ */
 public class Gui extends Application {
 	static Parent root;
 	static Stage Stg;
@@ -48,11 +54,19 @@ public class Gui extends Application {
 	static int paginaatual;
 	static Image fotopet;
 	
-	
+	/**
+	 * Metodo para acessar um componente no fmxl
+	 * @param str - nome(id) do componente
+	 * @return - O objeto relacionado ao componente
+	 */
 	public static Object getComp(String str) {
 		return (Object)Gui.root.lookup("#" + str);
 	}
 	
+	/**
+	 * Metodo para cadastrar um usuario;
+	 * @return - usu√°rio criado;
+	 */
 	public static Usuario setCadastroUser() {
 		Gui.User.setNome(((TextField)Gui.getComp("name")).getText());
 		Gui.User.setUserName(((TextField)Gui.getComp("user")).getText());
@@ -64,53 +78,134 @@ public class Gui extends Application {
 		return User;
 	}
 	
+	/**
+	 * Metodo para imprimir a tela inicial do programa;
+	 * @throws IOException
+	 */
 	public static void telaInicial() throws IOException {
+		//carrega do fxml correspondente
 		FXMLLoader loader = new FXMLLoader(new File("src/frontend/inicial.fxml").toURI().toURL());
 		Gui.root = loader.load();
+		//cria a cena e seta a mesma
 		Scene S = new Scene(root);
 		Gui.Stg.setScene(S);
         Gui.Stg.setTitle("AdoPet");
         Gui.Stg.show();
 	}
 	
+	/**
+	 * Metodo de tentativa de login do usuario
+	 */
 	public static void login() {
 		Gui.User.setUserName(((TextField)getComp("user")).getText());
 		Gui.User.setSenha(((PasswordField)getComp("password")).getText());
+		//confere se bate o usu√°rio com a senha no BD
 		if(BDConexaoClass.loginUser(Gui.User)){
 			Gui.telaDisponiveis();
 		}
 	} 
 	
+	/**
+	 * Metodo para imprimir uma tela de cadastro;
+	 * @throws IOException
+	 */
 	public static void telaCadastro() throws IOException {
+		//carrega o fxml correspondente
 		FXMLLoader loader = new FXMLLoader(new File("src/frontend/cadastro.fxml").toURI().toURL());
 		Gui.root = loader.load();
+		//carrega nova cena
 		Scene S = new Scene(root);
 		Gui.Stg.setScene(S);
         Gui.Stg.setTitle("AdoPet - Cadastro");
         Gui.Stg.show();
 	}
 	
-	private static boolean validarCpf(String CPF) {
-		return true;
+	/**
+	 * Algortimo validador de CPF;
+	 * @param CPF - String com o CPF a ser verificado
+	 * @return - boolean
+	 */
+	public static boolean validarCPF(String CPF) {
+        // confere se o cpf √© formado por uma sequencia de numeros iguais
+        if (CPF.equals("00000000000") ||
+            CPF.equals("11111111111") ||
+            CPF.equals("22222222222") || CPF.equals("33333333333") ||
+            CPF.equals("44444444444") || CPF.equals("55555555555") ||
+            CPF.equals("66666666666") || CPF.equals("77777777777") ||
+            CPF.equals("88888888888") || CPF.equals("99999999999") ||
+            (CPF.length() != 11))
+            return(false);
+          
+        char dig10, dig11;
+        int soma, i, res, num, peso;
+          
+        // "try" - protege o codigo para eventuais erros de conversao de tipo (int)
+        try {
+        // Calculo do 1o. Digito Verificador
+            soma = 0;
+            peso = 10;
+            for (i=0; i<9; i++) {                       
+            	num = (int)(CPF.charAt(i) - 48); 
+            	soma = soma + (num * peso);
+            	peso = peso - 1;
+            }
+          
+            res = 11 - (soma % 11);
+            if ((res == 10) || (res == 11))
+                dig10 = '0';
+            else dig10 = (char)(res + 48); // converte no respectivo caractere numerico
+          
+            // Calculo do 2o. Digito Verificador
+            soma = 0;
+            peso = 11;
+            for(i=0; i<10; i++) {
+	            num = (int)(CPF.charAt(i) - 48);
+	            soma = soma + (num * peso);
+	            peso = peso - 1;
+	        }
+          
+            res = 11 - (soma % 11);
+            if ((res == 10) || (res == 11))
+                 dig11 = '0';
+            else dig11 = (char)(res + 48);
+          
+            // Verifica se os digitos calculados conferem com os digitos informados.
+            if ((dig10 == CPF.charAt(9)) && (dig11 == CPF.charAt(10)))
+                 return(true);
+            else return(false);
+        } catch (InputMismatchException erro) {
+            return(false);
+        }
 	}
 	
+	/**
+	 * Metodo para finalizar o cadastro de um usuario;
+	 */
 	public static void finalizaCadastro() {
+		//verifica se os valores de nome, senha, cpf e aceitar termos estao validos;
 		boolean nomeValido = ((TextField) getComp("user")).getLength() != 0;
 		boolean senhaValida = ((TextField) getComp("password")).getLength() != 0;
-		boolean cpfValido = validarCpf(((TextField)getComp("cpf")).getText());
+		boolean cpfValido = validarCPF(((TextField)getComp("cpf")).getText());
 		boolean validaTermos = ((CheckBox)getComp("aceita")).isSelected();
+		//Caso estejam validos, insere no BD e entra no programa em si
 		if(nomeValido && cpfValido && senhaValida && validaTermos){
 			BDConexaoClass.cadastroUser(setCadastroUser());	
 			Gui.telaDisponiveis();
 		}
 	}
 
+	/**
+	 * Metodo para imprimir a tela de pets disponiveis para adicao que tambem e 
+	 * a tela inicial do programa apos o login/cadastro do usuario;	
+	 */
 	public static void telaDisponiveis(){
+		//Define a paginacao
 		if(BDConexaoClass.getSizePets() < 4) {
 			Gui.numeropaginas = 1;
 		}
 		Gui.numeropaginas = BDConexaoClass.getSizePets() / 4;
 		
+		//carrega o fxml correspondente
 		FXMLLoader loader = null;
 		try {
 			loader = new FXMLLoader(new File("src/frontend/disponiveis.fxml").toURI().toURL());
@@ -151,8 +246,11 @@ public class Gui extends Application {
         Gui.Stg.show();
 	}
 	
-	
+	/**
+	 * Metodo para imprimir a tela com as caracter√≠sticas de um pet;
+	 */
 	public static void telaInfoPet() {
+		//carrega o fxml correspondente;
 		FXMLLoader loader = null;
 		try {
 			loader = new FXMLLoader(new File("src/frontend/infopet.fxml").toURI().toURL());
@@ -184,7 +282,11 @@ public class Gui extends Application {
         Gui.Stg.show();
 	}
 	
+	/**
+	 * Metodo para imprimir a tela de anuncio de um pet;
+	 */
 	public static void telaAnunciar() {
+		//carrega o fxml correspondente
 		FXMLLoader loader = null;
 		try {
 			loader = new FXMLLoader(new File("src/frontend/anunciar.fxml").toURI().toURL());
@@ -196,18 +298,22 @@ public class Gui extends Application {
 		} catch (IOException e) {
 			System.out.println("Erro no carregamento do FXML");
 		}
+		//carrega a cena
 		Scene S = new Scene(root);
 		Gui.Stg.setScene(S);
         Gui.Stg.setTitle("AdoPet - Info");
         Gui.Stg.show();
 	}
 	
+	/**
+	 * Metodo para a escolha de uma imagem como foto de um pet;
+	 */
 	public static void escolheFoto() {
 		FileChooser fc = new FileChooser();
 		fc.setTitle("Selecione a foto do pet!");
 		fc.getExtensionFilters().addAll(new ExtensionFilter("Image(.jpg .jpeg)","*.jpg","*.jpeg"));
 		File foto = fc.showOpenDialog(Gui.Stg);
-		if (Gui.fotopet == null) {
+		if (foto == null) {
         	Gui.telaDisponiveis();
         	return;
         }
@@ -215,6 +321,10 @@ public class Gui extends Application {
         ((ImageView)Gui.getComp("imagem_anuncio")).setImage(Gui.fotopet);
 	}
 	
+	/**
+	 * Metodo para confirmar o anuncio de um pet;
+	 * @param pet - O pet sendo anunciado;
+	 */
 	public static void confirmarAnuncio(Pet pet) {
 		BDConexaoClass.cadastroPet(pet);
 		Gui.paginaatual = 0;
@@ -222,7 +332,7 @@ public class Gui extends Application {
 	}
 	
 	/**
-	 * MÈtodo que imprime a tela de contatos do chat;
+	 * Metodo que imprime a tela de contatos do chat;
 	 */
 	public static void telaChat() {
 		//carrega o fxml correspondente
@@ -237,12 +347,12 @@ public class Gui extends Application {
 		} catch (IOException e) {
 			System.out.println("Erro no carregamento do FXML");
 		}
-		//carrega os contatos do usu·rio logado
+		//carrega os contatos do usuario logado
 		Gui.contatos = BDConexaoClass.listaContatos(Gui.User);
 		
 		//se ter algum contato
 		if(Gui.contatos.length != 0) {
-			//cria um bot„o para cada contato
+			//cria um botao para cada contato
 			Gui.botaoContato = new Button[Gui.contatos.length];
 			VBox painel = ((VBox)((ScrollPane)Gui.getComp("spane")).getContent().lookup("#vpane"));
 			((Label)getComp("texto1")).setVisible(true);
@@ -263,7 +373,7 @@ public class Gui extends Application {
 				((ScrollPane)Gui.getComp("spane")).setVisible(true);
 			}
 		}else {
-			//caso contr·rio, mostra texto de que n„o h· contatos;
+			//caso contrario, mostra texto de que nao ha contatos;
 			((Label)getComp("texto2")).setVisible(true);
 			((Label)getComp("texto1")).setVisible(false);
 		}
@@ -275,7 +385,7 @@ public class Gui extends Application {
 	}
 	
 	/**
-	 * MÈtodo para imprimir a tela de chat entre o usu·rio e o contato escolhido;
+	 * Metodo para imprimir a tela de chat entre o usuario e o contato escolhido;
 	 */
 	public static void iniciarChat(){
 		//carrega o fxml correspondente
@@ -291,18 +401,18 @@ public class Gui extends Application {
 			System.out.println("Erro no carregamento do FXML");
 		}
 		
-		//se ainda n„o existe um chat entre o usu·rio e seu contato, ent„o cria-se um;
+		//se ainda nao existe um chat entre o usuario e seu contato, entao cria-se um;
 		if(!BDConexaoClass.existeChat(Gui.User, Gui.contato)){
 			BDConexaoClass.comecarChat(Gui.User, Gui.contato);
 		}else{
-			//caso contr·rio, mostra mensagens antigas;
+			//caso contrario, mostra mensagens antigas;
 			Gui.mostrarMensagensAntigas();
 		}
-		//Se o usu·rio j· aceitou a adotagem ent„o muda o texto do bot„o
+		//Se o usuario ja aceitou a adotagem entao muda o texto do botao
 		if(BDConexaoClass.UsuarioAceitou(Gui.User, Gui.contato)) {
 			((Button)Gui.getComp("finalizar")).setText("Esperando");
 		}
-		//mostra com quem o usu·rio est· conversando
+		//mostra com quem o usuario esta conversando
 		((Label)Gui.getComp("titulo")).setText(((Label)getComp("titulo")).getText() + Gui.contato.getUserName());
 		//carrega a cena
 		Scene S = new Scene(Gui.root);
@@ -312,10 +422,10 @@ public class Gui extends Application {
 	}
 	
 	/**
-	 * MÈtodo para mostrar mesagens antigas entre o usu·rio e seu contato escolhido;
+	 * Metodo para mostrar mesagens antigas entre o usuario e seu contato escolhido;
 	 */
 	public static void mostrarMensagensAntigas() {
-		//cria um vector de elementos do tipo pair que s„o pares de inteiros com strings;
+		//cria um vector de elementos do tipo pair que sao pares de inteiros com strings;
 		Vector<Pair<Integer, String>> mensagens = null;
 		//recupera os pares de mensagens antigas;
 		mensagens = BDConexaoClass.getMensagensAntigas(Gui.User, contato);
@@ -342,7 +452,7 @@ public class Gui extends Application {
 	}
 	
 	/**
-	 * MÈtodo para mostrar uma nova mensagem no chat;
+	 * Metodo para mostrar uma nova mensagem no chat;
 	 * @param mensagem - String com a nova mensagem;
 	 */
 	public static void mostrarNovaMensagem(String mensagem) {
@@ -357,12 +467,18 @@ public class Gui extends Application {
 		box.getChildren().add(nova);
 	}
 	
+	/**
+	 * Metodo para finalizar uma adocao;
+	 */
 	public static void finalizaAdocao() {
 		/*BDConexaoClass.excluirChat(Gui.User, Gui.contato);
 		BDConexaoClass.adotaPet(Gui.User, Gui.contato);*/
 		Gui.telaDisponiveis();
 	}
 	
+	/**
+	 * Metodo que imprime a tela de porque adotar;
+	 */
 	public static void telaPorqueAdotar() {
 		FXMLLoader loader = null;
 		try {
@@ -380,8 +496,10 @@ public class Gui extends Application {
         Gui.Stg.setTitle("AdoPet");
         Gui.Stg.show();
 	}
-	
-	
+
+	/**
+	 * Metodo para iniciar um stage
+	 */
 	@Override
     public void start (Stage stage){
         Gui.Stg = stage;
@@ -392,7 +510,10 @@ public class Gui extends Application {
 			System.out.println("Erro no carregamento do FXML");
 		}
     }
-
+	
+	/**
+	 * Metodo para avancar uma pagina nos anuncios de pets
+	 */
 	public static void avancaPag() {
 		if(!(Gui.paginaatual == (BDConexaoClass.getSizePets()/4))) {
 			Gui.paginaatual++;
@@ -401,6 +522,9 @@ public class Gui extends Application {
 		
 	}
 
+	/**
+	 * Metodo para voltar uma pagina nos anuncios de pets
+	 */
 	public static void voltaPag() {
 		if(!(Gui.paginaatual == 0)) {
 			Gui.paginaatual--;
@@ -409,6 +533,10 @@ public class Gui extends Application {
 		
 	}
 	
+	/**
+	 * Metodo par dar um start na Gui;
+	 * @param args
+	 */
 	public static void run(String[] args) {
     	Gui.User = new Usuario();
     	Gui.pet = new Pet[4];
@@ -421,47 +549,6 @@ public class Gui extends Application {
     	Gui.launch(args); //Requisitando inicializacao da Gui
     }
 	
-	/**
-	 * MÈtodo para conferir se um cpf È v·lido ou n„o;
-	 * @param cpf - string com o cpf
-	 * @return - boolen com a verificaÁ„o;
-	 */
-	public static boolean verificaCPF(String cpf) {
-		
-		if(cpf.length() != 11) return false; //conferer se o cpf tem todos os digitos
-					
-		try {
-			Long.parseLong(cpf);  //confere se n„o h· digitos no meio
-		}catch(Exception e) {
-			return false;
-		}
-		
-		int[] dig = new int[11];
-		
-		for(int i=0; i<11; i++) {
-			dig[i] = Character.getNumericValue(cpf.charAt(i));     //faz um vetor com os digitos
-		}
-		
-		//Verifica a validade do cpf:
-		
-		int soma = 0, aux = 10;
-		for(int i=0; i<9; i++) {
-			soma += dig[i] * aux--; 
-		}	
-		soma = (soma * 10) % 11;
-		if(soma != dig[9]) return false;
-		
-		
-		soma = 0;
-		aux = 11;
-		for(int i=0; i<10; i++) {
-			soma += dig[i] * aux--;
-		}
-		
-		soma = (soma * 10) % 11;	
-		if(soma != dig[10]) return false;
-		
-		return true;
-	}
+	
     
 }
