@@ -458,7 +458,7 @@ public class Gui extends Application {
 		//cria um vector de elementos do tipo pair que sao pares de inteiros com strings;
 		Vector<Pair<Integer, String>> mensagens = null;
 		//recupera os pares de mensagens antigas;
-		mensagens = BDConexaoClass.getMensagensAntigas(Gui.User, contato, (int)Gui.selecionadoChat.getPetID());
+		mensagens = BDConexaoClass.getMensagensAntigas(Gui.User, Gui.contato);
 		VBox box = (VBox)((ScrollPane)Gui.getComp("pbox")).getContent().lookup("#box");
 		//alinha todas as mensagens de acordo com quem enviou
 		for(int i=0; i<mensagens.size(); i++) {
