@@ -42,7 +42,6 @@ public class DisponiveisManager {
 	
 	@FXML protected void mensagemDono(ActionEvent event) {
 		Gui.contato = Gui.pet[Gui.index].getAnunciante();
-		Gui.telaConversa();
 		Gui.iniciarChat();
 	}
 	

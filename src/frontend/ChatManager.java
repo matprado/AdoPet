@@ -1,7 +1,5 @@
 package frontend;
 
-import java.sql.SQLException;
-
 import bd.BDConexaoClass;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -23,19 +21,15 @@ public class ChatManager {
         int id = Integer.parseInt(((Control)event.getSource()).getId());
 		Gui.contato = Gui.contatos[id];
 		System.out.println(Gui.contato.getNome());
-        Gui.telaConversa();
 		Gui.iniciarChat();
     }
 	
 	@FXML public void enviouMensagem(ActionEvent event) {
-		if(((TextArea)Gui.getComp("texto")).toString().length() != 0) {
-			//criarMensagem(Gui.User, Gui.contato, ((TextArea)Gui.getComp("texto")).toString());
-			Gui.mostrarNovaMensagem(((TextArea)Gui.getComp("texto")).toString());
-			try {
-				BDConexaoClass.criarMensagem(Gui.User, Gui.contato, ((TextArea)Gui.getComp("texto")).toString());
-			} catch (SQLException e) {
-				System.out.println("Erro ao criar nova mensagem!");
-			}
+		if(((TextArea)Gui.getComp("texto")).getText().length() != 0) {
+			String mensagem =((TextArea)Gui.getComp("texto")).getText();
+			Gui.mostrarNovaMensagem(mensagem);
+			((TextArea)Gui.getComp("texto")).setText("");
+			BDConexaoClass.criarMensagem(Gui.User, Gui.contato, mensagem);
 		}
 	}
 	

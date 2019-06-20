@@ -53,17 +53,21 @@ CREATE TABLE IF NOT EXISTS mensagens(
 
 ALTER TABLE mensagens ADD UNIQUE(id_mensagem);
 
+DROP TABLE mensagens;
 DROP TABLE chat;
 
-DROP TABLE mensagens;
+DELETE FROM chat;
 
+TRUNCATE TABLE chat;
+
+SELECT * FROM mensagens;
+SELECT * FROM chat;
 SELECT * FROM pets;
+SELECT * FROM clientes;
 
 SELECT * FROM chat WHERE user1_id=4 AND user2_id=5;
 
-SELECT * FROM chat;
 
-SELECT * FROM clientes;
 
 DELETE FROM pets WHERE pet_id=1;
 

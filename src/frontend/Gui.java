@@ -18,6 +18,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
@@ -257,7 +258,7 @@ public class Gui extends Application {
 	}
 	
 	
-	public static void telaConversa() {
+	public static void iniciarChat(){
 		FXMLLoader loader = null;
 		try {
 			loader = new FXMLLoader(new File("src/frontend/conversa.fxml").toURI().toURL());
@@ -269,23 +270,18 @@ public class Gui extends Application {
 		} catch (IOException e) {
 			System.out.println("Erro no carregamento do FXML");
 		}
-	}
-	
-	
-	public static void iniciarChat(){
+		
 		if(!BDConexaoClass.existeChat(Gui.User, Gui.contato)){
 			BDConexaoClass.comecarChat(Gui.User, Gui.contato);
-			((Label)Gui.getComp("textoInicial")).setText(((Label)getComp("textoInicial")).getText() + Gui.contato.getNome());
 		}else{
-			((Label)Gui.getComp("textoInicial")).setDisable(true);
-			mostrarMensagensAntigas();		
+			Gui.mostrarMensagensAntigas();
 		}
-
+		
 		if(BDConexaoClass.UsuarioAceitou(Gui.User, Gui.contato)) {
 			((Button)Gui.getComp("finalizar")).setText("Esperando");
 		}
 		((Label)Gui.getComp("titulo")).setText(((Label)getComp("titulo")).getText() + Gui.contato.getNome());
-		Scene S = new Scene(root);
+		Scene S = new Scene(Gui.root);
 		Gui.Stg.setScene(S);
         Gui.Stg.setTitle("AdoPet");
         Gui.Stg.show();
@@ -294,11 +290,11 @@ public class Gui extends Application {
 	public static void mostrarMensagensAntigas() {
 		HashMap<Integer, String> mensagens = null;
 		mensagens = BDConexaoClass.getMensagensAntigas(Gui.User, contato);
-		VBox box = (VBox)getComp("box");
+		VBox box = (VBox)((ScrollPane)Gui.getComp("pbox")).getContent().lookup("#box");
 		for(HashMap.Entry<Integer, String> msg : mensagens.entrySet()) {
 			Label texto = new Label();
 			texto.setText(msg.getValue());
-			if(msg.getKey() == Gui.User.getId()) {
+			if(msg.getKey() == BDConexaoClass.getIdAnun((Gui.User.getUserName()))) {
 				//mensagem do usu�rio...
 				texto.setAlignment(Pos.CENTER_LEFT);
 			}else texto.setAlignment(Pos.CENTER_RIGHT);
@@ -307,10 +303,12 @@ public class Gui extends Application {
 	}
 	
 	public static void mostrarNovaMensagem(String mensagem) {
-		VBox box = (VBox)getComp("box");
+		VBox box = (VBox)((ScrollPane)Gui.getComp("pbox")).getContent().lookup("box");
 		Label nova = new Label();
 		nova.setText(mensagem);
-		nova.setAlignment(Pos.CENTER_LEFT);
+		nova.setMinWidth(470);
+		nova.setMinHeight(30);
+		nova.setAlignment(Pos.TOP_RIGHT);
 		box.getChildren().add(nova);
 	}
 	
@@ -351,19 +349,19 @@ public class Gui extends Application {
     }
 
 	public static void avancaPag() {
-		Gui.paginaatual++;
-		if(Gui.paginaatual >= (BDConexaoClass.getSizePets()/4)) {
-			Gui.paginaatual = (BDConexaoClass.getSizePets()/4);
+		if(!(Gui.paginaatual == (BDConexaoClass.getSizePets()/4))) {
+			Gui.paginaatual++;
+			Gui.telaDisponiveis();
 		}
-		Gui.telaDisponiveis();
+		
 	}
 
 	public static void voltaPag() {
-		Gui.paginaatual--;
-		if(Gui.paginaatual <= 0) {
-			Gui.paginaatual = 0;
+		if(!(Gui.paginaatual == 0)) {
+			Gui.paginaatual--;
+			Gui.telaDisponiveis();
 		}
-		Gui.telaDisponiveis();
+		
 	}
 	
 	public static void run(String[] args) {
