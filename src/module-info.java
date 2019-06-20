@@ -5,6 +5,7 @@ module adoPet {
 	requires transitive javafx.fxml;
 	requires transitive java.desktop;
 	requires transitive javafx.swing;
+	requires javafx.base;
 	opens frontend;
 	exports frontend;
 	exports backend;

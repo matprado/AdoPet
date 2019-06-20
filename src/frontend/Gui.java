@@ -3,7 +3,6 @@ package frontend;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.sql.SQLException;
 import java.util.Vector;
 
 import backend.Pet;
@@ -12,6 +11,8 @@ import bd.BDConexaoClass;
 import backend.Pair;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
@@ -25,7 +26,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
@@ -206,10 +206,12 @@ public class Gui extends Application {
 		FileChooser fc = new FileChooser();
 		fc.setTitle("Selecione a foto do pet!");
 		fc.getExtensionFilters().addAll(new ExtensionFilter("Image(.jpg .jpeg)","*.jpg","*.jpeg"));
-		Gui.fotopet= new Image(fc.showOpenDialog(Gui.Stg).toURI().toString());
+		File foto = fc.showOpenDialog(Gui.Stg);
 		if (Gui.fotopet == null) {
         	Gui.telaDisponiveis();
+        	return;
         }
+		Gui.fotopet= new Image(foto.toURI().toString());
         ((ImageView)Gui.getComp("imagem_anuncio")).setImage(Gui.fotopet);
 	}
 	
@@ -222,7 +224,6 @@ public class Gui extends Application {
 	
 	public static void telaChat() {
 		FXMLLoader loader = null;
-		boolean temContato = true;
 		try {
 			loader = new FXMLLoader(new File("src/frontend/chat.fxml").toURI().toURL());
 		} catch (MalformedURLException e) {
@@ -233,25 +234,31 @@ public class Gui extends Application {
 		} catch (IOException e) {
 			System.out.println("Erro no carregamento do FXML");
 		}
-		try {
-			Gui.contatos = BDConexaoClass.listaContatos(Gui.User);
-		} catch (SQLException e) {
-			temContato = false;
-			System.out.println("Erro ao trazer contatos do BD!");
-		}
+		Gui.contatos = BDConexaoClass.listaContatos(Gui.User);
 		
-		if(temContato) {
-			botaoContato = new Button[contatos.length];
-			AnchorPane painel = (AnchorPane)getComp("pane");
-			painel.setVisible(true);
+		if(Gui.contatos.length != 0) {
+			Gui.botaoContato = new Button[Gui.contatos.length];
+			VBox painel = ((VBox)((ScrollPane)Gui.getComp("spane")).getContent().lookup("#vpane"));
 			((Label)getComp("texto1")).setVisible(true);
+			((Label)getComp("texto2")).setVisible(false);
 			for(int i=0; i<contatos.length; i++) {
-				Gui.botaoContato[i].setId(i + "");
+				Gui.botaoContato[i] = new Button();
+				Gui.botaoContato[i].setOnAction(new EventHandler<ActionEvent>() {
+				    @Override public void handle(ActionEvent event) {
+				       ChatManager.apertou(event);
+				    }
+				});
+				Gui.botaoContato[i].setId(i + "b");
 				Gui.botaoContato[i].setText(Gui.contatos[i].getNome());
-				painel.getChildren().add(botaoContato[i]);
+				Gui.botaoContato[i].setVisible(true);
+				Gui.botaoContato[i].setMinSize(320, 30);
+				Gui.botaoContato[i].setAlignment(Pos.CENTER);
+				painel.getChildren().add(Gui.botaoContato[i]);
+				((ScrollPane)Gui.getComp("spane")).setVisible(true);
 			}
 		}else {
 			((Label)getComp("texto2")).setVisible(true);
+			((Label)getComp("texto1")).setVisible(false);
 		}
 		Scene S = new Scene(root);
 		Gui.Stg.setScene(S);
@@ -282,7 +289,7 @@ public class Gui extends Application {
 		if(BDConexaoClass.UsuarioAceitou(Gui.User, Gui.contato)) {
 			((Button)Gui.getComp("finalizar")).setText("Esperando");
 		}
-		((Label)Gui.getComp("titulo")).setText(((Label)getComp("titulo")).getText() + Gui.contato.getNome());
+		((Label)Gui.getComp("titulo")).setText(((Label)getComp("titulo")).getText() + Gui.contato.getUserName());
 		Scene S = new Scene(Gui.root);
 		Gui.Stg.setScene(S);
         Gui.Stg.setTitle("AdoPet");
@@ -293,14 +300,19 @@ public class Gui extends Application {
 		Vector<Pair<Integer, String>> mensagens = null;
 		mensagens = BDConexaoClass.getMensagensAntigas(Gui.User, contato);
 		VBox box = (VBox)((ScrollPane)Gui.getComp("pbox")).getContent().lookup("#box");
-		System.out.println(mensagens.size());
 		for(int i=0; i<mensagens.size(); i++) {
 			Label texto = new Label();
-			texto.setText(mensagens.get(i).getMensagem());
 			if(mensagens.get(i).getId() == BDConexaoClass.getIdAnun((Gui.User.getUserName()))) {
-				//mensagem do usu�rio...
+				texto.setText("[" + Gui.contato.getUserName() + "]: " + mensagens.get(i).getMensagem());
+				texto.setMinWidth(470);
+				texto.setMinHeight(30);
 				texto.setAlignment(Pos.CENTER_LEFT);
-			}else texto.setAlignment(Pos.CENTER_RIGHT);
+			}else{
+				texto.setText("[voce]: " + mensagens.get(i).getMensagem());
+				texto.setMinWidth(470);
+				texto.setMinHeight(30);
+				texto.setAlignment(Pos.CENTER_RIGHT);
+			}
 			box.getChildren().add(texto);
 		}
 	}
@@ -308,7 +320,7 @@ public class Gui extends Application {
 	public static void mostrarNovaMensagem(String mensagem) {
 		VBox box = (VBox)((ScrollPane)Gui.getComp("pbox")).getContent().lookup("#box");
 		Label nova = new Label();
-		nova.setText(mensagem);
+		nova.setText("[voce]: " + mensagem);
 		nova.setMinWidth(470);
 		nova.setMinHeight(30);
 		nova.setAlignment(Pos.TOP_RIGHT);

@@ -579,16 +579,76 @@ public class BDConexaoClass{
     }
     
     
-    public static int getSizeUser(Usuario user1) throws SQLException{
-    	
+    private static Usuario getUserFromId(int id) {
+    	Usuario aux = new Usuario();
     	Connection con = BDConexao();
-    	String cont = "SELECT COUNT(chat_id) FROM chat WHERE user1_id = ?";
-    	PreparedStatement ps = con.prepareStatement(cont);
-    	ps.setInt(1,(int)user1.getId());
+    	String cont = "SELECT * FROM clientes WHERE cliente_id = ?";
+    	PreparedStatement ps = null;
+		try {
+			ps = con.prepareStatement(cont);
+		} catch (SQLException e) {
+			System.out.println("Erro preparacao getUserFromId");
+		}
+    	try {
+			ps.setInt(1,id);
+		} catch (SQLException e) {
+			System.out.println("Erro setting int getUserFromId");
+		}
+    	ResultSet rs = null;
+    	try {
+			rs = ps.executeQuery();
+		} catch (SQLException e) {
+			System.out.println("Erro ao executar a Query getUserFromId");
+		}
+    	try {
+			while(rs.next()){
+				aux.setId(id);
+				aux.setUserName(rs.getString(2));
+				aux.setSenha(rs.getString(3));
+				aux.setNome(rs.getString(4));
+				aux.setCpf(rs.getString(5));
+				aux.setCidade(rs.getString(6));
+				aux.setEndereco(rs.getString(7));
+				aux.setCep(rs.getString(8));
+				
+			}
+		} catch (SQLException e) {
+			System.out.println("Erro ao receber retornos getUserFromId");
+		}
     	
-    	ResultSet rs = ps.executeQuery();
-    	
-    	return rs.getInt(1);
+		return aux;
+	}
+    
+    
+    public static int getSizeUser(Usuario user1){
+    	Connection con = BDConexao();
+    	String cont = "SELECT COUNT(*) FROM chat WHERE user1_id = ?";
+    	PreparedStatement ps = null;
+		try {
+			ps = con.prepareStatement(cont);
+		} catch (SQLException e) {
+			System.out.println("Erro preparacao getSizeUser");
+		}
+    	try {
+			ps.setInt(1,BDConexaoClass.getIdAnun(user1.getUserName()));
+		} catch (SQLException e) {
+			System.out.println("Erro setting int getSizeUser");
+		}
+    	ResultSet rs = null;
+		try {
+			rs = ps.executeQuery();
+		} catch (SQLException e) {
+			System.out.println("Erro ao executar a Query getSizeUser");
+		}
+		int aux = 0;
+		try {
+			if(rs.first()) {
+				aux = rs.getInt(1);
+			}
+		} catch (SQLException e) {
+			System.out.println("Erro ao receber retorno getSizeUser");
+		}
+    	return aux;
     	
     }
 
@@ -622,38 +682,51 @@ public class BDConexaoClass{
 
 
 
-    public static Usuario[] listaContatos(Usuario user1) throws SQLException{
+    public static Usuario[] listaContatos(Usuario user1){
     	
     	Connection con = BDConexao();
-    	String select = "SELECT * FROM chat WHERE user1_id = ?";
-    	PreparedStatement ps = con.prepareStatement(select);
-    	ps.setInt(1,(int)user1.getId());
+    	String select = "SELECT user2_id FROM chat WHERE user1_id=?;";
+    	PreparedStatement ps = null;
+		try {
+			ps = con.prepareStatement(select);
+		} catch (SQLException e) {
+			System.out.println("Erro ao preparar statement - listaContatos");
+		}
+		
+    	try {
+			ps.setInt(1,BDConexaoClass.getIdAnun(user1.getUserName()));
+		} catch (SQLException e) {
+			System.out.println("Erro ao setar Query - listaContatos");
+		}
 
-    	ResultSet rs = ps.executeQuery();
-    	
-    	int len = getSizeUser(user1);
-    	
+    	ResultSet rs = null;
+    	int len = 0;
+		try {
+			rs = ps.executeQuery();
+		} catch (SQLException e) {
+			System.out.println("Erro ao executar a Query - listaContatos");
+		}
+		
+		len = getSizeUser(user1);
+		
     	Usuario[] pessoa = new Usuario[len];
+    	
     	int i = 0;
     	
-    	while(rs.next()){
-    		pessoa[i].setId(rs.getInt(1));
-    		pessoa[i].setUserName(rs.getString(2));
-    		pessoa[i].setSenha(rs.getString(3));
-    		pessoa[i].setNome(rs.getString(4));
-    		pessoa[i].setCpf(rs.getString(5));
-    		pessoa[i].setCidade(rs.getString(6));
-    		pessoa[i].setEndereco(rs.getString(7));
-    		pessoa[i].setCep(rs.getString(8));
-    		
-    		i++;
-    	}
+    	try {
+			while(rs.next()){
+				pessoa[i] = getUserFromId(rs.getInt(1));
+				i++;
+			}
+		} catch (SQLException e) {
+			System.out.println("Erro ao receber usuarios - listaContatos");
+		}
     	
     	return pessoa;
     }
 
-    
-    public static Usuario retornaUsuario(int id) throws SQLException{
+
+	public static Usuario retornaUsuario(int id) throws SQLException{
 
         Usuario user = new Usuario();
         Connection con = BDConexao();
