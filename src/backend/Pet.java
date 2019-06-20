@@ -3,7 +3,7 @@ package backend;
 import javafx.scene.image.Image;
 
 /*
- * Essa classe representa um pet em adoÃ§Ã£o;
+ * Essa classe representa um pet em adoção;
  * */
 public class Pet {
 	private int petID;
@@ -27,11 +27,11 @@ public class Pet {
 
 	/**
 	 * Construtor da classe
-	 * @param petID - long que representa o id Ãºnico do pet;
-	 * @param especie - String que representa a especie do pet;
+	 * @param petID - long que representa o id único do pet;
+	 * @param especie - String que representa a espécie do pet;
 	 * @param nome - String que representa o nome do pet;
 	 * @param sexo - String que representa o sexo do pet;
-	 * @param detalhes - String que contÃ©m detalhes adicionais do pet;
+	 * @param detalhes - String que contém detalhes adicionais do pet;
 	 * @param anunciante - Usuario 
 	 */
 	
@@ -41,11 +41,18 @@ public class Pet {
 	}
 
 
+	/**
+	 * Getter para o atributo de ícone do pet;
+	 * @return - Image com o ícone do pet;
+	 */
 	public Image getIcone() {
 		return this.icone;
 	}
 
-
+	/**
+	 * Setter para o atributo de ícone do pet;
+	 * @param icone - Image com ícone;
+	 */
 	public void setIcone(Image icone) {
 		this.icone = icone;
 	}
@@ -107,27 +114,45 @@ public class Pet {
 		return anunciante;
 	}
 
-
+	/**
+	 * Setter para o atributo de id do pet;
+	 * @param petID - Inteiro com o id do pet;
+	 */
 	public void setPetID(int petID) {
 		this.petID = petID;
 	}
 
-
+	/**
+	 * Setter para o atributo de espécie do pet;
+	 * @param especie - String com a espécie do pet;
+	 */
 	public void setEspecie(String especie) {
 		this.especie = especie;
 	}
 
-
+	
+	/**
+	 * Setter para o atributo de nome do pet;
+	 * @param nome - String com o nome do pet;
+	 */
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
 
-
+	
+	/**
+	 * Setter para o atributo de sexo do pet;
+	 * @param sexo - String com o sexo do pet;
+	 */
 	public void setSexo(String sexo) {
 		this.sexo = sexo;
 	}
 
-
+	
+	/**
+	 * Setter para o atributo de anunciante do pet;
+	 * @param anunciante - Usuário que está anunciando o pet;
+	 */
 	public void setAnunciante(Usuario anunciante) {
 		this.anunciante = anunciante;
 	}
