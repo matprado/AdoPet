@@ -62,8 +62,16 @@ TRUNCATE TABLE chat;
 
 SELECT * FROM mensagens;
 SELECT * FROM chat;
+
+SELECT pet_id FROM chat WHERE ((user1_id=4 AND user2_id=6) OR (user2_id=4 AND user1_id=6)) AND pet_id=11;
+
+SELECT * FROM clientes WHERE cliente_id=4;
+
 SELECT * FROM pets;
 SELECT * FROM clientes;
+
+SELECT * FROM chat WHERE (user1_id=4 AND user2_id=6 AND pet_id=11) OR (user2_id=4 AND user1_id=6 AND pet_id=?);
+
 
 SELECT * FROM chat WHERE user1_id=4 AND user2_id=5;
 
