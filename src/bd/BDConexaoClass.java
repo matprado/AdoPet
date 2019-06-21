@@ -326,13 +326,14 @@ public static boolean verifica2lados(Usuario user1, Usuario user2, Pet p) {
         	}catch(SQLException e) {
         		System.out.println("Erro ao executar a Query");
         	}
-        	
-        	
-        	
         	return true;
     	}	
     	return false;
+<<<<<<< HEAD
 	}
+=======
+    }
+>>>>>>> master
     
     /*
      * usuarioAceitou - 
@@ -414,7 +415,11 @@ public static boolean verifica2lados(Usuario user1, Usuario user2, Pet p) {
     		}
     		
     	}else {
+<<<<<<< HEAD
     		BDConexaoClass.adotarPet(user1, user2,(int) p.getPetID());
+=======
+    		BDConexaoClass.adotarPet(user1, user2, (int)p.getPetID());
+>>>>>>> master
     	}
     	return;
     }
