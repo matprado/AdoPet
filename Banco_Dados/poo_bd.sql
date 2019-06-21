@@ -69,7 +69,9 @@ SELECT chat_id FROM chat WHERE ((user1_id=4 AND user2_id=6) OR (user2_id=4 AND u
 
 SELECT * FROM clientes WHERE cliente_id=4;
 
-SELECT * FROM pets;
+SELECT * FROM pets LIMIT 0,1;
+
+
 SELECT * FROM clientes;
 
 SELECT * FROM chat WHERE (user1_id=4 AND user2_id=6 AND pet_id=11) OR (user2_id=4 AND user1_id=6 AND pet_id=?);
