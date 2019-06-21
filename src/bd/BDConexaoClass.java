@@ -388,11 +388,11 @@ public static boolean verifica2lados(Usuario user1, Usuario user2, Pet p) {
     public static void finaliza(Usuario user1, Usuario user2, Pet p) {
 
     	Connection con = BDConexao();
-    	String up1= "UPDATE chat SET confirma_user1=true where (user1_id=? AND user2_id=?) OR (user2_id=? AND user1_id=?)";
+    	String up1= "UPDATE chat SET confirma_user1=true where (user1_id=? AND user2_id=?)";
     	
     	PreparedStatement psu1 = null;
     	
-    	if((UsuarioAceitou(user1,p) == false)) {
+    	if(!(UsuarioAceitou(user1,p) && UsuarioAceitou(user2,p))) {
     		try {
     			psu1 = con.prepareStatement(up1);
     		}catch(SQLException e) {
@@ -401,8 +401,6 @@ public static boolean verifica2lados(Usuario user1, Usuario user2, Pet p) {
     		try {
 				psu1.setInt(1,BDConexaoClass.getIdAnun(user1.getUserName()));
 				psu1.setInt(2,BDConexaoClass.getIdAnun(user2.getUserName()));
-				psu1.setInt(3,BDConexaoClass.getIdAnun(user1.getUserName()));
-				psu1.setInt(4,BDConexaoClass.getIdAnun(user2.getUserName()));
 			} catch (SQLException e1) {
 				System.out.println("Erro ao setar args statement - finaliza");
 			}
