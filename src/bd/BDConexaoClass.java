@@ -239,7 +239,7 @@ public class BDConexaoClass{
     }
     /*
      * getPet - Retorna um objeto Pet
-     * @param id - Recebe um id de um pet especï¿½fico
+     * @param id - Recebe um id de um pet específico
      * @return - Retorna um  objeto Pet
      */
     public static Pet getPet(int id){
@@ -299,6 +299,41 @@ public class BDConexaoClass{
         return p;
 
 	}
+    
+    
+    
+public static boolean verifica2lados(Usuario user1, Usuario user2, Pet p) {
+    	
+    	String select = "SELECT confirma_user1,confirma_user2 FROM chat WHERE pet_id = ? AND user1_id=?";
+    	PreparedStatement ps = null;
+    	ResultSet rs = null;
+    	
+    	if((UsuarioAceitou(user1,p) == true) && (UsuarioAceitou(user2,p) == true)) {
+    		try {
+        		ps = con.prepareStatement(select);
+        	}catch(SQLException e) {
+        		System.out.println("Erro ao preparar Statement");
+        	}
+        	
+        	try {
+        			ps.setInt(1,(int)p.getPetID());
+        			ps.setInt(2,BDConexaoClass.getIdAnun(user1.getUserName()));
+    		} catch (SQLException e1) {
+    				System.out.println("Erro ao setar ID's no prepared statament! - Chat");
+    		}
+        	
+        	try {
+        		rs = ps.executeQuery();
+        	}catch(SQLException e) {
+        		System.out.println("Erro ao executar a Query");
+        	}
+        	
+        	
+        	
+        	return true;
+    	}	
+    }
+    
     /*
      * usuarioAceitou - 
      * 
@@ -346,15 +381,17 @@ public class BDConexaoClass{
     	
     	return false;
     }
+    
+   
 
     public static void finaliza(Usuario user1, Usuario user2, Pet p) {
 
     	Connection con = BDConexao();
-    	String up1= "UPDATE chat SET confirma_user1=true where (user1_id=? AND user2_id=?)";
+    	String up1= "UPDATE chat SET confirma_user1=true where (user1_id=? AND user2_id=?) OR (user2_id=? AND user1_id=?)";
     	
     	PreparedStatement psu1 = null;
     	
-    	if(!(UsuarioAceitou(user1,p) && UsuarioAceitou(user2,p))) {
+    	if((UsuarioAceitou(user1,p) == false)) {
     		try {
     			psu1 = con.prepareStatement(up1);
     		}catch(SQLException e) {
@@ -363,6 +400,8 @@ public class BDConexaoClass{
     		try {
 				psu1.setInt(1,BDConexaoClass.getIdAnun(user1.getUserName()));
 				psu1.setInt(2,BDConexaoClass.getIdAnun(user2.getUserName()));
+				psu1.setInt(3,BDConexaoClass.getIdAnun(user1.getUserName()));
+				psu1.setInt(4,BDConexaoClass.getIdAnun(user2.getUserName()));
 			} catch (SQLException e1) {
 				System.out.println("Erro ao setar args statement - finaliza");
 			}
@@ -375,18 +414,20 @@ public class BDConexaoClass{
     		}
     		
     	}else {
-    		BDConexaoClass.adotarPet(user1, user2, (int)p.getPetID());
+    		BDConexaoClass.adotarPet(user1, user2);
     	}
     	return;
     }
     
     
     
-    public static void excluirChat(Usuario user){ 
+    public static void excluirChat(Usuario user1, Usuario user2){ 
     	 
 		Connection con = BDConexao(); 
  
-		int id = getSizeUser(user); 
+		int id = getSizeUser(user1, user2); 
+ 
+		Connection con = BDConexao(); 
  
 		String excluirMensagens = "DELETE FROM mensagens WHERE id_chat=?"; 
 		String deletarChat = "DELETE FROM chat WHERE chat_id=?"; 
@@ -518,10 +559,9 @@ public class BDConexaoClass{
 		}
 	}
     
-    public static void adotarPet(Usuario user1, Usuario user2, int petId){
+    public static void adotarPet(Usuario user1, Usuario user2){
 
     	//BDConexaoClass.getPetId(user1,user2);
-    	
     	
     	excluirTodosChats(petId);
     	
