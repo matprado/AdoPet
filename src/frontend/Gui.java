@@ -503,13 +503,6 @@ public class Gui extends Application {
 		box.getChildren().add(nova);
 	}
 	
-	/**
-	 * Metodo para finalizar uma adocao;
-	 */
-	public static void finalizaAdocao() {
-		BDConexaoClass.finaliza(Gui.User, Gui.contato, Gui.petCorrente);
-		Gui.telaAdotou();
-	}
 	
 	/**
 	 * Metodo para quando um pet e adotado;
