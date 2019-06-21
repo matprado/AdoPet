@@ -196,7 +196,12 @@ public class BDConexaoClass{
         //Se nao encontrar nenhuma senha igual, nega login!
         return false;
     }
-    
+    /*
+     * getPetsFromChat - pega todos os chats iniciados com um determinado usuario
+     * @param user1 - Recebe o primeiro usuario
+     * @param user2 - Recebe o segundo usuario
+     * @return - retorna um Vetor de Pets
+     */
     public static Vector<Pet> getPetsFromChat(Usuario User1, Usuario User2){
     	Vector<Pet> pets = new Vector<Pet>();
     	
@@ -232,7 +237,11 @@ public class BDConexaoClass{
 		
     	return pets;
     }
-    
+    /*
+     * getPet - Retorna um objeto Pet
+     * @param id - Recebe um id de um pet específico
+     * @return - Retorna um  objeto Pet
+     */
     public static Pet getPet(int id){
 		Connection con = BDConexao();
 		
@@ -290,10 +299,13 @@ public class BDConexaoClass{
         return p;
 
 	}
-
-    public static boolean UsuarioAceitou(Usuario user1, Usuario user2) {
+    /*
+     * usuarioAceitou - 
+     * 
+     */
+    public static boolean UsuarioAceitou(Usuario user1, Pet p) {
     	Connection con = BDConexao();
-    	String select = "SELECT confirma_user1 FROM chat WHERE user1_id=? AND user2_id=?";
+    	String select = "SELECT confirma_user1 FROM chat WHERE pet_id=? AND user1_id=?";
     	PreparedStatement pss = null;
     	
     	try {
@@ -303,9 +315,9 @@ public class BDConexaoClass{
     	}
     	
     	try {
-			pss.setInt(1,BDConexaoClass.getIdAnun(user1.getUserName()));
-			pss.setInt(2,BDConexaoClass.getIdAnun(user2.getUserName()));
-		} catch (SQLException e1) {
+    		pss.setInt(1,(int)p.getPetID());
+			pss.setInt(2,BDConexaoClass.getIdAnun(user1.getUserName()));
+			} catch (SQLException e1) {
 			System.out.println("Erro ao setar ID's no prepared statament! - Chat");
 		}
     	
@@ -335,14 +347,14 @@ public class BDConexaoClass{
     	return false;
     }
 
-    public static void finaliza(Usuario user1, Usuario user2) {
+    public static void finaliza(Usuario user1, Usuario user2, Pet p) {
 
     	Connection con = BDConexao();
     	String up1= "UPDATE chat SET confirma_user1=true where (user1_id=? AND user2_id=?) OR (user2_id=? AND user1_id=?)";
     	
     	PreparedStatement psu1 = null;
     	
-    	if(UsuarioAceitou(user1,user2) == false) {
+    	if((UsuarioAceitou(user1,p) == false)) {
     		try {
     			psu1 = con.prepareStatement(up1);
     		}catch(SQLException e) {
