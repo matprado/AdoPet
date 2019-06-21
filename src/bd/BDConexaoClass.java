@@ -18,7 +18,7 @@ import javafx.embed.swing.SwingFXUtils;
 import backend.Pair;
 import backend.Pet;
 /**
- * Essa classe representa todas as funcoes que são recorrentes e que gerenciam o Banco de Dados
+ * Essa classe representa todas as funcoes que sï¿½o recorrentes e que gerenciam o Banco de Dados
  * 
  * @authors  Mateus Prado, Mateus Tomieiro, Victor Reis, Matheus Rigato
  *
@@ -370,7 +370,7 @@ public class BDConexaoClass{
     */
     public static void setaFinalizado(Usuario user1, Usuario user2, Pet p) {
     	Connection con = BDConexao();
-    	String up1= "UPDATE chat SET confirma_user1=true where (user1_id=? AND user2_id=?)";
+    	String up1= "UPDATE chat SET confirma_user1=true where (user1_id=? AND user2_id=? AND pet_id=?)";
     	
     	PreparedStatement psu1 = null;
     	try {
@@ -381,6 +381,7 @@ public class BDConexaoClass{
     	try {
     		psu1.setInt(1,BDConexaoClass.getIdAnun(user1.getUserName()));
     		psu1.setInt(2,BDConexaoClass.getIdAnun(user2.getUserName()));
+    		psu1.setInt(3, (int)p.getPetID());
     	} catch (SQLException e1) {
     		System.out.println("Erro ao setar args statement - finaliza");
     	}
@@ -592,7 +593,7 @@ public class BDConexaoClass{
 		try {
 			id = rss.getInt(1);
 		} catch (SQLException e1) {
-			System.out.println("Erro ao receber id - adotarPet");
+			return;
 		}
 
 		PreparedStatement psu = null;
@@ -611,7 +612,7 @@ public class BDConexaoClass{
 		try{
 			psu.execute();
 		}catch(SQLException e){
-			System.out.println("Erro ao executar query");
+			return;
 		}
 
     }
