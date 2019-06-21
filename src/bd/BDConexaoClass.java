@@ -301,40 +301,6 @@ public class BDConexaoClass{
 	}
     
     
-    
-public static boolean verifica2lados(Usuario user1, Usuario user2, Pet p) {
-    	Connection con = BDConexao();
-    	String select = "SELECT confirma_user1,confirma_user2 FROM chat WHERE pet_id = ? AND user1_id=?";
-    	PreparedStatement ps = null;
-    	
-    	if((UsuarioAceitou(user1,p) == true) && (UsuarioAceitou(user2,p) == true)) {
-    		try {
-        		ps = con.prepareStatement(select);
-        	}catch(SQLException e) {
-        		System.out.println("Erro ao preparar Statement");
-        	}
-        	
-        	try {
-        			ps.setInt(1,(int)p.getPetID());
-        			ps.setInt(2,BDConexaoClass.getIdAnun(user1.getUserName()));
-    		} catch (SQLException e1) {
-    				System.out.println("Erro ao setar ID's no prepared statament! - Chat");
-    		}
-        	
-        	try {
-        		ps.execute();
-        	}catch(SQLException e) {
-        		System.out.println("Erro ao executar a Query");
-        	}
-        	return true;
-    	}	
-    	return false;
-<<<<<<< HEAD
-	}
-=======
-    }
->>>>>>> master
-    
     /*
      * usuarioAceitou - 
      * 
@@ -384,42 +350,30 @@ public static boolean verifica2lados(Usuario user1, Usuario user2, Pet p) {
     }
     
    
-
-    public static void finaliza(Usuario user1, Usuario user2, Pet p) {
-
+    public static void setaFinalizado(Usuario user1, Usuario user2, Pet p) {
     	Connection con = BDConexao();
     	String up1= "UPDATE chat SET confirma_user1=true where (user1_id=? AND user2_id=?)";
     	
     	PreparedStatement psu1 = null;
-    	
-    	if(!(UsuarioAceitou(user1,p) && UsuarioAceitou(user2,p))) {
-    		try {
-    			psu1 = con.prepareStatement(up1);
-    		}catch(SQLException e) {
-        		System.out.println("Erro ao preparar Statement"); 
-        	}
-    		try {
-				psu1.setInt(1,BDConexaoClass.getIdAnun(user1.getUserName()));
-				psu1.setInt(2,BDConexaoClass.getIdAnun(user2.getUserName()));
-			} catch (SQLException e1) {
-				System.out.println("Erro ao setar args statement - finaliza");
-			}
-    		
-    		try {
-    			psu1.execute();
-    		}catch(SQLException e) {
-    			System.out.println("Erro ao executar a Query - finaliza");
-    			return;
-    		}
-    		
-    	}else {
-<<<<<<< HEAD
-    		BDConexaoClass.adotarPet(user1, user2,(int) p.getPetID());
-=======
-    		BDConexaoClass.adotarPet(user1, user2, (int)p.getPetID());
->>>>>>> master
+    	try {
+    		psu1 = con.prepareStatement(up1);
+    	}catch(SQLException e) {
+    		System.out.println("Erro ao preparar Statement"); 
+        }
+    	try {
+    		psu1.setInt(1,BDConexaoClass.getIdAnun(user1.getUserName()));
+    		psu1.setInt(2,BDConexaoClass.getIdAnun(user2.getUserName()));
+    	} catch (SQLException e1) {
+    		System.out.println("Erro ao setar args statement - finaliza");
     	}
-    	return;
+    		
+    	try {
+    		psu1.execute();
+    	}catch(SQLException e) {
+    		System.out.println("Erro ao executar a Query - finaliza");
+    		return;
+    	}
+    	
     }
     
     

@@ -68,7 +68,13 @@ public class ChatManager {
 	@FXML public void usuarioAceitou(ActionEvent event) {
 		((Button)Gui.getComp(((Control)event.getSource()).getId())).setText("Esperando");
 		((Button)Gui.getComp(((Control)event.getSource()).getId())).setDisable(true);
-		BDConexaoClass.finaliza(Gui.User, Gui.contato, Gui.petCorrente);
+		BDConexaoClass.setaFinalizado(Gui.User, Gui.contato, Gui.petCorrente);
+		if(BDConexaoClass.UsuarioAceitou(Gui.User, Gui.petCorrente) && BDConexaoClass.UsuarioAceitou(Gui.contato, Gui.petCorrente)) {
+			BDConexaoClass.adotarPet(Gui.User, Gui.contato, (int)Gui.petCorrente.getPetID());
+			Gui.telaAdotou();
+		}else {
+			return;
+		}
 	}
 	
 	/**
