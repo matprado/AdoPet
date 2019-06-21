@@ -239,7 +239,7 @@ public class BDConexaoClass{
     }
     /*
      * getPet - Retorna um objeto Pet
-     * @param id - Recebe um id de um pet específico
+     * @param id - Recebe um id de um pet especï¿½fico
      * @return - Retorna um  objeto Pet
      */
     public static Pet getPet(int id){
@@ -377,20 +377,18 @@ public class BDConexaoClass{
     		}
     		
     	}else {
-    		BDConexaoClass.adotarPet(user1, user2);
+    		BDConexaoClass.adotarPet(user1, user2, petId);
     	}
     	return;
     }
     
     
     
-    public static void excluirChat(Usuario user1, Usuario user2){ 
+    public static void excluirChat(Usuario user){ 
     	 
 		Connection con = BDConexao(); 
  
-		int id = getSizeUser(user1, user2); 
- 
-		Connection con = BDConexao(); 
+		int id = getSizeUser(user); 
  
 		String excluirMensagens = "DELETE FROM mensagens WHERE id_chat=?"; 
 		String deletarChat = "DELETE FROM chat WHERE chat_id=?"; 
@@ -522,9 +520,10 @@ public class BDConexaoClass{
 		}
 	}
     
-    public static void adotarPet(Usuario user1, Usuario user2){
+    public static void adotarPet(Usuario user1, Usuario user2, int petId){
 
     	//BDConexaoClass.getPetId(user1,user2);
+    	
     	
     	excluirTodosChats(petId);
     	

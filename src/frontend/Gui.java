@@ -372,10 +372,12 @@ public class Gui extends Application {
 				Gui.botaoContato[i].setId(i + "b");
 				Gui.botaoContato[i].setText(Gui.contatos[i].getNome());
 				Gui.botaoContato[i].setVisible(true);
-				Gui.botaoContato[i].setMinSize(320, 30);
+				Gui.botaoContato[i].setMinSize(470, 30);
 				Gui.botaoContato[i].setAlignment(Pos.CENTER);
 				painel.getChildren().add(Gui.botaoContato[i]);
 				((ScrollPane)Gui.getComp("spane")).setVisible(true);
+				Label a = new Label();
+				painel.getChildren().add(a);
 			}
 		}else {
 			//caso contrario, mostra texto de que nao ha contatos;
@@ -450,6 +452,8 @@ public class Gui extends Application {
 			painel.getChildren().add(Gui.botaoPets[i]);
 			((ScrollPane)Gui.getComp("spane_pet")).setVisible(true);
 			((ScrollPane)Gui.getComp("spane")).setVisible(false);
+			Label a = new Label();
+			painel.getChildren().add(a);
 		}
 	}
 	
@@ -503,7 +507,7 @@ public class Gui extends Application {
 	 * Metodo para finalizar uma adocao;
 	 */
 	public static void finalizaAdocao() {
-		BDConexaoClass.finaliza(Gui.User, Gui.contato);
+		BDConexaoClass.finaliza(Gui.User, Gui.contato, (int)Gui.petCorrente.getPetID());
 		Gui.telaDisponiveis();
 	}
 	
