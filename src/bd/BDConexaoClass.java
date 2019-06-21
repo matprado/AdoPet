@@ -1018,22 +1018,22 @@ public class BDConexaoClass{
 
     public static Pet retornaPet(int index){
 
-        int indextotal = getSizePets();
-        int aux = indextotal - (index);
         Connection con = BDConexao();
-        String select = "SELECT * FROM pets WHERE pet_id=?";
+        String select = "SELECT * FROM pets LIMIT ?,1";
         PreparedStatement ps = null;
 		try {
 			ps = con.prepareStatement(select);
 		} catch (SQLException e) {
 			System.out.println("Erro ao preparar a statament retornaPet");
 		}
-        try {
-			ps.setInt(1,aux);
-		} catch (SQLException e) {
-			System.out.println("Erro ou setar Int RetornaPet");
-		}
 
+		try {
+			ps.setInt(1, index);
+		} catch (SQLException e) {
+			System.out.println("Erro ao executar a Query retornaPet");
+		}
+		
+		
         ResultSet rs = null;
 		try {
 			rs = ps.executeQuery();
@@ -1042,7 +1042,7 @@ public class BDConexaoClass{
 		}
 
         Pet p = new Pet();
-
+        
         try {
 			while(rs.next()){
 			    p.setPetID(rs.getInt(1));

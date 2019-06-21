@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.InputMismatchException;
+import java.util.Queue;
 import java.util.Vector;
 
 import backend.Pet;
@@ -57,6 +58,7 @@ public class Gui extends Application {
 	public static Vector<Pet> vpets;
 	public static Pet selecionadoChat;
 	public static Pet petCorrente;
+	public static Queue<Pet> petDisp;
 	
 	/**
 	 * Metodo para acessar um componente no fmxl
@@ -208,6 +210,8 @@ public class Gui extends Application {
 			Gui.numeropaginas = 1;
 		}
 		Gui.numeropaginas = BDConexaoClass.getSizePets() / 4;
+		
+		System.out.println(Gui.numeropaginas);
 		
 		//carrega o fxml correspondente
 		FXMLLoader loader = null;
@@ -375,7 +379,7 @@ public class Gui extends Application {
 				Gui.botaoContato[i].setVisible(true);
 				Gui.botaoContato[i].setMinSize(470, 30);
 				Gui.botaoContato[i].setAlignment(Pos.CENTER);
-				Gui.botaoContato[i].setFont(Font.font("Dyuthi"));
+				Gui.botaoContato[i].setFont(Font.font("Dyuthi", 16));
 				painel.getChildren().add(Gui.botaoContato[i]);
 				((ScrollPane)Gui.getComp("spane")).setVisible(true);
 				Label a = new Label();
@@ -574,7 +578,7 @@ public class Gui extends Application {
 	 * Metodo para avancar uma pagina nos anuncios de pets
 	 */
 	public static void avancaPag() {
-		if(!(Gui.paginaatual == (BDConexaoClass.getSizePets()/4))) {
+		if(!(Gui.paginaatual >= (BDConexaoClass.getSizePets()/4))) {
 			Gui.paginaatual++;
 			Gui.telaDisponiveis();
 		}
