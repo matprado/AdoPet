@@ -14,7 +14,7 @@
          <font>
             <Font name="Dyuthi" size="25.0" />
          </font></Button>
-      <Text layoutX="96.0" layoutY="412.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome">
+      <Text fill="WHITE" layoutX="96.0" layoutY="412.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome">
          <font>
             <Font name="Dyuthi" size="25.0" />
          </font>
@@ -27,7 +27,7 @@
          <font>
             <Font size="20.0" />
          </font></TextField>
-      <Text layoutX="85.0" layoutY="465.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Especie" wrappingWidth="119.37109375">
+      <Text fill="WHITE" layoutX="85.0" layoutY="465.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Especie" wrappingWidth="119.37109375">
          <font>
             <Font name="Dyuthi" size="25.0" />
          </font>
@@ -36,12 +36,12 @@
          <font>
             <Font size="20.0" />
          </font></TextField>
-      <Text layoutX="109.0" layoutY="516.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sexo">
+      <Text fill="WHITE" layoutX="109.0" layoutY="516.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sexo">
          <font>
             <Font name="Dyuthi" size="25.0" />
          </font>
       </Text>
-      <Text layoutX="701.0" layoutY="373.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descriçao">
+      <Text fill="WHITE" layoutX="701.0" layoutY="373.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descriçao">
          <font>
             <Font name="Dyuthi" size="25.0" />
          </font>
@@ -53,13 +53,13 @@
       </TextArea>
       <Button fx:id="voltar" layoutX="276.0" layoutY="619.0" mnemonicParsing="false" onAction="#voltarDisponiveis" prefHeight="60.0" prefWidth="187.0" text="Voltar">
          <font>
-            <Font size="25.0" />
+            <Font name="Dyuthi" size="25.0" />
          </font></Button>
       <Button fx:id="confirmar" layoutX="552.0" layoutY="619.0" mnemonicParsing="false" onAction="#confirmarAnuncio" prefHeight="60.0" prefWidth="187.0" text="Confirmar">
          <font>
-            <Font size="25.0" />
+            <Font name="Dyuthi" size="25.0" />
          </font></Button>
-      <Text layoutX="526.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SELECIONE A MELHOR FOTO DE SEU PET!" textAlignment="CENTER" wrappingWidth="318.0">
+      <Text fill="WHITE" layoutX="526.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SELECIONE A MELHOR FOTO DE SEU PET!" textAlignment="CENTER" wrappingWidth="318.0">
          <font>
             <Font name="Dyuthi" size="30.0" />
          </font>

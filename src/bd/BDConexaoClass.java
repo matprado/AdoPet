@@ -35,16 +35,16 @@ public class BDConexaoClass{
     
     public static Connection BDConexao(){
         
-       String con="jdbc:mysql://127.0.0.1:3306/adopet";
+       String con = "jdbc:mysql://127.0.0.1:3306/adopet";
        String server_user = "adopet";
        String server_pass = "@adopet33";
        
        Connection connect = null;
        try {
-		connect = DriverManager.getConnection(con,server_user,server_pass);
-	} catch (SQLException e) {
-		System.out.println("Erro ao conectar com o BD");
-	}
+    	   connect = DriverManager.getConnection(con,server_user,server_pass);
+       } catch (SQLException e) {
+    	   System.out.println("Erro ao conectar com o BD");
+       }
        return connect;
         
     }
