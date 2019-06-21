@@ -27,6 +27,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -374,6 +375,7 @@ public class Gui extends Application {
 				Gui.botaoContato[i].setVisible(true);
 				Gui.botaoContato[i].setMinSize(470, 30);
 				Gui.botaoContato[i].setAlignment(Pos.CENTER);
+				Gui.botaoContato[i].setFont(Font.font("Dyuthi"));
 				painel.getChildren().add(Gui.botaoContato[i]);
 				((ScrollPane)Gui.getComp("spane")).setVisible(true);
 				Label a = new Label();
@@ -423,7 +425,7 @@ public class Gui extends Application {
 			((Button)Gui.getComp("finalizar")).setText("Esperando");
 		}
 		//mostra com quem o usuario esta conversando
-		((Label)Gui.getComp("titulo")).setText(((Label)getComp("titulo")).getText() + Gui.contato.getNome());
+		((Label)Gui.getComp("titulo")).setText(((Label)getComp("titulo")).getText() + "@" + Gui.contato.getUserName());
 		//carrega a cena
 		Scene S = new Scene(root);
 		Gui.Stg.setScene(S);
@@ -449,6 +451,7 @@ public class Gui extends Application {
 			Gui.botaoPets[i].setVisible(true);
 			Gui.botaoPets[i].setMinSize(320, 30);
 			Gui.botaoPets[i].setAlignment(Pos.CENTER);
+			Gui.botaoPets[i].setFont(Font.font("Dyuthi", 16));
 			painel.getChildren().add(Gui.botaoPets[i]);
 			((ScrollPane)Gui.getComp("spane_pet")).setVisible(true);
 			((ScrollPane)Gui.getComp("spane")).setVisible(false);
@@ -473,15 +476,16 @@ public class Gui extends Application {
 			//os valores inteiros dos pairs representam quem mandou a mensagem
 			if(mensagens.get(i).getId() == BDConexaoClass.getIdAnun((Gui.User.getUserName()))) {
 				texto.setText("[" + Gui.contato.getUserName() + "]: " + mensagens.get(i).getMensagem());
-				texto.setMinWidth(470);
+				texto.setMinWidth(800);
 				texto.setMinHeight(30);
 				texto.setAlignment(Pos.CENTER_LEFT);
 			}else{
 				texto.setText("[voce]: " + mensagens.get(i).getMensagem());
-				texto.setMinWidth(470);
+				texto.setMinWidth(800);
 				texto.setMinHeight(30);
 				texto.setAlignment(Pos.CENTER_RIGHT);
 			}
+			texto.setFont(Font.font("Dyuthi", 16));
 			//coloca a label na caixa de chat;
 			box.getChildren().add(texto);
 		}
@@ -496,9 +500,10 @@ public class Gui extends Application {
 		//mensagem fica numa label
 		Label nova = new Label();
 		nova.setText("[voce]: " + mensagem);
-		nova.setMinWidth(470);
+		nova.setMinWidth(800);
 		nova.setMinHeight(30);
 		nova.setAlignment(Pos.TOP_RIGHT);
+		nova.setFont(Font.font("Dyuthi", 16));
 		//coloca a label na caixa de chat;
 		box.getChildren().add(nova);
 	}
@@ -528,7 +533,7 @@ public class Gui extends Application {
 			System.out.println("Erro no carregamento do FXML");
 		}
 		
-		((Label)getComp("texto")).setText(((Label)getComp("texto")).getText() + Gui.petCorrente.getNome() + "!");
+		((Label)getComp("texto")).setText(((Label)getComp("texto")).getText() + Gui.petCorrente.getNome() + " foi adotado!");
 		((ImageView)getComp("imagem")).setImage(Gui.petCorrente.getIcone());;
 		
 		//carrega a cena

@@ -8,7 +8,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1024.0" style="-fx-background-color: SteelBlue;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.AdotouManager">
    <children>
-      <Label fx:id="texto" alignment="CENTER" layoutX="27.0" layoutY="214.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="61.0" prefWidth="971.0" text="Parabéns! Você acaba de adotar " textFill="WHITE">
+      <Label fx:id="texto" alignment="CENTER" layoutX="27.0" layoutY="204.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="61.0" prefWidth="971.0" text="Parábens, " textFill="WHITE">
          <font>
             <Font name="Dyuthi" size="36.0" />
          </font>
@@ -16,7 +16,7 @@
       <ImageView fx:id="imagem" fitHeight="231.0" fitWidth="367.0" layoutX="329.0" layoutY="285.0" pickOnBounds="true" preserveRatio="true" />
       <Button fx:id="botao" layoutX="406.0" layoutY="581.0" mnemonicParsing="false" onAction="#voltou" prefHeight="54.0" prefWidth="213.0" text="Voltar">
          <font>
-            <Font size="20.0" />
+            <Font name="Dyuthi" size="25.0" />
          </font>
       </Button>
    </children>

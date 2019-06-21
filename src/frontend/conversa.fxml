@@ -10,7 +10,7 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1024.0" style="-fx-background-color: SteelBlue;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.ChatManager">
    <children>
-      <Label fx:id="titulo" layoutX="21.0" layoutY="58.0" prefHeight="59.0" prefWidth="536.0" text="Conversa com " textAlignment="CENTER" textFill="WHITE">
+      <Label fx:id="titulo" layoutX="88.0" layoutY="58.0" prefHeight="59.0" prefWidth="473.0" text="Conversa com " textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font name="Dyuthi" size="25.0" />
          </font>
@@ -26,14 +26,23 @@
       </Pane>
       <TextArea fx:id="texto" layoutX="88.0" layoutY="605.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="66.0" prefWidth="743.0" promptText="Digite aqui o texto...">
          <font>
-            <Font size="20.0" />
+            <Font name="Dyuthi" size="20.0" />
          </font></TextArea>
       <Button fx:id="botao" layoutX="850.0" layoutY="605.0" mnemonicParsing="false" onAction="#enviouMensagem" prefHeight="66.0" prefWidth="94.0" text="Enviar">
          <font>
-            <Font size="20.0" />
+            <Font name="Dyuthi" size="20.0" />
          </font></Button>
-      <Button fx:id="finalizar" layoutX="685.0" layoutY="58.0" mnemonicParsing="false" onAction="#usuarioAceitou" prefHeight="59.0" prefWidth="181.0" text="Finalizar" />
-      <Button fx:id="voltar" layoutX="569.0" layoutY="58.0" mnemonicParsing="false" onAction="#voltar" prefHeight="59.0" prefWidth="107.0" text="Voltar" />
-      <Button fx:id="cancelar" layoutX="874.0" layoutY="58.0" mnemonicParsing="false" onAction="#cancelar" prefHeight="59.0" prefWidth="107.0" text="Cancelar" />
+      <Button fx:id="finalizar" layoutX="685.0" layoutY="58.0" mnemonicParsing="false" onAction="#usuarioAceitou" prefHeight="59.0" prefWidth="181.0" text="Finalizar">
+         <font>
+            <Font name="Dyuthi" size="18.0" />
+         </font></Button>
+      <Button fx:id="voltar" layoutX="569.0" layoutY="58.0" mnemonicParsing="false" onAction="#voltar" prefHeight="59.0" prefWidth="107.0" text="Voltar">
+         <font>
+            <Font name="Dyuthi" size="18.0" />
+         </font></Button>
+      <Button fx:id="cancelar" layoutX="874.0" layoutY="58.0" mnemonicParsing="false" onAction="#cancelar" prefHeight="59.0" prefWidth="107.0" text="Cancelar">
+         <font>
+            <Font name="Dyuthi" size="18.0" />
+         </font></Button>
    </children>
 </Pane>
