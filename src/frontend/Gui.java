@@ -379,7 +379,7 @@ public class Gui extends Application {
 				Gui.botaoContato[i].setVisible(true);
 				Gui.botaoContato[i].setMinSize(470, 30);
 				Gui.botaoContato[i].setAlignment(Pos.CENTER);
-				Gui.botaoContato[i].setFont(Font.font("Dyuthi"));
+				Gui.botaoContato[i].setFont(Font.font("Dyuthi", 16));
 				painel.getChildren().add(Gui.botaoContato[i]);
 				((ScrollPane)Gui.getComp("spane")).setVisible(true);
 				Label a = new Label();

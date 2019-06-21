@@ -8,62 +8,62 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="768.0" prefWidth="1024.0" style="-fx-background-color: SteelBlue;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.AnunciarManager">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1024.0" style="-fx-background-color: SteelBlue;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.AnunciarManager">
    <children>
-      <Button fx:id="seleciona_imagem" layoutX="565.0" layoutY="228.0" mnemonicParsing="false" onAction="#selecionarImagem" text="Escolha uma imagem">
+      <Button fx:id="seleciona_imagem" layoutX="562.0" layoutY="222.0" mnemonicParsing="false" onAction="#selecionarImagem" text="Escolha uma imagem">
          <font>
             <Font name="Dyuthi" size="25.0" />
          </font></Button>
-      <Text layoutX="133.0" layoutY="437.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome">
+      <Text layoutX="96.0" layoutY="412.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome">
          <font>
             <Font name="Dyuthi" size="25.0" />
          </font>
       </Text>
-      <TextField fx:id="nome" layoutX="209.0" layoutY="411.0" prefHeight="39.0" prefWidth="249.0">
+      <TextField fx:id="nome" layoutX="172.0" layoutY="386.0" prefHeight="39.0" prefWidth="275.0">
          <font>
             <Font size="20.0" />
          </font></TextField>
-      <TextField fx:id="especie" layoutX="209.0" layoutY="467.0" prefHeight="39.0" prefWidth="249.0">
+      <TextField fx:id="especie" layoutX="172.0" layoutY="442.0" prefHeight="39.0" prefWidth="275.0">
          <font>
             <Font size="20.0" />
          </font></TextField>
-      <Text layoutX="122.0" layoutY="490.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Especie" wrappingWidth="119.37109375">
+      <Text layoutX="85.0" layoutY="465.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Especie" wrappingWidth="119.37109375">
          <font>
             <Font name="Dyuthi" size="25.0" />
          </font>
       </Text>
-      <TextField fx:id="sexo" layoutX="209.0" layoutY="518.0" prefHeight="29.0" prefWidth="249.0">
+      <TextField fx:id="sexo" layoutX="172.0" layoutY="493.0" prefHeight="39.0" prefWidth="275.0">
          <font>
             <Font size="20.0" />
          </font></TextField>
-      <Text layoutX="146.0" layoutY="541.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sexo">
+      <Text layoutX="109.0" layoutY="516.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sexo">
          <font>
             <Font name="Dyuthi" size="25.0" />
          </font>
       </Text>
-      <Text layoutX="670.0" layoutY="381.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descriçao">
+      <Text layoutX="701.0" layoutY="373.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descriçao">
          <font>
             <Font name="Dyuthi" size="25.0" />
          </font>
       </Text>
-      <TextArea fx:id="descricao" layoutX="518.0" layoutY="398.0" prefHeight="167.0" prefWidth="415.0" wrapText="true">
+      <TextArea fx:id="descricao" layoutX="526.0" layoutY="386.0" prefHeight="184.0" prefWidth="449.0" wrapText="true">
          <font>
             <Font name="Dyuthi" size="20.0" />
          </font>
       </TextArea>
-      <Button fx:id="voltar" layoutX="277.0" layoutY="655.0" mnemonicParsing="false" onAction="#voltarDisponiveis" prefHeight="60.0" prefWidth="187.0" text="Voltar">
+      <Button fx:id="voltar" layoutX="276.0" layoutY="619.0" mnemonicParsing="false" onAction="#voltarDisponiveis" prefHeight="60.0" prefWidth="187.0" text="Voltar">
          <font>
             <Font size="25.0" />
          </font></Button>
-      <Button fx:id="confirmar" layoutX="554.0" layoutY="655.0" mnemonicParsing="false" onAction="#confirmarAnuncio" prefHeight="60.0" prefWidth="187.0" text="Confirmar">
+      <Button fx:id="confirmar" layoutX="552.0" layoutY="619.0" mnemonicParsing="false" onAction="#confirmarAnuncio" prefHeight="60.0" prefWidth="187.0" text="Confirmar">
          <font>
             <Font size="25.0" />
          </font></Button>
-      <Text layoutX="529.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SELECIONE A MELHOR FOTO DE SEU PET!" textAlignment="CENTER" wrappingWidth="318.0">
+      <Text layoutX="526.0" layoutY="144.0" strokeType="OUTSIDE" strokeWidth="0.0" text="SELECIONE A MELHOR FOTO DE SEU PET!" textAlignment="CENTER" wrappingWidth="318.0">
          <font>
             <Font name="Dyuthi" size="30.0" />
          </font>
       </Text>
-      <ImageView fx:id="imagem_anuncio" fitHeight="245.0" fitWidth="332.0" layoutX="110.0" layoutY="96.0" nodeOrientation="INHERIT" pickOnBounds="true" />
+      <ImageView fx:id="imagem_anuncio" fitHeight="245.0" fitWidth="332.0" layoutX="115.0" layoutY="78.0" nodeOrientation="INHERIT" pickOnBounds="true" />
    </children>
 </Pane>
