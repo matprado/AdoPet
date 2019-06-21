@@ -11,74 +11,74 @@
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1024.0" style="-fx-background-color: SteelBlue;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="frontend.DisponiveisManager">
    <children>
       <ImageView fx:id="icone" fitHeight="258.0" fitWidth="424.0" layoutX="97.0" layoutY="13.0" nodeOrientation="INHERIT" pickOnBounds="true" />
-      <Button fx:id="voltar" layoutX="766.0" layoutY="610.0" mnemonicParsing="false" onAction="#voltarDisponiveis" prefHeight="66.0" prefWidth="202.0" text="Voltar">
+      <Button fx:id="voltar" layoutX="761.0" layoutY="620.0" mnemonicParsing="false" onAction="#voltarDisponiveis" prefHeight="66.0" prefWidth="211.0" text="Voltar">
          <font>
-            <Font size="20.0" />
+            <Font name="Dyuthi" size="25.0" />
          </font></Button>
-      <Text fx:id="nome" layoutX="598.0" layoutY="147.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-" textAlignment="CENTER" wrappingWidth="327.7294921875">
+      <Text fx:id="nome" fill="WHITE" layoutX="596.0" layoutY="173.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-" textAlignment="CENTER" wrappingWidth="327.7294921875">
          <font>
-            <Font name="Dyuthi" size="49.0" />
+            <Font name="Dyuthi" size="60.0" />
          </font>
       </Text>
-      <Text layoutX="86.0" layoutY="363.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Especie">
+      <Text fill="WHITE" layoutX="86.0" layoutY="363.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Espécie">
          <font>
             <Font name="Dyuthi" size="25.0" />
          </font>
       </Text>
       <TextField fx:id="especie" editable="false" layoutX="179.0" layoutY="340.0" prefHeight="39.0" prefWidth="277.0">
          <font>
-            <Font size="20.0" />
+            <Font name="Dyuthi" size="20.0" />
          </font></TextField>
-      <Text layoutX="112.0" layoutY="423.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sexo">
+      <Text fill="WHITE" layoutX="112.0" layoutY="423.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sexo">
          <font>
             <Font name="Dyuthi" size="25.0" />
          </font>
       </Text>
       <TextField fx:id="sexo" editable="false" layoutX="179.0" layoutY="400.0" prefHeight="39.0" prefWidth="277.0">
          <font>
-            <Font size="20.0" />
+            <Font name="Dyuthi" size="20.0" />
          </font></TextField>
-      <Text layoutX="106.0" layoutY="482.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dono">
+      <Text fill="WHITE" layoutX="106.0" layoutY="482.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dono">
          <font>
             <Font name="Dyuthi" size="25.0" />
          </font>
       </Text>
       <TextField fx:id="dono" editable="false" layoutX="179.0" layoutY="459.0" prefHeight="39.0" prefWidth="277.0">
          <font>
-            <Font size="20.0" />
+            <Font name="Dyuthi" size="20.0" />
          </font></TextField>
-      <Text layoutX="706.0" layoutY="300.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descriçao">
+      <Text fill="WHITE" layoutX="699.0" layoutY="324.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descrição">
          <font>
             <Font name="Dyuthi" size="30.0" />
          </font>
       </Text>
-      <TextArea fx:id="descricao" editable="false" layoutX="547.0" layoutY="340.0" prefHeight="233.0" prefWidth="425.0" wrapText="true">
+      <TextArea fx:id="descricao" editable="false" layoutX="547.0" layoutY="340.0" prefHeight="279.0" prefWidth="425.0" wrapText="true">
          <font>
             <Font name="Dyuthi" size="20.0" />
          </font>
       </TextArea>
-      <Button fx:id="mensagem" layoutX="552.0" layoutY="609.0" mnemonicParsing="false" onAction="#mensagemDono" prefHeight="66.0" prefWidth="202.0" text="Mensagem ao dono">
+      <Button fx:id="mensagem" layoutX="547.0" layoutY="620.0" mnemonicParsing="false" onAction="#mensagemDono" prefHeight="66.0" prefWidth="211.0" text="Mensagem ao dono">
          <font>
-            <Font size="18.0" />
+            <Font name="Dyuthi" size="21.0" />
          </font></Button>
-      <Text layoutX="95.0" layoutY="536.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cidade">
+      <Text fill="WHITE" layoutX="95.0" layoutY="536.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cidade">
          <font>
             <Font name="Dyuthi" size="25.0" />
          </font>
       </Text>
       <TextField fx:id="cidade" editable="false" layoutX="179.0" layoutY="513.0" prefHeight="39.0" prefWidth="277.0">
          <font>
-            <Font size="20.0" />
+            <Font name="Dyuthi" size="20.0" />
          </font>
       </TextField>
-      <Text layoutX="73.0" layoutY="596.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Endereço">
+      <Text fill="WHITE" layoutX="73.0" layoutY="596.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Endereço">
          <font>
             <Font name="Dyuthi" size="25.0" />
          </font>
       </Text>
       <TextField fx:id="endereco" editable="false" layoutX="179.0" layoutY="573.0" prefHeight="39.0" prefWidth="277.0">
          <font>
-            <Font size="20.0" />
+            <Font name="Dyuthi" size="20.0" />
          </font>
       </TextField>
    </children>

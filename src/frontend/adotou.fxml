@@ -13,7 +13,7 @@
             <Font name="Dyuthi" size="36.0" />
          </font>
       </Label>
-      <ImageView fx:id="imagem" fitHeight="231.0" fitWidth="367.0" layoutX="329.0" layoutY="285.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imagem" fitHeight="257.0" fitWidth="398.0" layoutX="314.0" layoutY="286.0" pickOnBounds="true" preserveRatio="true" />
       <Button fx:id="botao" layoutX="406.0" layoutY="581.0" mnemonicParsing="false" onAction="#voltou" prefHeight="54.0" prefWidth="213.0" text="Voltar">
          <font>
             <Font name="Dyuthi" size="25.0" />

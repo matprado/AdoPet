@@ -527,7 +527,7 @@ public class Gui extends Application {
 			System.out.println("Erro no carregamento do FXML");
 		}
 		
-		((Label)getComp("texto")).setText(((Label)getComp("texto")).getText() + Gui.petCorrente.getNome() + " foi adotado!");
+		((Label)getComp("texto")).setText(((Label)getComp("texto")).getText() + Gui.petCorrente.getNome() + " foi adotado(a)!");
 		((ImageView)getComp("imagem")).setImage(Gui.petCorrente.getIcone());;
 		
 		//carrega a cena
