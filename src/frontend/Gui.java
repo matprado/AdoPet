@@ -211,8 +211,6 @@ public class Gui extends Application {
 		}
 		Gui.numeropaginas = BDConexaoClass.getSizePets() / 4;
 		
-		System.out.println(Gui.numeropaginas);
-		
 		//carrega o fxml correspondente
 		FXMLLoader loader = null;
 		try {
@@ -578,7 +576,13 @@ public class Gui extends Application {
 	 * Metodo para avancar uma pagina nos anuncios de pets
 	 */
 	public static void avancaPag() {
-		if(!(Gui.paginaatual >= (BDConexaoClass.getSizePets()/4))) {
+		if(((BDConexaoClass.getSizePets() % 4) != 0)) {
+			Gui.numeropaginas = (BDConexaoClass.getSizePets()/4) + 1;
+		}else {
+			Gui.numeropaginas = BDConexaoClass.getSizePets()/4;
+		}
+		
+		if(!(Gui.paginaatual+1 == Gui.numeropaginas)){
 			Gui.paginaatual++;
 			Gui.telaDisponiveis();
 		}
