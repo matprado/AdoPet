@@ -17,7 +17,12 @@ import frontend.Gui;
 import javafx.embed.swing.SwingFXUtils;
 import backend.Pair;
 import backend.Pet;
-
+/**
+ * Essa classe representa todas as funcoes que são recorrentes e que gerenciam o Banco de Dados
+ * 
+ * @authors  Mateus Prado, Mateus Tomieiro, Victor Reis, Matheus Rigato
+ *
+ */
 
 public class BDConexaoClass{
     
@@ -124,8 +129,8 @@ public class BDConexaoClass{
     }
     
     /*
-     * cadastroUser - 
-     * 
+     * cadastroUser - Adiciona um usuario no Banco de Dados
+     * @param user - Recebe um Objeto Usuario
      */
     public static void cadastroUser(Usuario user){
         Connection con = BDConexao();
@@ -154,7 +159,11 @@ public class BDConexaoClass{
 			System.out.println("Erro na execucao da Query");
 		}
     }
-    
+    /**
+     * loginUser - Faz a funcao para verificar os dados inseridos em uma row especifica
+     * @param user - Recebe objeto Usuario
+     * @return retorna true se a verificacao deu certo 
+     */
     public static boolean loginUser(Usuario user){
         Connection con = BDConexao();
         String select = "SELECT * FROM clientes where username=?";
@@ -176,6 +185,8 @@ public class BDConexaoClass{
 		} catch (SQLException e) {
 			System.out.println("Erro ao exucutar a query antes do while");
 		}
+		
+		
 		
         if(rs == null){
 		    //Nega login, pois nï¿½o existe ninguï¿½m com o nome colocado no campo
@@ -239,7 +250,7 @@ public class BDConexaoClass{
     }
     /*
      * getPet - Retorna um objeto Pet
-     * @param id - Recebe um id de um pet especï¿½fico
+     * @param id - Recebe um id de um pet especifico
      * @return - Retorna um  objeto Pet
      */
     public static Pet getPet(int id){
@@ -302,8 +313,10 @@ public class BDConexaoClass{
     
     
     /*
-     * usuarioAceitou - 
-     * 
+     * usuarioAceitou - Verifica se o usuario clicou no botao Finalizar
+     * @param user1 - Recebe o Objeto Usuario
+     * @param p - Recebe o Objeto Pet
+     * @return - Retorna se a verificacao deu certo ou errado
      */
     public static boolean UsuarioAceitou(Usuario user1, Pet p) {
     	Connection con = BDConexao();
@@ -349,7 +362,12 @@ public class BDConexaoClass{
     	return false;
     }
     
-   
+   /**
+    * setaFinalizado - Seta no Banco de Dados que o Usuario clicou no botao Finalizar
+    * @param user1 - Recebe o primeiro Usuario
+    * @param user2 - Recebe o segundo Usuario
+    * @param p - Recebe o Objeto Pet
+    */
     public static void setaFinalizado(Usuario user1, Usuario user2, Pet p) {
     	Connection con = BDConexao();
     	String up1= "UPDATE chat SET confirma_user1=true where (user1_id=? AND user2_id=?)";
@@ -376,7 +394,11 @@ public class BDConexaoClass{
     	
     }
     
-    
+    /**
+     * excluirChat - Exclui as mensagens de um determinado chat
+     * @param user1 - Recebe o primeiro Usuario
+     * @param user2 - Recebe o segundo Usuario
+     */
     
     public static void excluirChat(Usuario user1, Usuario user2){ 
     	 
@@ -430,8 +452,8 @@ public class BDConexaoClass{
 	} 
     
     /*
-     * excluirTodosChats - 
-     * 
+     * excluirTodosChats - Exclui todos os chat que tem um determinado petId
+     * @param id - Recebe o id do Pet
      * 
      */
     public static void excluirTodosChats(int id){
@@ -513,7 +535,12 @@ public class BDConexaoClass{
 			System.out.println("Erro ao executar a Query");
 		}
 	}
-    
+    /**
+     * adotarPet - Deleta o pet do Banco de Dados
+     * @param user1 - Recebe o primeiro Usuario
+     * @param user2 - Recebe o segundo Usuario
+     * @param petId - Recebe o id do Pet
+     */
     public static void adotarPet(Usuario user1, Usuario user2, int petId){
 
     	//BDConexaoClass.getPetId(user1,user2);
@@ -843,6 +870,12 @@ public class BDConexaoClass{
 		}
     }
     
+    /*
+     * getUserFromId - retorna o objeto User
+     * @param id - recebe o id ddo usuario
+     * @return - retorna o Objeto Usuario
+     * 
+     */
     
     private static Usuario getUserFromId(int id) {
     	Usuario aux = new Usuario();
@@ -883,7 +916,11 @@ public class BDConexaoClass{
     	
 		return aux;
 	}
-    
+    /**
+     * getSizeUser - Retorna o total de todos os contatos que determinado usuario conversou
+     * @param user1 - Recebe o usuario
+     * @return - retorna o total de contatos
+     */
     
     public static int getSizeUser(Usuario user1){
     	Connection con = BDConexao();
@@ -917,7 +954,10 @@ public class BDConexaoClass{
     	
     }
 
-
+    /**
+     * getSizePets - Retorna o total de pets no Banco de Dados
+     * @return - retorna o total de pets no Banco de Dados
+     */
        
     public static int getSizePets(){
     	
@@ -946,7 +986,11 @@ public class BDConexaoClass{
     }
 
 
-
+    /**
+     * listaContatos - Lista os contatos de um determinado usuario
+     * @param user1 - Recebe o Objeto Usuario
+     * @return - Retorna um vetor de Usuario
+     */
     public static Usuario[] listaContatos(Usuario user1){
     	
     	Connection con = BDConexao();
@@ -991,7 +1035,7 @@ public class BDConexaoClass{
     	return pessoa;
     }
 
-
+    
 	public static Usuario retornaUsuario(int id) throws SQLException{
 
         Usuario user = new Usuario();
@@ -1015,7 +1059,11 @@ public class BDConexaoClass{
         return user;
 
     }
-
+	/**
+	 * retornaPet - Retorna o  Objeto pet 
+	 * @param index - Recebe o index do Pet no Banco de Dados 
+	 * @return - Retorna o Objeto Pet
+	 */
     public static Pet retornaPet(int index){
 
         Connection con = BDConexao();
