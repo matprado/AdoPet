@@ -490,7 +490,6 @@ public class Gui extends Application {
 			box.getChildren().add(texto);
 		}
 	}
-	
 	/**
 	 * Metodo para mostrar uma nova mensagem no chat;
 	 * @param mensagem - String com a nova mensagem;
