@@ -508,7 +508,34 @@ public class Gui extends Application {
 	 */
 	public static void finalizaAdocao() {
 		BDConexaoClass.finaliza(Gui.User, Gui.contato, Gui.petCorrente);
-		Gui.telaDisponiveis();
+		Gui.telaAdotou();
+	}
+	
+	/**
+	 * Metodo para quando um pet e adotado;
+	 */
+	public static void telaAdotou() {
+		//carrega o fxml correspondente
+		FXMLLoader loader = null;
+		try {
+			loader = new FXMLLoader(new File("src/frontend/adotou.fxml").toURI().toURL());
+		} catch (MalformedURLException e) {
+			System.out.println("Erro na URL do FXML");
+		}
+		try {
+			Gui.root = loader.load();
+		} catch (IOException e) {
+			System.out.println("Erro no carregamento do FXML");
+		}
+		
+		((Label)getComp("texto")).setText(((Label)getComp("texto")).getText() + Gui.petCorrente.getNome() + "!");
+		((ImageView)getComp("imagem")).setImage(Gui.petCorrente.getIcone());;
+		
+		//carrega a cena
+		Scene S = new Scene(root);
+		Gui.Stg.setScene(S);
+        Gui.Stg.setTitle("AdoPet");
+        Gui.Stg.show();
 	}
 	
 	/**
