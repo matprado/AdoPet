@@ -239,7 +239,7 @@ public class BDConexaoClass{
     }
     /*
      * getPet - Retorna um objeto Pet
-     * @param id - Recebe um id de um pet específico
+     * @param id - Recebe um id de um pet especï¿½fico
      * @return - Retorna um  objeto Pet
      */
     public static Pet getPet(int id){
@@ -303,10 +303,9 @@ public class BDConexaoClass{
     
     
 public static boolean verifica2lados(Usuario user1, Usuario user2, Pet p) {
-    	
+    	Connection con = BDConexao();
     	String select = "SELECT confirma_user1,confirma_user2 FROM chat WHERE pet_id = ? AND user1_id=?";
     	PreparedStatement ps = null;
-    	ResultSet rs = null;
     	
     	if((UsuarioAceitou(user1,p) == true) && (UsuarioAceitou(user2,p) == true)) {
     		try {
@@ -323,7 +322,7 @@ public static boolean verifica2lados(Usuario user1, Usuario user2, Pet p) {
     		}
         	
         	try {
-        		rs = ps.executeQuery();
+        		ps.execute();
         	}catch(SQLException e) {
         		System.out.println("Erro ao executar a Query");
         	}
@@ -332,7 +331,8 @@ public static boolean verifica2lados(Usuario user1, Usuario user2, Pet p) {
         	
         	return true;
     	}	
-    }
+    	return false;
+	}
     
     /*
      * usuarioAceitou - 
@@ -414,7 +414,7 @@ public static boolean verifica2lados(Usuario user1, Usuario user2, Pet p) {
     		}
     		
     	}else {
-    		BDConexaoClass.adotarPet(user1, user2);
+    		BDConexaoClass.adotarPet(user1, user2,(int) p.getPetID());
     	}
     	return;
     }
@@ -425,9 +425,7 @@ public static boolean verifica2lados(Usuario user1, Usuario user2, Pet p) {
     	 
 		Connection con = BDConexao(); 
  
-		int id = getSizeUser(user1, user2); 
- 
-		Connection con = BDConexao(); 
+		int id = getSizeUser(user1); 
  
 		String excluirMensagens = "DELETE FROM mensagens WHERE id_chat=?"; 
 		String deletarChat = "DELETE FROM chat WHERE chat_id=?"; 
@@ -559,7 +557,7 @@ public static boolean verifica2lados(Usuario user1, Usuario user2, Pet p) {
 		}
 	}
     
-    public static void adotarPet(Usuario user1, Usuario user2){
+    public static void adotarPet(Usuario user1, Usuario user2, int petId){
 
     	//BDConexaoClass.getPetId(user1,user2);
     	
