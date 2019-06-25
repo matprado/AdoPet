@@ -25,7 +25,7 @@
             <Font name="Dyuthi" size="32.0" />
          </font>
       </RadioButton>
-      <Button fx:id="anunciar" layoutX="105.0" layoutY="627.0" mnemonicParsing="false" onAction="#clicaAnunciar" prefHeight="63.0" prefWidth="190.0" text="Anunciar">
+      <Button fx:id="anunciar" layoutX="136.0" layoutY="627.0" mnemonicParsing="false" onAction="#clicaAnunciar" prefHeight="63.0" prefWidth="190.0" text="Anunciar">
          <font>
             <Font name="Dyuthi" size="25.0" />
          </font></Button>
@@ -66,7 +66,7 @@
          <font>
             <Font name="Dyuthi" size="20.0" />
          </font></Button>
-      <Button layoutX="764.0" layoutY="628.0" mnemonicParsing="false" onAction="#sair" prefHeight="54.0" prefWidth="131.0" text="Sair">
+      <Button layoutX="759.0" layoutY="628.0" mnemonicParsing="false" onAction="#sair" prefHeight="54.0" prefWidth="131.0" text="Sair">
          <font>
             <Font name="Dyuthi" size="25.0" />
          </font>

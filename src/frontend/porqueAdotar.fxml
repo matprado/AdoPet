@@ -24,12 +24,12 @@
             <Font name="Dyuthi" size="32.0" />
          </font>
       </RadioButton>
-      <Text fill="WHITE" layoutX="115.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Segundo dados da OMS, Organização Mundial da Saúde,&#10;estima-se que cerca de 30 milhões de animais vivem &#10;abandonados em cidades do Brasil, sendo 10 milhões&#10;deles gatos e 20 milhões de cães. Quando se adota &#10;um animal, essa ação contribui para reduzir e evitar &#10;animais nas ruas.  &#10;Siga conosco esta filosofia, amigo não se compra!" textAlignment="CENTER" wrappingWidth="796.23486328125">
+      <Text fill="WHITE" layoutX="113.0" layoutY="138.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Segundo dados da OMS, Organização Mundial da Saúde,&#10;estima-se que cerca de 30 milhões de animais vivem &#10;abandonados em cidades do Brasil, sendo 10 milhões&#10;deles gatos e 20 milhões de cães. Quando se adota &#10;um animal, essa ação contribui para reduzir e evitar &#10;animais nas ruas.  &#10;Vale ressaltar que outros animais também são bem&#10;vindos. Afinal, todos querem um lar!&#10;Siga conosco esta filosofia, amigo não se compra!" textAlignment="CENTER" wrappingWidth="796.23486328125">
          <font>
             <Font name="Dyuthi" size="33.0" />
          </font>
       </Text>
-      <ImageView fitHeight="227.0" fitWidth="243.0" layoutX="401.0" layoutY="453.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="171.0" fitWidth="206.0" layoutX="421.0" layoutY="512.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../../img/dog-1517090_960_720.png" />
          </image>

@@ -192,6 +192,9 @@ public class Gui extends Application {
 		boolean nomeValido = ((TextField) getComp("user")).getLength() != 0;
 		boolean senhaValida = ((TextField) getComp("password")).getLength() != 0;
 		boolean cpfValido = validarCPF(((TextField)getComp("cpf")).getText());
+		if(((TextField)getComp("cpf")).getText().length() == 14) {
+			cpfValido = true;
+		}
 		boolean validaTermos = ((CheckBox)getComp("aceita")).isSelected();
 		//Caso estejam validos, insere no BD e entra no programa em si
 		if(nomeValido && cpfValido && senhaValida && validaTermos){

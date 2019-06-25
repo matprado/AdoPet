@@ -91,7 +91,7 @@ public class ChatManager {
 	 * @param event - evento realizado;
 	 */
 	@FXML public void cancelar(ActionEvent event) {
-		//BDConexaoClass.excluirChat(Gui.User, Gui.contato);
+		BDConexaoClass.excluirChat(Gui.User, Gui.contato, Gui.petCorrente);
 		Gui.telaDisponiveis();
 	}
 }

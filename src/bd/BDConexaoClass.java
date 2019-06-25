@@ -401,45 +401,55 @@ public class BDConexaoClass{
      * @param user2 - Recebe o segundo Usuario
      */
     
-    public static void excluirChat(Usuario user1, Usuario user2){ 
+    public static void excluirChat(Usuario user1, Usuario user2, Pet p){ 
     	 
 		Connection con = BDConexao(); 
  
-		int id = getSizeUser(user1); 
- 
 		String excluirMensagens = "DELETE FROM mensagens WHERE id_chat=?"; 
-		String deletarChat = "DELETE FROM chat WHERE chat_id=?"; 
+		String selectChat1 = "SELECT chat_id FROM chat WHERE (user1_id=? AND user2_id=? AND pet_id=?)";
+		String deletarChat1 = "DELETE FROM chat WHERE chat_id=?";
  
 		PreparedStatement ps = null; 
  
 		try{ 
-			ps = con.prepareStatement(excluirMensagens); 
+			ps = con.prepareStatement(selectChat1); 
 		}catch (SQLException e) { 
 			System.out.println("Erro ao preparar a statament excluirMensagens"); 
 		} 
  
 		try{ 
-			ps.setInt(1, id); 
+			ps.setInt(1, BDConexaoClass.getIdAnun(user1.getUserName()));
+			ps.setInt(2, BDConexaoClass.getIdAnun(user2.getUserName()));
+			ps.setInt(3, (int)p.getPetID());
 		}catch (SQLException e) { 
 			System.out.println("Erro ao setar a statement excluirMensagens"); 
 		} 
  
+		ResultSet chat_id = null;
+		
 		try{ 
-			ps.execute(); 
+			chat_id = ps.executeQuery(); 
 		} catch (SQLException e) { 
-			System.out.println("Erro ao executar a Query excluirMensagens"); 
+			System.out.println("Erro ao executar a Query excluirMensagens C"); 
 		} 
- 
+		int ChatId = 0;
+		try {
+			chat_id.first();
+			ChatId = chat_id.getInt(1);
+		} catch (SQLException e1) {
+			System.out.println("Erro");
+		}
+		
 		PreparedStatement psd = null;   
- 
+		 
 		try{ 
-			psd = con.prepareStatement(deletarChat); 
+			psd = con.prepareStatement(excluirMensagens); 
 		}catch (SQLException e) { 
 			System.out.println("Erro ao preparar a statament deletarChat"); 
 		} 
  
 		try{ 
-			psd.setInt(1, id); 
+			psd.setInt(1, ChatId);
 		}catch (SQLException e) { 
 			System.out.println("Erro ao setar a statement deletarChat"); 
 		} 
@@ -447,7 +457,45 @@ public class BDConexaoClass{
 		try{ 
 			psd.execute(); 
 		}catch (SQLException e) { 
-			System.out.println("Erro ao executar a Query excluirMensagens"); 
+			System.out.println("Erro ao executar a Query excluirMensagens A "); 
+		} 
+		
+		
+		
+		try{ 
+			ps = con.prepareStatement(deletarChat1); 
+		}catch (SQLException e) { 
+			System.out.println("Erro ao preparar a statament excluirMensagens"); 
+		} 
+ 
+		try{ 
+			ps.setInt(1, ChatId);
+		}catch (SQLException e) { 
+			System.out.println("Erro ao setar a statement excluirMensagens"); 
+		} 
+ 
+		try{ 
+			ps.execute(); 
+		} catch (SQLException e) { 
+			System.out.println("Erro ao executar a Query excluirMensagens B"); 
+		} 
+		
+		try{ 
+			ps = con.prepareStatement(deletarChat1); 
+		}catch (SQLException e) { 
+			System.out.println("Erro ao preparar a statament excluirMensagens"); 
+		} 
+ 
+		try{ 
+			ps.setInt(1, (ChatId+1));
+		}catch (SQLException e) { 
+			System.out.println("Erro ao setar a statement excluirMensagens"); 
+		} 
+ 
+		try{ 
+			ps.execute(); 
+		} catch (SQLException e) { 
+			System.out.println("Erro ao executar a Query excluirMensagens B"); 
 		} 
  
 	} 

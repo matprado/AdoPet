@@ -24,7 +24,7 @@
             <Font name="Dyuthi" size="30.0" />
          </font>
       </Button>
-      <Button fx:id="cadastro" layoutX="273.0" layoutY="599.0" mnemonicParsing="false" onAction="#clickCadastro" prefHeight="70.0" prefWidth="200.0" text="Cadastrar" textAlignment="CENTER">
+      <Button fx:id="cadastro" layoutX="301.0" layoutY="600.0" mnemonicParsing="false" onAction="#clickCadastro" prefHeight="70.0" prefWidth="200.0" text="Cadastrar" textAlignment="CENTER">
          <font>
             <Font name="Dyuthi" size="30.0" />
          </font>

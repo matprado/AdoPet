@@ -1,5 +1,5 @@
+#CRIANDO E USANDO O DATABASE
 CREATE DATABASE adopet;
-
 USE adopet;
 
 CREATE TABLE if not exists pets(
@@ -12,7 +12,6 @@ CREATE TABLE if not exists pets(
     id_doador LONG NOT NULL,
     imagem MEDIUMBLOB
 );
-
 ALTER TABLE pets ADD UNIQUE(pet_id);
 
 CREATE TABLE if not exists clientes(
@@ -29,7 +28,6 @@ CREATE TABLE if not exists clientes(
 );
 ALTER TABLE clientes ADD UNIQUE(cliente_id);
 
-
 CREATE TABLE IF NOT EXISTS chat(
     chat_id INTEGER  NOT NULL AUTO_INCREMENT primary key,
     user1_id INTEGER NOT NULL,
@@ -38,7 +36,6 @@ CREATE TABLE IF NOT EXISTS chat(
     confirma_user2 boolean NOT NULL,
 	pet_id INTEGER NOT NULL
 );
-
 ALTER TABLE chat ADD UNIQUE(chat_id);
 
 CREATE TABLE IF NOT EXISTS mensagens(
@@ -50,43 +47,19 @@ CREATE TABLE IF NOT EXISTS mensagens(
     key message_length (mensagem(256)),
     FOREIGN KEY(id_chat) REFERENCES chat(chat_id)
 );
-
 ALTER TABLE mensagens ADD UNIQUE(id_mensagem);
 
-SELECT DISTINCTROW(user2_id) FROM chat WHERE user1_id = 4;
 
+######COMANDOS DE USO ESPECIFICO#######
+
+#DROPANDO TABLES
 DROP TABLE mensagens;
 DROP TABLE chat;
+DROP TABLE pets;
+DROP TABLE clientes;
 
-DELETE FROM chat;
-
-TRUNCATE TABLE chat;
-
+#EXIBINDO TABLES
 SELECT * FROM mensagens;
 SELECT * FROM chat;
-
-SELECT chat_id FROM chat WHERE ((user1_id=4 AND user2_id=6) OR (user2_id=4 AND user1_id=6)) AND pet_id=11;
-
-SELECT * FROM clientes WHERE cliente_id=4;
-
-SELECT * FROM pets LIMIT 0,1;
-
-
 SELECT * FROM clientes;
-
-SELECT * FROM chat WHERE (user1_id=4 AND user2_id=6 AND pet_id=11) OR (user2_id=4 AND user1_id=6 AND pet_id=?);
-
-
-SELECT * FROM chat WHERE user1_id=4 AND user2_id=5;
-SELECT * FROM chat WHERE ((user1_id=6 AND user2_id=4) OR (user1_id=4 AND user2_id=6)) AND pet_id=11;
-
-
-DELETE FROM pets WHERE pet_id=1;
-
-DELETE FROM clientes WHERE cliente_id=2;
-
-
-
-
-
-
+SELECT * FROM pets;
