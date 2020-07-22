@@ -1,13 +1,13 @@
 # AdoPet
 Projeto final da disciplina de Programação Orientada a Objetos de um programa desktop de adoção de animais domésticos.
 
-Mateus Prado Santos – 10851707
+Mateus Prado Santos
 
-Matheus Lopes Rigato – 10260462
+Matheus Lopes Rigato
 
-Matheus Tomieiro de Oliveira – 10734630
+Matheus Tomieiro de Oliveira
 
-Victor Vieira Custodio Reis - 10734686
+Victor Vieira Custodio Reis
 
 Resumo
 
